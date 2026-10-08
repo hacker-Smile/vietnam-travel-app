@@ -118,22 +118,15 @@ st.markdown("""
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
-# Khởi tạo bản đồ sử dụng máy chủ dữ liệu bảo mật từ Google Maps
+# Khởi tạo bản đồ sử dụng CDN Light Mode tiếng Việt ổn định cao
 def render_map_object():
+    # Sử dụng lớp nền ://cartocdn.com được mở tự do cho các app Python, hiển thị hoàn toàn tiếng Việt
     m = folium.Map(
         location=[16.4637, 105.8048],
         zoom_start=5.2,
-        tiles=None  
+        tiles="https://{s}.://cartocdn.com/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>'
     )
-
-    # Đã cập nhật: Sử dụng máy chủ mt0 ổn định cao cùng thuộc tính quốc gia gl=vn
-    folium.TileLayer(
-        tiles="https://google.com{x}&y={y}&z={z}",
-        attr="Google",
-        name="Google Maps",
-        overlay=False,
-        control=False
-    ).add_to(m)
 
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
