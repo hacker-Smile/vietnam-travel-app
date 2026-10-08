@@ -95,6 +95,16 @@ def calculate_metrics(target_coords, avg_speed_kmh):
 st.title("🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
+# Ép CSS Responsive để bản đồ tự động co giãn chuẩn tỷ lệ trên màn hình điện thoại di động
+st.markdown("""
+    <style>
+    iframe {
+        width: 100% !important;
+        min-height: 380px !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 col_map, col_info = st.columns([1.2, 1])
 
 if "selected_place" not in st.session_state:
@@ -104,12 +114,11 @@ with col_map:
     st.subheader("📍 Bản Đồ Việt Nam Interactive")
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
-    # Bản đồ hiển thị hiển thị mượt trên cả PC & Điện thoại (CartoDB Voyager)
+    # Sử dụng OpenStreetMap miễn phí ổn định, hoạt động hoàn hảo trên mọi thiết bị
     m = folium.Map(
         location=[16.0000, 106.0000],
         zoom_start=5,
-        tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        tiles="OpenStreetMap"
     )
 
     folium.Marker(
@@ -139,7 +148,8 @@ with col_map:
                 dash_array="5, 10"
             ).add_to(m)
 
-    map_data = st_folium(m, width="100%", height=500)
+    # Đã sửa đổi thành use_container_width=True giúp tương thích hiển thị Mobile
+    map_data = st_folium(m, use_container_width=True, height=450)
 
     if map_data and map_data.get("last_object_clicked_popup"):
         clicked_name = map_data["last_object_clicked_popup"]
