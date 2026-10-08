@@ -118,14 +118,13 @@ st.markdown("""
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
-# Khởi tạo bản đồ sử dụng CDN Light Mode tiếng Việt ổn định cao
+# Khởi tạo bản đồ bằng lõi sạch "CartoDB positron"
 def render_map_object():
-    # Sử dụng lớp nền ://cartocdn.com được mở tự do cho các app Python, hiển thị hoàn toàn tiếng Việt
+    # Sử dụng "CartoDB positron" tích hợp sẵn trong Folium core để sửa dứt điểm lỗi cache trắng/xám nền
     m = folium.Map(
         location=[16.4637, 105.8048],
         zoom_start=5.2,
-        tiles="https://{s}.://cartocdn.com/{z}/{x}/{y}{r}.png",
-        attr='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors &copy; <a href="https://carto.com">CARTO</a>'
+        tiles="CartoDB positron"
     )
 
     folium.Marker(
