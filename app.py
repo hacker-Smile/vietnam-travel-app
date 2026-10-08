@@ -113,7 +113,7 @@ with col_map:
     st.subheader("📍 Bản Đồ Việt Nam Interactiv e")
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
-    # Tạo bản đồ Folium trung tâm tại Việt Nam
+# Tạo bản đồ Folium trung tâm tại Việt Nam
    m = folium.Map(
     location=[16.0000, 106.0000],
     zoom_start=5,
