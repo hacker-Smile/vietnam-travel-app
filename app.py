@@ -120,13 +120,14 @@ if "selected_place" not in st.session_state:
 
 # Khởi tạo bản đồ sử dụng máy chủ dữ liệu từ Google Maps
 def render_map_object():
+    # SỬA ĐỔI: Chỉnh tọa độ trung tâm (location) dịch lên miền trung và hạ mức zoom_start xuống 5.2 để cân đối toàn bộ đất liền Việt Nam
     m = folium.Map(
-        location=[16.0000, 106.0000],
-        zoom_start=5,
-        tiles=None  # Ổn định hóa lớp nền tùy chỉnh
+        location=[16.4637, 105.8048],
+        zoom_start=5.2,
+        tiles=None  
     )
 
-    # Thêm lớp bản đồ Google Maps với cấu hình ngôn ngữ hiển thị là tiếng Việt (hl=vi)
+    # Khởi chạy lớp nền vệ tinh/đường bộ từ máy chủ Google Maps bản Tiếng Việt (hl=vi) để tránh lỗi trắng nền
     folium.TileLayer(
         tiles="https://google.com{x}&y={y}&z={z}",
         attr="Google Maps Việt Nam",
