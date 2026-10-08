@@ -114,10 +114,11 @@ with col_map:
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
     # Tạo bản đồ Folium trung tâm tại Việt Nam
-    m = folium.Map(
+   m = folium.Map(
     location=[16.0000, 106.0000],
     zoom_start=5,
-    tiles="OpenStreetMap"
+    tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
 )
     # Đặt Marker mốc TP. Hồ Chí Minh
     folium.Marker(
