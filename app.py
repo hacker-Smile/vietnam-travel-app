@@ -18,7 +18,6 @@ HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
 # 2. Dữ liệu các điểm du lịch tiêu biểu tại Việt Nam
-# (Bao gồm thông tin, giá vé/tour tham khảo từ các trang du lịch)
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -26,7 +25,7 @@ DESTINATIONS = {
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người (Vé máy bay + Khách sạn 3D2N)",
         "highlights": ["Bà Nà Hills", "Cầu Rồng", "Biển Mỹ Khê"],
-        "avg_speed_kmh": 60, # Tốc độ di chuyển đường bộ tham khảo
+        "avg_speed_kmh": 60,
         "flight_time": "1 giờ 20 phút (Bay từ TP.HCM)"
     },
     "Hà Nội": {
@@ -83,17 +82,11 @@ DESTINATIONS = {
 # 3. Hàm tính toán khoảng cách & thời gian di chuyển
 # ---------------------------------------------------------
 def calculate_metrics(target_coords, avg_speed_kmh):
-    # Tính khoảng cách theo đường chim bay (Geodesic)
     dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
-    
-    # Ước tính khoảng cách đường bộ (xấp xỉ x 1.3 so với đường chim bay)
     road_dist_km = dist_km * 1.3
-    
-    # Tính thời gian đường bộ (Giờ)
     drive_hours = road_dist_km / avg_speed_kmh
     hours = int(drive_hours)
     minutes = int((drive_hours - hours) * 60)
-    
     return round(road_dist_km, 1), f"{hours} giờ {minutes} phút"
 
 # ---------------------------------------------------------
@@ -102,25 +95,23 @@ def calculate_metrics(target_coords, avg_speed_kmh):
 st.title("🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
-# Chia giao diện làm 2 cột: Cột trái hiện bản đồ, Cột phải hiện thông tin địa điểm
 col_map, col_info = st.columns([1.2, 1])
 
-# Quản lý trạng thái địa điểm đang được chọn trong Session State
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
 with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam Interactiv e")
+    st.subheader("📍 Bản Đồ Việt Nam Interactive")
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
-# Tạo bản đồ Folium trung tâm tại Việt Nam
-   m = folium.Map(
-    location=[16.0000, 106.0000],
-    zoom_start=5,
-    tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-    attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-)
-    # Đặt Marker mốc TP. Hồ Chí Minh
+    # Bản đồ hiển thị hiển thị mượt trên cả PC & Điện thoại (CartoDB Voyager)
+    m = folium.Map(
+        location=[16.0000, 106.0000],
+        zoom_start=5,
+        tiles="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+        attr='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    )
+
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
         popup="Mốc xuất phát: TP. Hồ Chí Minh",
@@ -128,7 +119,6 @@ with col_map:
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
 
-    # Đặt Marker các địa điểm du lịch
     for name, data in DESTINATIONS.items():
         is_selected = (name == st.session_state["selected_place"])
         marker_color = "orange" if is_selected else "blue"
@@ -140,7 +130,6 @@ with col_map:
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
 
-        # Nếu địa điểm được chọn, vẽ đường nối từ TP.HCM tới điểm đó
         if is_selected:
             folium.PolyLine(
                 locations=[HO_CHI_MINH_COORDS, data["coords"]],
@@ -150,10 +139,8 @@ with col_map:
                 dash_array="5, 10"
             ).add_to(m)
 
-    # Hiển thị bản đồ tương tác
     map_data = st_folium(m, width="100%", height=500)
 
-    # Xử lý sự kiện khi bấm vào Marker trên bản đồ
     if map_data and map_data.get("last_object_clicked_popup"):
         clicked_name = map_data["last_object_clicked_popup"]
         if clicked_name in DESTINATIONS and clicked_name != st.session_state["selected_place"]:
@@ -163,7 +150,6 @@ with col_map:
 with col_info:
     st.subheader("🔎 Thông Tin Chi Tiết Điểm Đến")
     
-    # Selector cho phép chọn nhanh từ danh sách
     selected_option = st.selectbox(
         "Chọn địa điểm khám phá:",
         options=list(DESTINATIONS.keys()),
@@ -177,7 +163,6 @@ with col_info:
     current_data = DESTINATIONS[st.session_state["selected_place"]]
     road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
 
-    # Hiển thị thông tin tổng quan bằng hiệu ứng Container
     with st.container(border=True):
         st.markdown(f"### 🚩 **{st.session_state['selected_place']}**")
         st.write(f"📝 {current_data['description']}")
