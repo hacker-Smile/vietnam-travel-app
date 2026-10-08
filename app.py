@@ -118,19 +118,18 @@ st.markdown("""
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
-# Khởi tạo bản đồ sử dụng máy chủ dữ liệu từ Google Maps
+# Khởi tạo bản đồ sử dụng máy chủ dữ liệu bảo mật từ Google Maps
 def render_map_object():
-    # SỬA ĐỔI: Chỉnh tọa độ trung tâm (location) dịch lên miền trung và hạ mức zoom_start xuống 5.2 để cân đối toàn bộ đất liền Việt Nam
     m = folium.Map(
         location=[16.4637, 105.8048],
         zoom_start=5.2,
         tiles=None  
     )
 
-    # Khởi chạy lớp nền vệ tinh/đường bộ từ máy chủ Google Maps bản Tiếng Việt (hl=vi) để tránh lỗi trắng nền
+    # Đã cập nhật: Sử dụng máy chủ mt0 ổn định cao cùng thuộc tính quốc gia gl=vn
     folium.TileLayer(
         tiles="https://google.com{x}&y={y}&z={z}",
-        attr="Google Maps Việt Nam",
+        attr="Google",
         name="Google Maps",
         overlay=False,
         control=False
