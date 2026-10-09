@@ -104,12 +104,13 @@ with col_map:
     st.subheader("📍 Bản Đồ Việt Nam Interactive")
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
-    # Bản đồ sử dụng nguồn Google Maps chuẩn hiển thị tiếng Việt trên mọi thiết bị
+    # Tạo bản đồ Google Maps và tắt bảng chú thích Leaflet (attributionControl=False)
     m = folium.Map(
         location=[16.0000, 106.0000],
         zoom_start=5,
         tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
-        attr="Google Maps"
+        attr="Google Maps",
+        attribution_control=False
     )
 
     folium.Marker(
