@@ -83,7 +83,7 @@ DESTINATIONS = {
         "avg_price": "6.500.000 - 10.990.000 VNĐ / người",
         "highlights": ["Đèo Mã Pí Lèng", "Cao nguyên đá Đồng Văn", "Làng Lô Lô Chải"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) + Xe giường nằm (5-6h)"
+        "flight_time": "Bay ra Hà Nội (2h10p) + Xe giường nằm (5,5-6h)"
     }
 }
 
