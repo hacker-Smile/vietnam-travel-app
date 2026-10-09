@@ -3,7 +3,6 @@ import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
 import pandas as pd
-from streamlit_javascript import st_javascript
 
 # ---------------------------------------------------------
 # 1. Cấu hình trang web Streamlit
@@ -24,7 +23,7 @@ DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn.",
-        "avg_price": "2.500.000 - 4.000.000 VNĐ / người (Vé máy bay + Khách sạn 3N2Đ)",
+        "avg_price": "2.500.000 - 4.000.000 VNĐ / người (Vé máy bay + Khách sạn 3D2N)",
         "highlights": ["Bà Nà Hills", "Cầu Rồng", "Biển Mỹ Khê"],
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 20 phút (Bay từ TP.HCM)"
@@ -76,14 +75,6 @@ DESTINATIONS = {
         "highlights": ["Đỉnh Fansipan", "Bản Cát Cát", "Đèo O Quy Hồ"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) + Xe giường nằm (5-6h)"
-    },
-    "Hà Giang": {
-        "coords": (22.8233, 103.8438),
-        "description": "tỉnh miền núi phía Bắc Việt Nam, nổi tiếng với Cao nguyên đá Đồng Văn hùng vĩ, những cung đèo hiểm trở và văn hóa các dân tộc thiểu số đặc sắc.",
-        "avg_price": "6.500.000 - 10.990.000 VNĐ / người",
-        "highlights": ["Đèo Mã Pí Lèng", "Cao nguyên đá Đồng Văn", "Làng Lô Lô Chải"],
-        "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h10p) + Xe giường nằm (5,5-6h)"
     }
 }
 
@@ -99,40 +90,26 @@ def calculate_metrics(target_coords, avg_speed_kmh):
     return round(road_dist_km, 1), f"{hours} giờ {minutes} phút"
 
 # ---------------------------------------------------------
-# 4. Kiểm tra kích thước màn hình Browser nhận diện Mobile
-# ---------------------------------------------------------
-ui_width = st_javascript("window.innerWidth")
-
-is_mobile = False
-if ui_width is not None and ui_width < 768:
-    is_mobile = True
-
-# ---------------------------------------------------------
-# 5. Giao diện ứng dụng Streamlit
+# 4. Giao diện ứng dụng Streamlit
 # ---------------------------------------------------------
 st.title("🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
-st.markdown("""
-    <style>
-    div[data-testid="stVerticalBlock"] iframe {
-        width: 100% !important;
-        min-height: 400px !important;
-        border-radius: 8px;
-    }
-    </style>
-""", unsafe_allow_html=True)
+col_map, col_info = st.columns([1.2, 1])
 
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
-# Khởi tạo bản đồ bằng cụm server OpenStreetMap sạch không lo dính API
-def render_map_object():
+with col_map:
+    st.subheader("📍 Bản Đồ Việt Nam Interactive")
+    st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
+
+    # Bản đồ sử dụng nguồn Google Maps chuẩn hiển thị tiếng Việt trên mọi thiết bị
     m = folium.Map(
-        location=[16.4637, 105.8048],
-        zoom_start=5.2,
-        tiles="https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png",
-        attr='&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+        location=[16.0000, 106.0000],
+        zoom_start=5,
+        tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
+        attr="Google Maps"
     )
 
     folium.Marker(
@@ -161,16 +138,16 @@ def render_map_object():
                 opacity=0.8,
                 dash_array="5, 10"
             ).add_to(m)
-    return m
 
-def handle_map_interaction(map_data):
+    map_data = st_folium(m, width="100%", height=500)
+
     if map_data and map_data.get("last_object_clicked_popup"):
         clicked_name = map_data["last_object_clicked_popup"]
         if clicked_name in DESTINATIONS and clicked_name != st.session_state["selected_place"]:
             st.session_state["selected_place"] = clicked_name
             st.rerun()
 
-def render_info_panel():
+with col_info:
     st.subheader("🔎 Thông Tin Chi Tiết Điểm Đến")
     
     selected_option = st.selectbox(
@@ -207,30 +184,3 @@ def render_info_panel():
         st.markdown("---")
         if st.button(f"🎟️ Đặt Tour Đến {st.session_state['selected_place']} Ngay", type="primary", use_container_width=True):
             st.toast(f"Đã ghi nhận yêu cầu đặt tour đi {st.session_state['selected_place']}!", icon="✅")
-
-# ---------------------------------------------------------
-# 6. Điều phối Luồng Giao diện Phụ thuộc vào Loại Thiết bị
-# ---------------------------------------------------------
-if is_mobile:
-    st.subheader("📍 Bản Đồ Việt Nam Interactive")
-    st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên dưới để xem chi tiết.*")
-    
-    folium_map = render_map_object()
-    mobile_map_data = st_folium(folium_map, use_container_width=True, height=400, key="mobile_map")
-    handle_map_interaction(mobile_map_data)
-    
-    st.markdown("---")
-    render_info_panel()
-else:
-    col_map, col_info = st.columns([1.2, 1])
-    
-    with col_map:
-        st.subheader("📍 Bản Đồ Việt Nam Interactive")
-        st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem chi tiết.*")
-        
-        folium_map = render_map_object()
-        desktop_map_data = st_folium(folium_map, use_container_width=True, height=500, key="desktop_map")
-        handle_map_interaction(desktop_map_data)
-        
-    with col_info:
-        render_info_panel()
