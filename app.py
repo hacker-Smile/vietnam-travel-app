@@ -76,6 +76,14 @@ DESTINATIONS = {
         "highlights": ["Đỉnh Fansipan", "Bản Cát Cát", "Đèo O Quy Hồ"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) + Xe giường nằm (5-6h)"
+    },
+    "Hà Giang": {
+        "coords": (22.8233, 103.8438),
+        "description": "tỉnh miền núi phía Bắc Việt Nam, nổi tiếng với Cao nguyên đá Đồng Văn hùng vĩ, những cung đèo hiểm trở và văn hóa các dân tộc thiểu số đặc sắc.",
+        "avg_price": "6.500.000 - 10.990.000 VNĐ / người",
+        "highlights": ["Đèo Mã Pí Lèng", "Cao nguyên đá Đồng Văn", "Làng Lô Lô Chải"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) + Xe giường nằm (5-6h)"
     }
 }
 
