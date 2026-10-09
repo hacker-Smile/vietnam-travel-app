@@ -24,7 +24,7 @@ DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn.",
-        "avg_price": "2.500.000 - 4.000.000 VNĐ / người (Vé máy bay + Khách sạn 3D2N)",
+        "avg_price": "2.500.000 - 4.000.000 VNĐ / người (Vé máy bay + Khách sạn 3N2Đ)",
         "highlights": ["Bà Nà Hills", "Cầu Rồng", "Biển Mỹ Khê"],
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 20 phút (Bay từ TP.HCM)"
