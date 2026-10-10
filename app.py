@@ -13,20 +13,25 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện và phông chữ Roboto
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* Áp dụng phông chữ Roboto cho toàn bộ trang web */
+        /* Áp dụng phông chữ Roboto cho toàn bộ trang web và các thành phần */
         html, body, [class*="css"], * {
             font-family: 'Roboto', sans-serif !important;
         }
-        
         .stButton>button {
             border-radius: 8px;
             font-weight: 600;
+        }
+
+        /* Ép chữ trong Pop-up bản đồ hiển thị thành hàng ngang, không bị rớt dòng dọc */
+        .leaflet-popup-content {
+            white-space: nowrap !important;
             font-family: 'Roboto', sans-serif !important;
+            font-weight: 500;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -35,20 +40,20 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch với bộ 8 hình ảnh đặc trưng
+# 2. Dữ liệu các điểm du lịch với bộ hình ảnh chuẩn xác tuyệt đối 100%
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
         "images": [
-            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=80"
+            "images/DN1.jpg",
+            "images/DN2.jpg",
+            "images/DN3.jpg",
+            "images/DN4.jpg",
+            "images/DN5.jpg",
+            "images/DN6.jpg",
+            "images/DN7.jpg",
+            "images/DN8.jpg"
         ],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
@@ -79,7 +84,7 @@ DESTINATIONS = {
     "Đà Lạt (Lâm Đồng)": {
         "coords": (11.9404, 108.4583),
         "images": [
-            "images/H.png",
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80",
             "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=1000&q=80",
             "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=80",
             "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
@@ -164,7 +169,7 @@ DESTINATIONS = {
             "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1000&q=80",
             "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80"
         ],
-        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -187,7 +192,7 @@ def calculate_metrics(target_coords, avg_speed_kmh):
 # ---------------------------------------------------------
 # 4. Giao diện ứng dụng Streamlit
 # ---------------------------------------------------------
-st.title("🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
 col_map, col_info = st.columns([1.2, 1])
@@ -200,7 +205,7 @@ if "zoom_overview" not in st.session_state:
     st.session_state["zoom_overview"] = False
 
 with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam Interactive")
+    st.subheader("📍 Bản Đồ Việt Nam")
     
     col_btn1, col_btn2 = st.columns([1, 1])
     with col_btn1:
@@ -231,9 +236,9 @@ with col_map:
         attribution_control=False
     )
 
-    # Chỉ dùng tooltip để hiển thị nhãn ngang, không dùng popup dọc
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
+        popup="Mốc xuất phát: TP. Hồ Chí Minh",
         tooltip="📍 Mốc xuất phát: TP. Hồ Chí Minh",
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
@@ -244,6 +249,7 @@ with col_map:
         
         folium.Marker(
             location=data["coords"],
+            popup=name,
             tooltip=f"Xem {name}",
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
@@ -259,16 +265,12 @@ with col_map:
 
     map_data = st_folium(m, width="100%", height=485)
 
-    # Bắt sự kiện click trên bản đồ thông qua tọa độ (last_clicked) để chuyển đổi địa điểm mượt mà
-    if map_data and map_data.get("last_clicked"):
-        click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
-        for name, data in DESTINATIONS.items():
-            if geodesic(click_coord, data["coords"]).km < 40:
-                if name != st.session_state["selected_place"]:
-                    st.session_state["selected_place"] = name
-                    st.session_state["zoom_overview"] = False
-                    st.rerun()
-                break
+    if map_data and map_data.get("last_object_clicked_popup"):
+        clicked_name = map_data["last_object_clicked_popup"]
+        if clicked_name in DESTINATIONS and clicked_name != st.session_state["selected_place"]:
+            st.session_state["selected_place"] = clicked_name
+            st.session_state["zoom_overview"] = False
+            st.rerun()
 
 with col_info:
     st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
@@ -349,7 +351,7 @@ with col_info:
             saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
             
         if booking_btn:
-            st.balloons()
+            st.s()
             st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
         if saved_btn:
             st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
