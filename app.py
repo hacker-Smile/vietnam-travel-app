@@ -90,4 +90,8 @@ DESTINATIONS = {
         "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
         "package_type": "Combo Xe Limousine khứ hồi + Khách sạn view đồi thông 3D2N",
         "highlights": ["Săn mây đồi chè Cầu Đất", "Khám phá Chợ Đêm Đà Lạt", "Check-in Hồ Xuân Hương"],
-        "avg_speed_kmh":
+        "avg_speed_kmh": 50,
+        "flight_time": "50 phút (Bay) hoặc 6-7 giờ (Xe Limousine từ TP.HCM)"
+    },
+    "Phú Quốc (Kiên Giang)": {
+        "coords": (10.28
