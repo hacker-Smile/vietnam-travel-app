@@ -346,7 +346,7 @@ with col_info:
             saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
             
         if booking_btn:
-            st.s()
+            st.balloons()
             st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
         if saved_btn:
             st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
