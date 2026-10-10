@@ -1,4 +1,14 @@
 import streamlit as st
+
+# Ẩn header, menu chính và footer của Streamlit
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
