@@ -20,12 +20,6 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
         }
-        div.stMetric {
-            background-color: #f8f9fa;
-            padding: 10px 15px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
     </style>
 """, unsafe_allow_html=True)
 
