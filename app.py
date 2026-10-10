@@ -16,6 +16,12 @@ st.set_page_config(
 # Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+        /* Áp dụng phông chữ Roboto cho toàn bộ trang web và các thành phần */
+        html, body, [class*="css"], * {
+            font-family: 'Roboto', sans-serif !important;
+        }
         .stButton>button {
             border-radius: 8px;
             font-weight: 600;
