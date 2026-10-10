@@ -238,8 +238,8 @@ with col_map:
 
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
-        popup="Mốc xuất phát: TP. Hồ Chí Minh",
-        tooltip="📍 Mốc xuất phát: TP. Hồ Chí Minh",
+        popup=None,
+        tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
 
@@ -249,7 +249,7 @@ with col_map:
         
         folium.Marker(
             location=data["coords"],
-            popup=name,
+            popup=None,
             tooltip=f"Xem {name}",
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
