@@ -97,22 +97,52 @@ st.markdown("---")
 
 col_map, col_info = st.columns([1.2, 1])
 
+# Quản lý trạng thái địa điểm và chế độ xem toàn cảnh
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
-with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam ")
-    st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
+if "zoom_overview" not in st.session_state:
+    st.session_state["zoom_overview"] = False
 
-    # Tạo bản đồ Google Maps và tắt bảng chú thích Leaflet (attributionControl=False)
+with col_map:
+    st.subheader("📍 Bản Đồ Việt Nam Interactive")
+    
+    # Nút bấm chuyển đổi qua lại giữa xem chi tiết điểm đến và toàn cảnh Việt Nam
+    col_btn1, col_btn2 = st.columns([1, 1])
+    with col_btn1:
+        if st.button("🔍 Focus vào điểm đến", use_container_width=True):
+            st.session_state["zoom_overview"] = False
+            st.rerun()
+    with col_btn2:
+        if st.button("🌍 Xem toàn cảnh Việt Nam", use_container_width=True):
+            st.session_state["zoom_overview"] = True
+            st.rerun()
+
+    # HIỆU ỨNG GOOGLE MAPS / MORPH: Tự động đổi tâm và độ zoom dựa theo lựa chọn
+    if st.session_state["zoom_overview"]:
+        # Góc nhìn toàn cảnh Việt Nam
+        map_center = [16.0000, 106.0000]
+        map_zoom = 5
+    else:
+        # Góc nhìn zoom sâu vào địa điểm được chọn giống Google Maps thực tế
+        current_coords = DESTINATIONS[st.session_state["selected_place"]]["coords"]
+        # Lấy điểm giữa giữa TP.HCM và điểm đến để hiển thị trọn vẹn đường nối
+        map_center = [
+            (HO_CHI_MINH_COORDS[0] + current_coords[0]) / 2,
+            (HO_CHI_MINH_COORDS[1] + current_coords[1]) / 2
+        ]
+        map_zoom = 7  # Mức zoom vừa đủ thấy cả đường đi và điểm đến
+
+    # Khởi tạo bản đồ Google Maps tiếng Việt
     m = folium.Map(
-        location=[16.0000, 106.0000],
-        zoom_start=5,
+        location=map_center,
+        zoom_start=map_zoom,
         tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
         attr="Google Maps",
         attribution_control=False
     )
 
+    # Đánh dấu mốc TP. Hồ Chí Minh
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
         popup="Mốc xuất phát: TP. Hồ Chí Minh",
@@ -120,6 +150,7 @@ with col_map:
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
 
+    # Đánh dấu các điểm du lịch
     for name, data in DESTINATIONS.items():
         is_selected = (name == st.session_state["selected_place"])
         marker_color = "orange" if is_selected else "blue"
@@ -131,6 +162,7 @@ with col_map:
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
 
+        # Vẽ đường nối đứt nét khi được chọn
         if is_selected:
             folium.PolyLine(
                 locations=[HO_CHI_MINH_COORDS, data["coords"]],
@@ -140,12 +172,14 @@ with col_map:
                 dash_array="5, 10"
             ).add_to(m)
 
-    map_data = st_folium(m, width="100%", height=500)
+    map_data = st_folium(m, width="100%", height=480)
 
+    # Xử lý sự kiện khi bấm trực tiếp vào Marker trên bản đồ
     if map_data and map_data.get("last_object_clicked_popup"):
         clicked_name = map_data["last_object_clicked_popup"]
         if clicked_name in DESTINATIONS and clicked_name != st.session_state["selected_place"]:
             st.session_state["selected_place"] = clicked_name
+            st.session_state["zoom_overview"] = False # Bật hiệu ứng focus vào điểm mới bấm
             st.rerun()
 
 with col_info:
@@ -159,6 +193,7 @@ with col_info:
 
     if selected_option != st.session_state["selected_place"]:
         st.session_state["selected_place"] = selected_option
+        st.session_state["zoom_overview"] = False # Bật hiệu ứng focus
         st.rerun()
 
     current_data = DESTINATIONS[st.session_state["selected_place"]]
