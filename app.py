@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp và ép popup hiển thị ngang gọn gàng
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -29,9 +29,17 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
         
-        /* Ẩn hoàn toàn khung popup dọc của bản đồ */
-        .leaflet-popup {
-            display: none !important;
+        /* Định dạng khung popup bản đồ hiển thị ngang, đẹp mắt và không bị rớt dòng */
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .leaflet-popup-content {
+            white-space: nowrap !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 4px 8px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -169,7 +177,7 @@ DESTINATIONS = {
             "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=1000&q=80",
             "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80"
         ],
-        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -238,7 +246,7 @@ with col_map:
 
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
-        popup=None,
+        popup="Mốc xuất phát: TP. Hồ Chí Minh",
         tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
@@ -249,7 +257,7 @@ with col_map:
         
         folium.Marker(
             location=data["coords"],
-            popup=None,
+            popup=name,
             tooltip=f"Xem {name}",
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
