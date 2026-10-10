@@ -26,6 +26,13 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
         }
+
+        /* Ép chữ trong Pop-up bản đồ hiển thị thành hàng ngang, không bị rớt dòng dọc */
+        .leaflet-popup-content {
+            white-space: nowrap !important;
+            font-family: 'Roboto', sans-serif !important;
+            font-weight: 500;
+        }
     </style>
 """, unsafe_allow_html=True)
 
