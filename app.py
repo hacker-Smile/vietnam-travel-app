@@ -185,7 +185,7 @@ def calculate_metrics(target_coords, avg_speed_kmh):
 # ---------------------------------------------------------
 # 4. Giao diện ứng dụng Streamlit
 # ---------------------------------------------------------
-st.title("🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+st.title("Mai travel /n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
 col_map, col_info = st.columns([1.2, 1])
