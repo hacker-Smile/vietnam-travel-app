@@ -79,14 +79,14 @@ DESTINATIONS = {
     "Đà Lạt (Lâm Đồng)": {
         "coords": (11.9404, 108.4583),
         "images": [
-            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1628157582853-a796fa650a6a?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1000&q=80"
+            "images/DL1.jpg",
+            "images/DL2.jpg",
+            "images/DL3.jpg",
+            "images/DL4.jpg",
+            "images/DL5.jpg",
+            "images/DL6.jpg",
+            "images/DL7.jpg",
+            "images/DL8.jpg"
         ],
         "description": "Thành phố ngàn hoa với khí hậu ôn đới quanh năm mát mẻ, những đồi thông reo và các quán cà phê view thung lũng mộng mơ.",
         "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
@@ -98,14 +98,14 @@ DESTINATIONS = {
     "Phú Quốc (Kiên Giang)": {
         "coords": (10.2899, 103.9840),
         "images": [
-            "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1000&q=80"
+            "images/PQ1.jpg",
+            "images/PQ2.jpg",
+            "images/PQ3.jpg",
+            "images/PQ4.jpg",
+            "images/PQ5.jpg",
+            "images/PQ6.jpg",
+            "images/PQ7.jpg",
+            "images/PQ8.jpg"
         ],
         "description": "Đảo Ngọc thiên đường nghỉ dưỡng hàng đầu với bãi cát trắng mịn như kem, nước biển trong ngọc bích và hoàng hôn tuyệt mỹ.",
         "avg_price": "3.500.000 - 6.000.000 VNĐ / người",
