@@ -28,6 +28,11 @@ st.markdown("""
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
         }
+        
+        /* Ẩn hoàn toàn khung popup dọc của bản đồ */
+        .leaflet-popup {
+            display: none !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
