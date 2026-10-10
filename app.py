@@ -101,7 +101,7 @@ if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
 with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam Interactive")
+    st.subheader("📍 Bản Đồ Việt Nam ")
     st.caption("💡 *Bấm vào các điểm mốc trên bản đồ hoặc chọn danh sách bên phải để xem thông tin chi tiết.*")
 
     # Tạo bản đồ Google Maps và tắt bảng chú thích Leaflet (attributionControl=False)
