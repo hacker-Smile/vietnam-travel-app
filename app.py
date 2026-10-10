@@ -60,14 +60,14 @@ DESTINATIONS = {
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
         "images": [
-            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1584968153401-44755f448cbc?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1535139262971-c51845709a48?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=1000&q=80"
+            "images/HN1.jpg",
+            "images/HN2.jpg",
+            "images/HN3.jpg",
+            "images/HN4.jpg",
+            "images/HN5.jpg",
+            "images/HN6.jpg",
+            "images/HN7.jpg",
+            "images/HN8.jpg"
         ],
         "description": "Thủ đô nghìn năm văn hiến lưu giữ dấu ấn lịch sử, Hồ Hoàn Kiếm thơ mộng và văn hóa ẩm thực phố cổ đặc sắc.",
         "avg_price": "3.200.000 - 5.500.000 VNĐ / người",
