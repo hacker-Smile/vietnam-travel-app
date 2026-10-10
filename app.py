@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp và ép popup hiển thị ngang gọn gàng
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -27,19 +27,6 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
-        }
-        
-        /* Định dạng khung popup bản đồ hiển thị ngang, đẹp mắt và không bị rớt dòng */
-        .leaflet-popup-content-wrapper {
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .leaflet-popup-content {
-            white-space: nowrap !important;
-            font-family: 'Roboto', sans-serif !important;
-            font-size: 14px;
-            font-weight: 500;
-            padding: 4px 8px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -244,9 +231,10 @@ with col_map:
         attribution_control=False
     )
 
+    # Đưa white-space: nowrap thẳng vào HTML của Popup để chữ luôn nằm ngang hàng tuyệt đối
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
-        popup="Mốc xuất phát: TP. Hồ Chí Minh",
+        popup=folium.Popup("<div style='white-space: nowrap;'>Mốc xuất phát: TP. Hồ Chí Minh</div>", max_width=300),
         tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
         icon=folium.Icon(color="red", icon="star")
     ).add_to(m)
@@ -257,7 +245,7 @@ with col_map:
         
         folium.Marker(
             location=data["coords"],
-            popup=name,
+            popup=folium.Popup(f"<div style='white-space: nowrap;'>{name}</div>", max_width=300),
             tooltip=f"Xem {name}",
             icon=folium.Icon(color=marker_color, icon="info-sign")
         ).add_to(m)
@@ -273,12 +261,22 @@ with col_map:
 
     map_data = st_folium(m, width="100%", height=485)
 
-    if map_data and map_data.get("last_object_clicked_popup"):
-        clicked_name = map_data["last_object_clicked_popup"]
-        if clicked_name in DESTINATIONS and clicked_name != st.session_state["selected_place"]:
-            st.session_state["selected_place"] = clicked_name
-            st.session_state["zoom_overview"] = False
-            st.rerun()
+    # Bắt sự kiện đổi địa điểm linh hoạt: Bằng Popup hoặc bằng khoảng cách tọa độ click chuột trực tiếp lên bản đồ
+    clicked_place = None
+    if map_data:
+        if map_data.get("last_object_clicked_popup"):
+            clicked_place = map_data["last_object_clicked_popup"]
+        elif map_data.get("last_clicked"):
+            click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
+            for name, data in DESTINATIONS.items():
+                if geodesic(click_coord, data["coords"]).km < 40:
+                    clicked_place = name
+                    break
+
+    if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
+        st.session_state["selected_place"] = clicked_place
+        st.session_state["zoom_overview"] = False
+        st.rerun()
 
 with col_info:
     st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
