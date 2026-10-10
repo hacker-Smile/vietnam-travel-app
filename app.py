@@ -43,10 +43,10 @@ DESTINATIONS = {
             "images/DN2.jpg",
             "images/DN3.jpg",
             "images/DN4.jpg",
-            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=80"
+            "images/DN5.jpg",
+            "images/DN6.jpg",
+            "images/DN7.jpg",
+            "images/DN8.jpg"
         ],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
