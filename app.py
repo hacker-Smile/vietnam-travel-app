@@ -198,7 +198,7 @@ if "zoom_overview" not in st.session_state:
     st.session_state["zoom_overview"] = False
 
 with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam Interactive")
+    st.subheader("📍 Bản Đồ Việt Nam")
     
     col_btn1, col_btn2 = st.columns([1, 1])
     with col_btn1:
