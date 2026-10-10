@@ -13,7 +13,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS để làm đẹp giao diện các khung, nút bấm và badge giống web du lịch chuyên nghiệp
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         .stButton>button {
@@ -33,12 +33,21 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch tiêu biểu tại Việt Nam (Có kèm hình ảnh minh họa)
+# 2. Dữ liệu các điểm du lịch (Mỗi nơi có đúng 8 hình ảnh đặc sắc)
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
-        "image": "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Cầu Vàng
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Biển Mỹ Khê
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", # Cầu Rồng
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80", # Ngũ Hành Sơn
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # Chùa Linh Úng
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80", # Phố cổ Hội An gần kề
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", # Bãi cát biển
+            "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=800&q=80"  # Đêm Đà Nẵng
+        ],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
         "package_type": "Combo Vé máy bay + Khách sạn 3D2N (Tiêu chuẩn 4 sao)",
@@ -48,7 +57,16 @@ DESTINATIONS = {
     },
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
-        "image": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=800&q=80", # Hồ Gươm
+            "https://images.unsplash.com/photo-1584968153401-44755f448cbc?auto=format&fit=crop&w=800&q=80", # Phố cổ
+            "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=800&q=80", # Lăng Bác
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # Văn Miếu
+            "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80", # Chùa Trấn Quốc
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80", # Cầu Long Biên
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80", # Ẩm thực Hà Nội
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"  # Mùa thu Hà Nội
+        ],
         "description": "Thủ đô nghìn năm văn hiến lưu giữ dấu ấn lịch sử, Hồ Hoàn Kiếm thơ mộng và văn hóa ẩm thực phố cổ đặc sắc.",
         "avg_price": "3.200.000 - 5.500.000 VNĐ / người",
         "package_type": "Tour Khám phá Phố Cổ & Ẩm thực 4D3N",
@@ -58,7 +76,16 @@ DESTINATIONS = {
     },
     "Đà Lạt (Lâm Đồng)": {
         "coords": (11.9404, 108.4583),
-        "image": "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80", # Hồ Xuân Hương
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80", # Đồi chè Cầu Đất
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Chợ đêm
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Vườn hoa
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", # Ga xe lửa
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80", # Cà phê đồi thông
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # Quảng trường Lâm Viên
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80"  # Langbiang
+        ],
         "description": "Thành phố ngàn hoa với khí hậu ôn đới quanh năm mát mẻ, những đồi thông reo và các quán cà phê view thung lũng mộng mơ.",
         "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
         "package_type": "Combo Xe Limousine khứ hồi + Khách sạn view đồi thông 3D2N",
@@ -68,7 +95,16 @@ DESTINATIONS = {
     },
     "Phú Quốc (Kiên Giang)": {
         "coords": (10.2899, 103.9840),
-        "image": "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80", # Bãi Sao
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", # Hoàng hôn
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80", # Cáp treo Hòn Thơm
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Grand World
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Bãi Khem
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", # Rạch Vẹm
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # VinWonders
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80"  # Chợ đêm
+        ],
         "description": "Đảo Ngọc thiên đường nghỉ dưỡng hàng đầu với bãi cát trắng mịn như kem, nước biển trong ngọc bích và hoàng hôn tuyệt mỹ.",
         "avg_price": "3.500.000 - 6.000.000 VNĐ / người",
         "package_type": "Combo Resort 5 sao sát biển + Vé VinWonders 3D2N",
@@ -78,7 +114,16 @@ DESTINATIONS = {
     },
     "Nha Trang (Khánh Hòa)": {
         "coords": (12.2388, 109.1967),
-        "image": "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80", # Vịnh Nha Trang
+            "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80", # VinWonders
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", # Tháp Bà
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Biển Trần Phú
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Hòn Mun
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", # Viện Hải Dương Học
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # Chợ Đêm
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80"  # Hòn Chồng
+        ],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
         "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 3D2N",
@@ -88,7 +133,16 @@ DESTINATIONS = {
     },
     "Vịnh Hạ Long (Quảng Ninh)": {
         "coords": (20.9101, 107.1839),
-        "image": "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80", # Vịnh Hạ Long
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80", # Hang Sửng Sốt
+            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80", # Đảo Ti Tốp
+            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80", # Du thuyền
+            "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=800&q=80", # Kayak
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Bái Tử Long
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Làng chài
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80"  # Hoàng hôn vịnh
+        ],
         "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
@@ -98,7 +152,16 @@ DESTINATIONS = {
     },
     "Sapa (Lào Cai)": {
         "coords": (22.3364, 103.8438),
-        "image": "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80",
+        "images": [
+            "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80", # Fansipan
+            "https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?auto=format&fit=crop&w=800&q=80", # Bản Cát Cát
+            "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=800&q=80", # Ruộng bậc thang
+            "https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80", # Ô Quy Hồ
+            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80", # Nhà thờ đá
+            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=800&q=80", # Bản Tả Van
+            "https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=800&q=80", # Cáp treo
+            "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80"  # Sapa mờ sương
+        ],
         "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
@@ -203,7 +266,6 @@ with col_map:
             st.rerun()
 
 with col_info:
-    # Header chọn địa điểm sang trọng hơn
     st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
     
     selected_option = st.selectbox(
@@ -215,16 +277,59 @@ with col_info:
     if selected_option != st.session_state["selected_place"]:
         st.session_state["selected_place"] = selected_option
         st.session_state["zoom_overview"] = False
+        # Reset về ảnh đầu tiên khi đổi địa điểm
+        st.session_state[f"img_idx_{selected_option}"] = 0
         st.rerun()
 
     current_data = DESTINATIONS[st.session_state["selected_place"]]
     road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
 
-    # Khung Booking Card chính chuyên nghiệp giống các trang web du lịch thực tế
+    # Khung Booking Card chính
     with st.container(border=True):
-        # Hiển thị hình ảnh minh họa địa điểm cao cấp
-        st.image(current_data["image"], use_container_width=True)
-        
+        # --- HỆ THỐNG SLIDER 8 ẢNH (CAROUSEL) GIỐNG TIKTOK ---
+        img_key = f"img_idx_{st.session_state['selected_place']}"
+        if img_key not in st.session_state:
+            st.session_state[img_key] = 0
+
+        current_images = current_data["images"]
+        current_idx = st.session_state[img_key]
+
+        # Hiển thị ảnh hiện tại
+        st.image(current_images[current_idx], use_container_width=True)
+
+        # Thanh điều hướng ảnh (Nút Lùi ◀, Các dấu chấm biểu thị, Nút Tiến ▶)
+        col_prev, col_dots, col_next = st.columns([1, 6, 1])
+
+        with col_prev:
+            if st.button("◀", key=f"prev_{st.session_state['selected_place']}"):
+                if st.session_state[img_key] > 0:
+                    st.session_state[img_key] -= 1
+                else:
+                    st.session_state[img_key] = len(current_images) - 1
+                st.rerun()
+
+        with col_dots:
+            # Tạo các dấu chấm (🔴 cho ảnh hiện tại, ⚪ cho ảnh khác)
+            dot_cols = st.columns(len(current_images))
+            for i, d_col in enumerate(dot_cols):
+                with d_col:
+                    dot_label = "🔴" if i == current_idx else "⚪"
+                    if st.button(dot_label, key=f"dot_{st.session_state['selected_place']}_{i}"):
+                        st.session_state[img_key] = i
+                        st.rerun()
+
+        with col_next:
+            if st.button("▶", key=f"next_{st.session_state['selected_place']}"):
+                if st.session_state[img_key] < len(current_images) - 1:
+                    st.session_state[img_key] += 1
+                else:
+                    st.session_state[img_key] = 0
+                st.rerun()
+
+        # Hiển thị số thứ tự ảnh (Ví dụ: Ảnh 3 / 8)
+        st.markdown(f"<p align='center' style='color: gray; font-size: 13px; margin-top: -5px;'>📷 Đang xem hình {current_idx + 1} / {len(current_images)}</p>", unsafe_allow_html=True)
+        # ----------------------------------------------------
+
         st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
         st.caption(f"📌 *{current_data['package_type']}*")
         st.write(current_data["description"])
@@ -247,7 +352,6 @@ with col_info:
 
         st.markdown("---")
         
-        # Nút Call-to-Action (CTA) booking chuẩn thương mại điện tử du lịch
         col_book1, col_book2 = st.columns([2, 1])
         with col_book1:
             booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
