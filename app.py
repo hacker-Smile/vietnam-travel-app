@@ -180,7 +180,25 @@ DESTINATIONS = {
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
-    }
+    },
+    "Hà Giang": {
+        "coords": (22.8233, 104.9836),
+        "images": [
+            "images/SP1.jpg",
+            "images/SP2.jpg",
+            "images/SP3.jpg",
+            "images/SP4.jpg",
+            "images/SP5.jpg",
+            "images/SP6.jpg",
+            "images/SP7.jpg",
+            "images/SP8.jpg"
+        ],
+        "description": "tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên thay đổi rực rỡ theo từng mùa.",
+        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
+        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
+        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
 }
 
 # ---------------------------------------------------------
