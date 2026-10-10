@@ -117,14 +117,14 @@ DESTINATIONS = {
     "Nha Trang (Khánh Hòa)": {
         "coords": (12.2388, 109.1967),
         "images": [
-            "https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1522069169874-c58ec4b76be5?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80",
-            "https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=1000&q=80"
+            "images/NT1.jpg",
+            "images/NT2.jpg",
+            "images/NT3.jpg",
+            "images/NT4.jpg",
+            "images/NT5.jpg",
+            "images/NT6.jpg",
+            "images/NT7.jpg",
+            "images/NT8.jpg"
         ],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
