@@ -43,19 +43,6 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* CHỈ ép riêng thanh Menu Nav nằm ngang 100% trên cả điện thoại */
-        .nav-menu-box div[data-testid="stHorizontalBlock"] {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            gap: 8px !important;
-        }
-
-        .nav-menu-box div[data-testid="stHorizontalBlock"] > div {
-            width: 50% !important;
-            min-width: 0 !important;
-        }
-
         /* Banner phong cách Traveloka ở trang chủ */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
@@ -254,29 +241,75 @@ if "zoom_overview" not in st.session_state:
 if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
+# Xử lý query param từ URL bấm nút Menu HTML
+query_params = st.query_params
+if "nav" in query_params:
+    nav_val = query_params["nav"]
+    if nav_val == "home" and st.session_state["nav_page"] != "🏠 Trang Chủ":
+        st.session_state["nav_page"] = "🏠 Trang Chủ"
+        st.rerun()
+    elif nav_val == "booking" and st.session_state["nav_page"] != "🗺️ Tra Cứu & Đặt Tour":
+        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+        st.rerun()
+
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Hình Chữ Nhật Nằm Ngang (Ở đầu trang)
+# 4. Thanh điều hướng Tab Nằm Ngang Tuyệt Đối 100% Trên Điện Thoại
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-# Đặt trong container 'nav-menu-box' để CSS chỉ ép duy nhất 2 nút này nằm ngang
-with st.container():
-    st.markdown('<div class="nav-menu-box">', unsafe_allow_html=True)
-    tab_col1, tab_col2 = st.columns([1, 1])
+is_home = (st.session_state["nav_page"] == "🏠 Trang Chủ")
 
-    with tab_col1:
-        btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
-        if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
-            st.session_state["nav_page"] = "🏠 Trang Chủ"
-            st.rerun()
+nav_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .nav-container {{
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100%;
+        gap: 10px;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+    }}
+    .nav-btn {{
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 8px;
+        border: 1px solid #363945;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }}
+    .btn-home {{
+        background-color: {'#FF4B4B' if is_home else '#1E232A'};
+        color: white;
+        border-color: {'#FF4B4B' if is_home else '#363945'};
+    }}
+    .btn-booking {{
+        background-color: {'#1E232A' if is_home else '#FF4B4B'};
+        color: white;
+        border-color: {'#363945' if is_home else '#FF4B4B'};
+    }}
+</style>
+</head>
+<body style="margin: 0; padding: 0; background: transparent;">
+    <div class="nav-container">
+        <a href="?nav=home" target="_self" class="nav-btn btn-home">🏠 Trang Chủ</a>
+        <a href="?nav=booking" target="_self" class="nav-btn btn-booking">🗺️ Đặt Tour</a>
+    </div>
+</body>
+</html>
+"""
 
-    with tab_col2:
-        btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
-        if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
-            st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-            st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
-
+components.html(nav_html, height=50, scrolling=False)
 st.markdown("---")
 
 # =========================================================
