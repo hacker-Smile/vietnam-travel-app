@@ -48,7 +48,7 @@ st.markdown("""
         
         .stImage img {
             border-radius: 12px;
-            animation: fadeIn 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
     </style>
@@ -357,35 +357,40 @@ with col_info:
 
     current_images = current_data["images"]
 
-    with st.container(border=True):
-        img_key = f"img_idx_{st.session_state['selected_place']}"
+    # Sử dụng @st.fragment để tối ưu tốc độ lướt ảnh, không bị khựng hoặc load lại bản đồ
+    @st.fragment
+    def render_image_carousel(place_name, images_list):
+        img_key = f"img_idx_{place_name}"
         if img_key not in st.session_state:
             st.session_state[img_key] = 0
 
         current_idx = st.session_state[img_key]
 
-        st.image(current_images[current_idx], use_container_width=True)
+        st.image(images_list[current_idx], use_container_width=True)
 
         col_prev, col_text, col_next = st.columns([1, 4, 1])
 
         with col_prev:
-            if st.button("◀", key=f"prev_{st.session_state['selected_place']}", use_container_width=True):
+            if st.button("◀", key=f"prev_{place_name}", use_container_width=True):
                 if st.session_state[img_key] > 0:
                     st.session_state[img_key] -= 1
                 else:
-                    st.session_state[img_key] = len(current_images) - 1
+                    st.session_state[img_key] = len(images_list) - 1
                 st.rerun()
 
         with col_text:
-            st.markdown(f"<div style='text-align: center; padding-top: 8px; font-weight: 600; color: #495057; font-size: 14px;'>📷 Đang xem hình {current_idx + 1} / {len(current_images)}</div>", unsafe_allow_html=True)
+            st.markdown(f"<div style='text-align: center; padding-top: 8px; font-weight: 600; color: #495057; font-size: 14px;'>📷 Đang xem hình {current_idx + 1} / {len(images_list)}</div>", unsafe_allow_html=True)
 
         with col_next:
-            if st.button("▶", key=f"next_{st.session_state['selected_place']}", use_container_width=True):
-                if st.session_state[img_key] < len(current_images) - 1:
+            if st.button("▶", key=f"next_{place_name}", use_container_width=True):
+                if st.session_state[img_key] < len(images_list) - 1:
                     st.session_state[img_key] += 1
                 else:
                     st.session_state[img_key] = 0
                 st.rerun()
+
+    with st.container(border=True):
+        render_image_carousel(st.session_state["selected_place"], current_images)
 
         st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
         st.caption(f"📌 *{current_data['package_type']}*")
