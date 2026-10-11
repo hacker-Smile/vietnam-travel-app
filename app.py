@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp và bắt buộc nút nằm ngang trên Mobile
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,16 +43,16 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Bắt buộc các cột chứa nút bấm Menu Nav luôn nằm ngang kể cả trên điện thoại */
-        div[data-testid="stHorizontalBlock"]:has(button) {
+        /* CHỈ ép riêng thanh Menu Nav nằm ngang 100% trên cả điện thoại */
+        .nav-menu-box div[data-testid="stHorizontalBlock"] {
             display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
             gap: 8px !important;
         }
 
-        div[data-testid="stHorizontalBlock"]:has(button) > div {
-            width: 100% !important;
+        .nav-menu-box div[data-testid="stHorizontalBlock"] > div {
+            width: 50% !important;
             min-width: 0 !important;
         }
 
@@ -85,7 +85,7 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch với bộ hình ảnh chuẩn xác tuyệt đối 100%
+# 2. Dữ liệu các điểm du lịch với bộ hình ảnh chuẩn xác
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -255,24 +255,27 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Hình Chữ Nhật Nằm Ngang (Kể cả Mobile)
+# 4. Thanh điều hướng Tab Hình Chữ Nhật Nằm Ngang (Ở đầu trang)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-# Hai nút luôn nằm ngang tỉ lệ 50-50
-tab_col1, tab_col2 = st.columns([1, 1])
+# Đặt trong container 'nav-menu-box' để CSS chỉ ép duy nhất 2 nút này nằm ngang
+with st.container():
+    st.markdown('<div class="nav-menu-box">', unsafe_allow_html=True)
+    tab_col1, tab_col2 = st.columns([1, 1])
 
-with tab_col1:
-    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
-    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
-        st.session_state["nav_page"] = "🏠 Trang Chủ"
-        st.rerun()
+    with tab_col1:
+        btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
+        if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
+            st.session_state["nav_page"] = "🏠 Trang Chủ"
+            st.rerun()
 
-with tab_col2:
-    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
-    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
-        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-        st.rerun()
+    with tab_col2:
+        btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
+        if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
+            st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+            st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
