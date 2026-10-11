@@ -43,6 +43,14 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
+        /* Ẩn nút mũi tên thu gọn Sidebar (khắc phục lỗi chữ keyboard_double_) */
+        [data-testid="stSidebarCollapseButton"] {
+            display: none !important;
+        }
+        button[aria-label="Close sidebar"], 
+        button[aria-label="Open sidebar"] {
+            display: none !important;
+        }
         /* Banner phong cách Traveloka ở trang chủ */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
