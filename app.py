@@ -43,34 +43,26 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Ẩn nút mũi tên thu gọn Sidebar (khắc phục lỗi chữ keyboard_double_) */
-        [data-testid="stSidebarCollapseButton"] {
-            display: none !important;
-        }
-        button[aria-label="Close sidebar"], 
-        button[aria-label="Open sidebar"] {
-            display: none !important;
-        }
         /* Banner phong cách Traveloka ở trang chủ */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 70px 20px;
+            padding: 60px 20px;
             border-radius: 16px;
             color: white;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         .hero-banner h1 {
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 700;
             margin-bottom: 10px;
         }
         .hero-banner p {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 300;
         }
     </style>
@@ -86,14 +78,8 @@ DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
         "images": [
-            "images/DN1.jpg",
-            "images/DN2.jpg",
-            "images/DN3.jpg",
-            "images/DN4.jpg",
-            "images/DN5.jpg",
-            "images/DN6.jpg",
-            "images/DN7.jpg",
-            "images/DN8.jpg"
+            "images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg",
+            "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"
         ],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
@@ -105,14 +91,8 @@ DESTINATIONS = {
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
         "images": [
-            "images/HN1.jpg",
-            "images/HN2.jpg",
-            "images/HN3.jpg",
-            "images/HN4.jpg",
-            "images/HN5.jpg",
-            "images/HN6.jpg",
-            "images/HN7.jpg",
-            "images/HN8.jpg"
+            "images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg",
+            "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"
         ],
         "description": "Thủ đô nghìn năm văn hiến lưu giữ dấu ấn lịch sử, Hồ Hoàn Kiếm thơ mộng và văn hóa ẩm thực phố cổ đặc sắc.",
         "avg_price": "3.200.000 - 5.500.000 VNĐ / người",
@@ -124,14 +104,8 @@ DESTINATIONS = {
     "Đà Lạt (Lâm Đồng)": {
         "coords": (11.9404, 108.4583),
         "images": [
-            "images/DL1.jpg",
-            "images/DL2.jpg",
-            "images/DL3.jpg",
-            "images/DL4.jpg",
-            "images/DL5.jpg",
-            "images/DL6.jpg",
-            "images/DL7.jpg",
-            "images/DL8.jpg"
+            "images/DL1.jpg", "images/DL2.jpg", "images/DL3.jpg", "images/DL4.jpg",
+            "images/DL5.jpg", "images/DL6.jpg", "images/DL7.jpg", "images/DL8.jpg"
         ],
         "description": "Thành phố ngàn hoa với khí hậu ôn đới quanh năm mát mẻ, những đồi thông reo và các quán cà phê view thung lũng mộng mơ.",
         "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
@@ -143,14 +117,8 @@ DESTINATIONS = {
     "Phú Quốc (Kiên Giang)": {
         "coords": (10.2899, 103.9840),
         "images": [
-            "images/PQ1.jpg",
-            "images/PQ2.jpg",
-            "images/PQ3.jpg",
-            "images/PQ4.jpg",
-            "images/PQ5.jpg",
-            "images/PQ6.jpg",
-            "images/PQ7.jpg",
-            "images/PQ8.jpg"
+            "images/PQ1.jpg", "images/PQ2.jpg", "images/PQ3.jpg", "images/PQ4.jpg",
+            "images/PQ5.jpg", "images/PQ6.jpg", "images/PQ7.jpg", "images/PQ8.jpg"
         ],
         "description": "Đảo Ngọc thiên đường nghỉ dưỡng hàng đầu với bãi cát trắng mịn như kem, nước biển trong ngọc bích và hoàng hôn tuyệt mỹ.",
         "avg_price": "3.500.000 - 6.000.000 VNĐ / người",
@@ -162,14 +130,8 @@ DESTINATIONS = {
     "Nha Trang (Khánh Hòa)": {
         "coords": (12.2388, 109.1967),
         "images": [
-            "images/NT1.jpg",
-            "images/NT2.jpg",
-            "images/NT3.jpg",
-            "images/NT4.jpg",
-            "images/NT5.jpg",
-            "images/NT6.jpg",
-            "images/NT7.jpg",
-            "images/NT8.jpg"
+            "images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg",
+            "images/NT5.jpg", "images/NT6.jpg", "images/NT7.jpg", "images/NT8.jpg"
         ],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
@@ -181,14 +143,8 @@ DESTINATIONS = {
     "Vịnh Hạ Long (Quảng Ninh)": {
         "coords": (20.9101, 107.1839),
         "images": [
-            "images/HL1.jpg",
-            "images/HL2.jpg",
-            "images/HL3.jpg",
-            "images/HL4.jpg",
-            "images/HL5.jpg",
-            "images/HL6.jpg",
-            "images/HL7.jpg",
-            "images/HL8.jpg"
+            "images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg",
+            "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"
         ],
         "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
@@ -200,14 +156,8 @@ DESTINATIONS = {
     "Sapa (Lào Cai)": {
         "coords": (22.3364, 103.8438),
         "images": [
-            "images/SP1.jpg",
-            "images/SP2.jpg",
-            "images/SP3.jpg",
-            "images/SP4.jpg",
-            "images/SP5.jpg",
-            "images/SP6.jpg",
-            "images/SP7.jpg",
-            "images/SP8.jpg"
+            "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
+            "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"
         ],
         "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
@@ -219,59 +169,41 @@ DESTINATIONS = {
     "Hà Giang": {
         "coords": (22.8233, 104.9836),
         "images": [
-            "images/HG1.jpg",
-            "images/HG2.jpg",
-            "images/HG3.jpg",
-            "images/HG4.jpg",
-            "images/HG5.jpg",
-            "images/HG6.jpg",
-            "images/HG7.jpg",
-            "images/HG8.jpg"
+            "images/HG1.jpg", "images/HG2.jpg", "images/HG3.jpg", "images/HG4.jpg",
+            "images/HG5.jpg", "images/HG6.jpg", "images/HG7.jpg", "images/HG8.jpg"
         ],
-        "description": "Tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên thay đổi rực rỡ theo từng mùa.",
+        "description": "Tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
-        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
-        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "package_type": "Tour Khám phá Cao nguyên đá 4D3N",
+        "highlights": ["Chinh phục Mã Pí Lèng", "Sông Nho Quế", "Dinh Vua Mèo"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm lên Hà Giang"
     },
     "Cao Bằng": {
         "coords": (22.6656, 106.2607),
         "images": [
-            "images/CB1.jpg",
-            "images/CB2.jpg",
-            "images/CB3.jpg",
-            "images/CB4.jpg",
-            "images/CB5.jpg",
-            "images/CB6.jpg",
-            "images/CB7.jpg",
-            "images/CB8.jpg"
+            "images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg",
+            "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"
         ],
-        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu 'miền non nước ngàn năm' và sở hữu Công viên Địa chất Toàn cầu UNESCO Non nước Cao Bằng.",
+        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu 'miền non nước ngàn năm' và sở hữu Thác Bản Giốc hùng vĩ.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
-        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
-        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "package_type": "Tour Non nước Cao Bằng 3D2N",
+        "highlights": ["Thác Bản Giốc", "Động Ngườm Ngao", "Hồ Thang Hen"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Cao Bằng"
     },
     "Bắc Kạn": {
         "coords": (22.161335, 105.830498),
         "images": [
-            "images/BK1.jpg",
-            "images/BK2.jpg",
-            "images/BK3.jpg",
-            "images/BK4.jpg",
-            "images/BK5.jpg",
-            "images/BK6.jpg",
-            "images/BK7.jpg",
-            "images/BK8.jpg"
+            "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
+            "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
         ],
-        "description": "Bắc Kạn là một tỉnh cũ thuộc vùng Đông Bắc Bộ, Việt Nam. Từng tồn tại trong hai giai đoạn từ năm 1900 đến năm 1965 và từ năm 1997 đến năm 2025..",
-        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
-        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
-        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     }
 }
 
@@ -286,7 +218,6 @@ def calculate_metrics(target_coords, avg_speed_kmh):
     minutes = int((drive_hours - hours) * 60)
     return round(road_dist_km, 1), f"{hours} giờ {minutes} phút"
 
-# Hàm chuyển đổi ảnh local thành base64 để nhúng thẳng vào HTML
 def get_image_base64(path):
     if path.startswith("http"):
         return path
@@ -311,24 +242,28 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Sidebar
+# 4. Thanh điều hướng ở ĐẦU TRANG (Top Header Navigation)
 # ---------------------------------------------------------
-st.sidebar.image("https://img.icons8.com/color/96/vietnam.png", width=60)
-st.sidebar.title("Mai Travel")
-page = st.sidebar.radio("🧭 Điều hướng hệ thống", ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"], index=0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1)
-st.session_state["nav_page"] = page
+st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-st.sidebar.markdown("---")
-st.sidebar.info("💡 **Mẹo:** Bạn có thể bấm vào các Tour Hot ở trang chủ để hệ thống tự động chuyển sang trang Đặt Tour.")
+# Menu chọn trang hiển thị trực tiếp ngay dưới tiêu đề trên mọi thiết bị
+nav_col1, nav_col2, nav_col3 = st.columns([1, 2, 1])
+with nav_col2:
+    selected_nav = st.radio(
+        "Điều hướng",
+        ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"],
+        horizontal=True,
+        label_visibility="collapsed",
+        index=0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1
+    )
+st.session_state["nav_page"] = selected_nav
+
+st.markdown("---")
 
 # =========================================================
 # GIAO DIỆN TRANG CHỦ (HOME PAGE)
 # =========================================================
-if page == "🏠 Trang Chủ":
-    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
-    st.markdown("---")
-
-    # Hero Banner
+if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("""
         <div class="hero-banner">
             <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
@@ -361,10 +296,7 @@ if page == "🏠 Trang Chủ":
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
 # =========================================================
-elif page == "🗺️ Tra Cứu & Đặt Tour":
-    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
-    st.markdown("---")
-
+else:
     col_map, col_info = st.columns([1.2, 1])
 
     with col_map:
@@ -463,7 +395,6 @@ elif page == "🗺️ Tra Cứu & Đặt Tour":
         current_images = current_data["images"]
 
         with st.container(border=True):
-            # Tạo danh sách ảnh được mã hóa base64 để hiển thị chuẩn xác trong component HTML
             items_html = ""
             for idx, img_path in enumerate(current_images):
                 img_src = get_image_base64(img_path)
