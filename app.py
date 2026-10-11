@@ -27,12 +27,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp và hiện đại
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp và bắt buộc nút nằm ngang trên Mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* Áp dụng phông chữ Roboto cho toàn bộ trang web và các thành phần */
+        /* Áp dụng phông chữ Roboto cho toàn bộ trang web */
         html, body, [class*="css"], * {
             font-family: 'Roboto', sans-serif !important;
         }
@@ -41,6 +41,19 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
+        }
+
+        /* Bắt buộc các cột chứa nút bấm Menu Nav luôn nằm ngang kể cả trên điện thoại */
+        div[data-testid="stHorizontalBlock"]:has(button) {
+            display: flex !important;
+            flex-direction: row !important;
+            flex-wrap: nowrap !important;
+            gap: 8px !important;
+        }
+
+        div[data-testid="stHorizontalBlock"]:has(button) > div {
+            width: 100% !important;
+            min-width: 0 !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -57,12 +70,12 @@ st.markdown("""
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         .hero-banner h1 {
-            font-size: 36px;
+            font-size: 32px;
             font-weight: 700;
             margin-bottom: 10px;
         }
         .hero-banner p {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 300;
         }
     </style>
@@ -242,12 +255,12 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Hình Chữ Nhật (Ở đầu trang)
+# 4. Thanh điều hướng Tab Hình Chữ Nhật Nằm Ngang (Kể cả Mobile)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-# Sử dụng các nút bấm hình chữ nhật đặt cạnh nhau làm thanh Menu Tab
-tab_col1, tab_col2, tab_space = st.columns([1.5, 2, 2.5])
+# Hai nút luôn nằm ngang tỉ lệ 50-50
+tab_col1, tab_col2 = st.columns([1, 1])
 
 with tab_col1:
     btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
@@ -257,7 +270,7 @@ with tab_col1:
 
 with tab_col2:
     btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
-    if st.button("🗺️ Tra Cứu & Đặt Tour", type=btn_type_booking, use_container_width=True):
+    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
         st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
         st.rerun()
 
