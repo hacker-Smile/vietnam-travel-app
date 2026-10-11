@@ -9,6 +9,7 @@ hide_streamlit_style = """
     </style>
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
@@ -23,7 +24,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp và hiệu ứng chuyển ảnh mượt mà
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -37,6 +38,18 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
+        }
+
+        /* Hiệu ứng chuyển cảnh mượt mà (Fade-in & Zoom nhẹ) cho hình ảnh */
+        @keyframes fadeIn {
+            from { opacity: 0.2; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .stImage img {
+            border-radius: 12px;
+            animation: fadeIn 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -193,7 +206,7 @@ DESTINATIONS = {
             "images/SP7.jpg",
             "images/SP8.jpg"
         ],
-        "description": "tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên thay đổi rực rỡ theo từng mùa.",
+        "description": "Tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên thay đổi rực rỡ theo từng mùa.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -279,7 +292,6 @@ with col_map:
         attribution_control=False
     )
 
-    # Đưa white-space: nowrap thẳng vào HTML của Popup để chữ luôn nằm ngang hàng tuyệt đối
     folium.Marker(
         location=HO_CHI_MINH_COORDS,
         popup=folium.Popup("<div style='white-space: nowrap;'>Mốc xuất phát: TP. Hồ Chí Minh</div>", max_width=300),
@@ -309,7 +321,6 @@ with col_map:
 
     map_data = st_folium(m, width="100%", height=485)
 
-    # Bắt sự kiện đổi địa điểm linh hoạt: Bằng Popup hoặc bằng khoảng cách tọa độ click chuột trực tiếp lên bản đồ
     clicked_place = None
     if map_data:
         if map_data.get("last_object_clicked_popup"):
