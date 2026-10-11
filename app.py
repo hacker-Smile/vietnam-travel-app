@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp và biến radio thành dạng nút tab ngang
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,6 +41,29 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
+        }
+
+        /* Biến st.radio thành thanh menu ngang dạng tab chữ nhật */
+        div.row-widget.stRadio > div {
+            flex-direction: row !important;
+            gap: 10px;
+        }
+        div.row-widget.stRadio > div > label {
+            background-color: #262730;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            border: 1px solid #41444E;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+        div.row-widget.stRadio > div > label[data-checked="true"] {
+            background-color: #FF4B4B !important;
+            border-color: #FF4B4B !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -241,75 +264,26 @@ if "zoom_overview" not in st.session_state:
 if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
-# Xử lý query param chuyển trang bằng HTML component
-query_params = st.query_params
-if "nav" in query_params:
-    nav_val = query_params["nav"]
-    if nav_val == "home" and st.session_state["nav_page"] != "🏠 Trang Chủ":
-        st.session_state["nav_page"] = "🏠 Trang Chủ"
-        st.rerun()
-    elif nav_val == "booking" and st.session_state["nav_page"] != "🗺️ Tra Cứu & Đặt Tour":
-        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-        st.rerun()
-
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang 100% Cố Định Bằng HTML
+# 4. Thanh điều hướng Tab Nằm Ngang Ổn Định Bằng st.radio
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-is_home = (st.session_state["nav_page"] == "🏠 Trang Chủ")
+page_options = ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"]
+current_index = 0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1
 
-nav_html = f"""
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-    .nav-container {{
-        display: flex !important;
-        flex-direction: row !important;
-        width: 100%;
-        gap: 12px;
-        box-sizing: border-box;
-        margin-bottom: 5px;
-    }}
-    .nav-btn {{
-        flex: 1;
-        padding: 10px 16px;
-        font-size: 15px;
-        font-weight: 600;
-        font-family: 'Roboto', sans-serif;
-        border-radius: 8px;
-        text-align: center;
-        cursor: pointer;
-        text-decoration: none;
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-    }}
-    .btn-home {{
-        background-color: {'#FF4B4B' if is_home else '#262730'};
-        color: white;
-        border: 1px solid {'#FF4B4B' if is_home else '#41444E'};
-    }}
-    .btn-booking {{
-        background-color: {'#262730' if is_home else '#FF4B4B'};
-        color: white;
-        border: 1px solid {'#41444E' if is_home else '#FF4B4B'};
-    }}
-</style>
-</head>
-<body style="margin: 0; padding: 0; background: transparent;">
-    <div class="nav-container">
-        <a href="?nav=home" target="_self" class="nav-btn btn-home">🏠 Trang Chủ</a>
-        <a href="?nav=booking" target="_self" class="nav-btn btn-booking">🗺️ Đặt Tour</a>
-    </div>
-</body>
-</html>
-"""
+selected_nav = st.radio(
+    "Điều hướng",
+    options=page_options,
+    index=current_index,
+    horizontal=True,
+    label_visibility="collapsed"
+)
 
-components.html(nav_html, height=50, scrolling=False)
+if selected_nav != st.session_state["nav_page"]:
+    st.session_state["nav_page"] = selected_nav
+    st.rerun()
+
 st.markdown("---")
 
 # =========================================================
