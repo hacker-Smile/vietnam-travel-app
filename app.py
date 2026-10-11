@@ -222,6 +222,25 @@ DESTINATIONS = {
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
+    },
+    "Bắc Kạn": {
+        "coords": (22.161335, 105.830498),
+        "images": [
+            "images/BK1.jpg",
+            "images/BK2.jpg",
+            "images/BK3.jpg",
+            "images/BK4.jpg",
+            "images/BK5.jpg",
+            "images/BK6.jpg",
+            "images/BK7.jpg",
+            "images/BK8.jpg"
+        ],
+        "description": "Bắc Kạn là một tỉnh cũ thuộc vùng Đông Bắc Bộ, Việt Nam. Từng tồn tại trong hai giai đoạn từ năm 1900 đến năm 1965 và từ năm 1997 đến năm 2025..",
+        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
+        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
+        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
     }
 }
 
