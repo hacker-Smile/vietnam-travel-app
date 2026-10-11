@@ -22,12 +22,12 @@ import os
 # 1. Cấu hình trang web Streamlit
 # ---------------------------------------------------------
 st.set_page_config(
-    page_title="Việt Nam Travel & Booking Guide",
+    page_title="Mai Travel - Du Lịch Việt Nam",
     page_icon="🇻🇳",
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp và hiện đại
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,6 +41,29 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
+        }
+
+        /* Banner phong cách Traveloka ở trang chủ */
+        .hero-banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 70px 20px;
+            border-radius: 16px;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .hero-banner h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .hero-banner p {
+            font-size: 18px;
+            font-weight: 300;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -269,14 +292,6 @@ def get_image_base64(path):
         pass
     return path
 
-# ---------------------------------------------------------
-# 4. Giao diện ứng dụng Streamlit
-# ---------------------------------------------------------
-st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
-st.markdown("---")
-
-col_map, col_info = st.columns([1.2, 1])
-
 # Quản lý trạng thái
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
@@ -284,204 +299,264 @@ if "selected_place" not in st.session_state:
 if "zoom_overview" not in st.session_state:
     st.session_state["zoom_overview"] = False
 
-with col_map:
-    st.subheader("📍 Bản Đồ Việt Nam")
-    
-    col_btn1, col_btn2 = st.columns([1, 1])
-    with col_btn1:
-        if st.button("🔍 Focus Điểm Đến", use_container_width=True):
-            st.session_state["zoom_overview"] = False
-            st.rerun()
-    with col_btn2:
-        if st.button("🌍 Toàn Cảnh Việt Nam", use_container_width=True):
-            st.session_state["zoom_overview"] = True
-            st.rerun()
+if "nav_page" not in st.session_state:
+    st.session_state["nav_page"] = "🏠 Trang Chủ"
 
-    if st.session_state["zoom_overview"]:
-        map_center = [16.0000, 106.0000]
-        map_zoom = 5
-    else:
-        current_coords = DESTINATIONS[st.session_state["selected_place"]]["coords"]
-        map_center = [
-            (HO_CHI_MINH_COORDS[0] + current_coords[0]) / 2,
-            (HO_CHI_MINH_COORDS[1] + current_coords[1]) / 2
-        ]
-        map_zoom = 7
+# ---------------------------------------------------------
+# 4. Thanh điều hướng Sidebar
+# ---------------------------------------------------------
+st.sidebar.image("https://img.icons8.com/color/96/vietnam.png", width=60)
+st.sidebar.title("Mai Travel")
+page = st.sidebar.radio("🧭 Điều hướng hệ thống", ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"], index=0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1)
+st.session_state["nav_page"] = page
 
-    m = folium.Map(
-        location=map_center,
-        zoom_start=map_zoom,
-        tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
-        attr="Google Maps",
-        attribution_control=False
-    )
+st.sidebar.markdown("---")
+st.sidebar.info("💡 **Mẹo:** Bạn có thể bấm vào các Tour Hot ở trang chủ để hệ thống tự động chuyển sang trang Đặt Tour.")
 
-    folium.Marker(
-        location=HO_CHI_MINH_COORDS,
-        popup=folium.Popup("<div style='white-space: nowrap;'>Mốc xuất phát: TP. Hồ Chí Minh</div>", max_width=300),
-        tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
-        icon=folium.Icon(color="red", icon="star")
-    ).add_to(m)
+# =========================================================
+# GIAO DIỆN TRANG CHỦ (HOME PAGE)
+# =========================================================
+if page == "🏠 Trang Chủ":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
 
+    # Hero Banner
+    st.markdown("""
+        <div class="hero-banner">
+            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
+            <p>Trải nghiệm dịch vụ đặt tour, tra cứu khoảng cách và khám phá danh lam thắng cảnh Việt Nam dễ dàng nhất.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
+    st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
+
+    # Hiển thị danh sách tour hot dạng lưới 3 cột
+    cols = st.columns(3)
+    idx = 0
     for name, data in DESTINATIONS.items():
-        is_selected = (name == st.session_state["selected_place"])
-        marker_color = "orange" if is_selected else "blue"
+        with cols[idx % 3]:
+            with st.container(border=True):
+                cover_img = get_image_base64(data["images"][0])
+                st.image(cover_img, use_container_width=True)
+                st.markdown(f"#### **{name}**")
+                st.caption(f"📌 {data['package_type']}")
+                st.write(data["description"][:85] + "...")
+                st.success(f"💰 {data['avg_price'].split(' - ')[0]}")
+                
+                if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
+                    st.session_state["selected_place"] = name
+                    st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+                    st.rerun()
+        idx += 1
+
+# =========================================================
+# GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
+# =========================================================
+elif page == "🗺️ Tra Cứu & Đặt Tour":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
+
+    col_map, col_info = st.columns([1.2, 1])
+
+    with col_map:
+        st.subheader("📍 Bản Đồ Việt Nam")
         
+        col_btn1, col_btn2 = st.columns([1, 1])
+        with col_btn1:
+            if st.button("🔍 Focus Điểm Đến", use_container_width=True):
+                st.session_state["zoom_overview"] = False
+                st.rerun()
+        with col_btn2:
+            if st.button("🌍 Toàn Cảnh Việt Nam", use_container_width=True):
+                st.session_state["zoom_overview"] = True
+                st.rerun()
+
+        if st.session_state["zoom_overview"]:
+            map_center = [16.0000, 106.0000]
+            map_zoom = 5
+        else:
+            current_coords = DESTINATIONS[st.session_state["selected_place"]]["coords"]
+            map_center = [
+                (HO_CHI_MINH_COORDS[0] + current_coords[0]) / 2,
+                (HO_CHI_MINH_COORDS[1] + current_coords[1]) / 2
+            ]
+            map_zoom = 7
+
+        m = folium.Map(
+            location=map_center,
+            zoom_start=map_zoom,
+            tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
+            attr="Google Maps",
+            attribution_control=False
+        )
+
         folium.Marker(
-            location=data["coords"],
-            popup=folium.Popup(f"<div style='white-space: nowrap;'>{name}</div>", max_width=300),
-            tooltip=f"Xem {name}",
-            icon=folium.Icon(color=marker_color, icon="info-sign")
+            location=HO_CHI_MINH_COORDS,
+            popup=folium.Popup("<div style='white-space: nowrap;'>Mốc xuất phát: TP. Hồ Chí Minh</div>", max_width=300),
+            tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
+            icon=folium.Icon(color="red", icon="star")
         ).add_to(m)
 
-        if is_selected:
-            folium.PolyLine(
-                locations=[HO_CHI_MINH_COORDS, data["coords"]],
-                color="red",
-                weight=3,
-                opacity=0.8,
-                dash_array="5, 10"
+        for name, data in DESTINATIONS.items():
+            is_selected = (name == st.session_state["selected_place"])
+            marker_color = "orange" if is_selected else "blue"
+            
+            folium.Marker(
+                location=data["coords"],
+                popup=folium.Popup(f"<div style='white-space: nowrap;'>{name}</div>", max_width=300),
+                tooltip=f"Xem {name}",
+                icon=folium.Icon(color=marker_color, icon="info-sign")
             ).add_to(m)
 
-    map_data = st_folium(m, width="100%", height=485)
+            if is_selected:
+                folium.PolyLine(
+                    locations=[HO_CHI_MINH_COORDS, data["coords"]],
+                    color="red",
+                    weight=3,
+                    opacity=0.8,
+                    dash_array="5, 10"
+                ).add_to(m)
 
-    clicked_place = None
-    if map_data:
-        if map_data.get("last_object_clicked_popup"):
-            clicked_place = map_data["last_object_clicked_popup"]
-        elif map_data.get("last_clicked"):
-            click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
-            for name, data in DESTINATIONS.items():
-                if geodesic(click_coord, data["coords"]).km < 40:
-                    clicked_place = name
-                    break
+        map_data = st_folium(m, width="100%", height=485)
 
-    if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
-        st.session_state["selected_place"] = clicked_place
-        st.session_state["zoom_overview"] = False
-        st.rerun()
+        clicked_place = None
+        if map_data:
+            if map_data.get("last_object_clicked_popup"):
+                clicked_place = map_data["last_object_clicked_popup"]
+            elif map_data.get("last_clicked"):
+                click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
+                for name, data in DESTINATIONS.items():
+                    if geodesic(click_coord, data["coords"]).km < 40:
+                        clicked_place = name
+                        break
 
-with col_info:
-    st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
-    
-    selected_option = st.selectbox(
-        "✨ Lựa chọn điểm đến mơ ước của bạn:",
-        options=list(DESTINATIONS.keys()),
-        index=list(DESTINATIONS.keys()).index(st.session_state["selected_place"])
-    )
+        if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
+            st.session_state["selected_place"] = clicked_place
+            st.session_state["zoom_overview"] = False
+            st.rerun()
 
-    if selected_option != st.session_state["selected_place"]:
-        st.session_state["selected_place"] = selected_option
-        st.session_state["zoom_overview"] = False
-        st.rerun()
+    with col_info:
+        st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
+        
+        selected_option = st.selectbox(
+            "✨ Lựa chọn điểm đến mơ ước của bạn:",
+            options=list(DESTINATIONS.keys()),
+            index=list(DESTINATIONS.keys()).index(st.session_state["selected_place"])
+        )
 
-    current_data = DESTINATIONS[st.session_state["selected_place"]]
-    road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
-    current_images = current_data["images"]
+        if selected_option != st.session_state["selected_place"]:
+            st.session_state["selected_place"] = selected_option
+            st.session_state["zoom_overview"] = False
+            st.rerun()
 
-    with st.container(border=True):
-        # Tạo danh sách ảnh được mã hóa base64 để hiển thị chuẩn xác trong component HTML
-        items_html = ""
-        for idx, img_path in enumerate(current_images):
-            img_src = get_image_base64(img_path)
-            items_html += f"""
-                <div class="tiktok-item">
-                    <img src="{img_src}" alt="Image {idx+1}">
-                    <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
+        current_data = DESTINATIONS[st.session_state["selected_place"]]
+        road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
+        current_images = current_data["images"]
+
+        with st.container(border=True):
+            # Tạo danh sách ảnh được mã hóa base64 để hiển thị chuẩn xác trong component HTML
+            items_html = ""
+            for idx, img_path in enumerate(current_images):
+                img_src = get_image_base64(img_path)
+                items_html += f"""
+                    <div class="tiktok-item">
+                        <img src="{img_src}" alt="Image {idx+1}">
+                        <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
+                    </div>
+                """
+
+            carousel_html = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+                .tiktok-carousel {{
+                    display: flex;
+                    overflow-x: auto;
+                    scroll-snap-type: x mandatory;
+                    scroll-behavior: smooth;
+                    -webkit-overflow-scrolling: touch;
+                    border-radius: 12px;
+                    gap: 12px;
+                    padding-bottom: 8px;
+                }}
+                .tiktok-carousel::-webkit-scrollbar {{
+                    display: none;
+                }}
+                .tiktok-carousel {{
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }}
+                .tiktok-item {{
+                    flex: 0 0 100%;
+                    scroll-snap-align: center;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    position: relative;
+                    aspect-ratio: 16 / 9;
+                    background-color: #f0f2f5;
+                    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+                }}
+                .tiktok-item img {{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 12px;
+                }}
+                .tiktok-badge {{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(0, 0, 0, 0.65);
+                    color: white;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-family: 'Roboto', sans-serif;
+                }}
+            </style>
+            </head>
+            <body>
+                <div class="tiktok-carousel">
+                    {items_html}
                 </div>
+            </body>
+            </html>
             """
+            components.html(carousel_html, height=310, scrolling=False)
 
-        carousel_html = f"""
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <style>
-            .tiktok-carousel {{
-                display: flex;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;
-                -webkit-overflow-scrolling: touch;
-                border-radius: 12px;
-                gap: 12px;
-                padding-bottom: 8px;
-            }}
-            .tiktok-carousel::-webkit-scrollbar {{
-                display: none;
-            }}
-            .tiktok-carousel {{
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }}
-            .tiktok-item {{
-                flex: 0 0 100%;
-                scroll-snap-align: center;
-                border-radius: 12px;
-                overflow: hidden;
-                position: relative;
-                aspect-ratio: 16 / 9;
-                background-color: #f0f2f5;
-                box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-            }}
-            .tiktok-item img {{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 12px;
-            }}
-            .tiktok-badge {{
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background: rgba(0, 0, 0, 0.65);
-                color: white;
-                padding: 4px 10px;
-                border-radius: 20px;
-                font-size: 12px;
-                font-weight: 500;
-                font-family: 'Roboto', sans-serif;
-            }}
-        </style>
-        </head>
-        <body>
-            <div class="tiktok-carousel">
-                {items_html}
-            </div>
-        </body>
-        </html>
-        """
-        components.html(carousel_html, height=310, scrolling=False)
-
-        st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
-        st.caption(f"📌 *{current_data['package_type']}*")
-        st.write(current_data["description"])
-        
-        st.markdown("---")
-        st.markdown("##### 🚗 **Thông Tin Di Chuyển (Xuất phát từ TP.HCM)**")
-        
-        col_m1, col_m2 = st.columns(2)
-        col_m1.metric(label="Khoảng cách ước tính", value=f"{road_dist} km")
-        col_m2.metric(label="Thời gian ô tô/xe khách", value=drive_time)
-        
-        st.info(f"✈️ **Gợi ý di chuyển hàng không:** {current_data['flight_time']}")
-
-        st.markdown("##### 💳 **Báo Giá & Ưu Đãi Trọn Gói**")
-        st.success(f"**Mức giá tham khảo:** {current_data['avg_price']}")
-
-        st.markdown("##### ⭐ **Điểm Nhấn Trải Nghiệm Nổi Bật**")
-        for tag in current_data["highlights"]:
-            st.markdown(f"✔️ {tag}")
-
-        st.markdown("---")
-        
-        col_book1, col_book2 = st.columns([2, 1])
-        with col_book1:
-            booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
-        with col_book2:
-            saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
+            st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
+            st.caption(f"📌 *{current_data['package_type']}*")
+            st.write(current_data["description"])
             
-        if booking_btn:
-            st.balloons()
-            st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
-        if saved_btn:
-            st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
+            st.markdown("---")
+            st.markdown("##### 🚗 **Thông Tin Di Chuyển (Xuất phát từ TP.HCM)**")
+            
+            col_m1, col_m2 = st.columns(2)
+            col_m1.metric(label="Khoảng cách ước tính", value=f"{road_dist} km")
+            col_m2.metric(label="Thời gian ô tô/xe khách", value=drive_time)
+            
+            st.info(f"✈️ **Gợi ý di chuyển hàng không:** {current_data['flight_time']}")
+
+            st.markdown("##### 💳 **Báo Giá & Ưu Đãi Trọn Gói**")
+            st.success(f"**Mức giá tham khảo:** {current_data['avg_price']}")
+
+            st.markdown("##### ⭐ **Điểm Nhấn Trải Nghiệm Nổi Bật**")
+            for tag in current_data["highlights"]:
+                st.markdown(f"✔️ {tag}")
+
+            st.markdown("---")
+            
+            col_book1, col_book2 = st.columns([2, 1])
+            with col_book1:
+                booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
+            with col_book2:
+                saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
+                
+            if booking_btn:
+                st.balloons()
+                st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
+            if saved_btn:
+                st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
