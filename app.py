@@ -24,7 +24,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp và hiệu ứng chuyển ảnh mượt mà
+# Custom CSS tinh chỉnh giao diện & Khung lướt ảnh phong cách TikTok (Scroll Snap)
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -40,16 +40,58 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Hiệu ứng chuyển cảnh mượt mà (Fade-in & Zoom nhẹ) cho hình ảnh */
-        @keyframes fadeIn {
-            from { opacity: 0.2; transform: scale(0.98); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        
-        .stImage img {
+        /* Khung chứa danh sách ảnh lướt kiểu TikTok / Reels */
+        .tiktok-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
             border-radius: 12px;
-            animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 12px;
+            padding-bottom: 8px;
             box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+        }
+
+        /* Mẹo ẩn thanh cuộn scrollbar giúp giao diện đẹp tinh tế */
+        .tiktok-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        .tiktok-carousel {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Thẻ chứa từng tấm hình - Hít (Snap) vào giữa khi lướt qua */
+        .tiktok-item {
+            flex: 0 0 100%;
+            scroll-snap-align: center;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background-color: #f0f2f5;
+        }
+
+        .tiktok-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* Nhãn số thứ tự ảnh đè góc trên phong cách TikTok */
+        .tiktok-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.65);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            backdrop-filter: blur(4px);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -349,48 +391,29 @@ with col_info:
     if selected_option != st.session_state["selected_place"]:
         st.session_state["selected_place"] = selected_option
         st.session_state["zoom_overview"] = False
-        st.session_state[f"img_idx_{selected_option}"] = 0
         st.rerun()
 
     current_data = DESTINATIONS[st.session_state["selected_place"]]
     road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
-
     current_images = current_data["images"]
 
-    # Sử dụng @st.fragment để tối ưu tốc độ lướt ảnh, không bị khựng hoặc load lại bản đồ
-    @st.fragment
-    def render_image_carousel(place_name, images_list):
-        img_key = f"img_idx_{place_name}"
-        if img_key not in st.session_state:
-            st.session_state[img_key] = 0
-
-        current_idx = st.session_state[img_key]
-
-        st.image(images_list[current_idx], use_container_width=True)
-
-        col_prev, col_text, col_next = st.columns([1, 4, 1])
-
-        with col_prev:
-            if st.button("◀", key=f"prev_{place_name}", use_container_width=True):
-                if st.session_state[img_key] > 0:
-                    st.session_state[img_key] -= 1
-                else:
-                    st.session_state[img_key] = len(images_list) - 1
-                st.rerun()
-
-        with col_text:
-            st.markdown(f"<div style='text-align: center; padding-top: 8px; font-weight: 600; color: #495057; font-size: 14px;'>📷 Đang xem hình {current_idx + 1} / {len(images_list)}</div>", unsafe_allow_html=True)
-
-        with col_next:
-            if st.button("▶", key=f"next_{place_name}", use_container_width=True):
-                if st.session_state[img_key] < len(images_list) - 1:
-                    st.session_state[img_key] += 1
-                else:
-                    st.session_state[img_key] = 0
-                st.rerun()
-
     with st.container(border=True):
-        render_image_carousel(st.session_state["selected_place"], current_images)
+        # Render bộ sưu tập ảnh kiểu vuốt mượt TikTok / Reels
+        items_html = ""
+        for idx, img_path in enumerate(current_images):
+            items_html += f"""
+                <div class="tiktok-item">
+                    <img src="{img_path}" alt="Image {idx+1}">
+                    <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
+                </div>
+            """
+
+        carousel_html = f"""
+            <div class="tiktok-carousel">
+                {items_html}
+            </div>
+        """
+        st.markdown(carousel_html, unsafe_allow_html=True)
 
         st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
         st.caption(f"📌 *{current_data['package_type']}*")
