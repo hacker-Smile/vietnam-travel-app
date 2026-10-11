@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện chuyên nghiệp và biến radio thành dạng nút tab ngang
+# Custom CSS tinh chỉnh giao diện và ép riêng thanh Menu nằm ngang trên điện thoại
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,27 +43,17 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Biến st.radio thành thanh menu ngang dạng tab chữ nhật */
-        div.row-widget.stRadio > div {
+        /* Ép riêng khối Menu Nav đầu trang luôn nằm ngang 50% - 50% trên điện thoại */
+        div.nav-row > [data-testid="stHorizontalBlock"] {
+            display: flex !important;
             flex-direction: row !important;
-            gap: 10px;
+            flex-wrap: nowrap !important;
+            gap: 10px !important;
         }
-        div.row-widget.stRadio > div > label {
-            background-color: #262730;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 8px;
-            border: 1px solid #41444E;
-            font-weight: 600;
-            cursor: pointer;
-            flex: 1;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-        }
-        div.row-widget.stRadio > div > label[data-checked="true"] {
-            background-color: #FF4B4B !important;
-            border-color: #FF4B4B !important;
+        div.nav-row > [data-testid="stHorizontalBlock"] > div {
+            width: 50% !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -182,7 +172,7 @@ DESTINATIONS = {
             "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
             "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"
         ],
-        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -265,24 +255,25 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang Ổn Định Bằng st.radio
+# 4. Thanh điều hướng Tab Nằm Ngang (Đã bọc div.nav-row)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-page_options = ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"]
-current_index = 0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1
+st.markdown('<div class="nav-row">', unsafe_allow_html=True)
+nav_col1, nav_col2 = st.columns([1, 1])
 
-selected_nav = st.radio(
-    "Điều hướng",
-    options=page_options,
-    index=current_index,
-    horizontal=True,
-    label_visibility="collapsed"
-)
+with nav_col1:
+    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
+    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
+        st.session_state["nav_page"] = "🏠 Trang Chủ"
+        st.rerun()
 
-if selected_nav != st.session_state["nav_page"]:
-    st.session_state["nav_page"] = selected_nav
-    st.rerun()
+with nav_col2:
+    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
+    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
+        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+        st.rerun()
+st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("---")
 
