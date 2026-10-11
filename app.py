@@ -242,21 +242,24 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng ở ĐẦU TRANG (Top Header Navigation)
+# 4. Thanh điều hướng Tab Hình Chữ Nhật (Ở đầu trang)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-# Menu chọn trang hiển thị trực tiếp ngay dưới tiêu đề trên mọi thiết bị
-nav_col1, nav_col2, nav_col3 = st.columns([1, 2, 1])
-with nav_col2:
-    selected_nav = st.radio(
-        "Điều hướng",
-        ["🏠 Trang Chủ", "🗺️ Tra Cứu & Đặt Tour"],
-        horizontal=True,
-        label_visibility="collapsed",
-        index=0 if st.session_state["nav_page"] == "🏠 Trang Chủ" else 1
-    )
-st.session_state["nav_page"] = selected_nav
+# Sử dụng các nút bấm hình chữ nhật đặt cạnh nhau làm thanh Menu Tab
+tab_col1, tab_col2, tab_space = st.columns([1.5, 2, 2.5])
+
+with tab_col1:
+    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
+    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
+        st.session_state["nav_page"] = "🏠 Trang Chủ"
+        st.rerun()
+
+with tab_col2:
+    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
+    if st.button("🗺️ Tra Cứu & Đặt Tour", type=btn_type_booking, use_container_width=True):
+        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+        st.rerun()
 
 st.markdown("---")
 
