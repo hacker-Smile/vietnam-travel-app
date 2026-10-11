@@ -15,6 +15,8 @@ from streamlit_folium import st_folium
 from geopy.distance import geodesic
 import pandas as pd
 import streamlit.components.v1 as components
+import base64
+import os
 
 # ---------------------------------------------------------
 # 1. Cấu hình trang web Streamlit
@@ -234,6 +236,20 @@ def calculate_metrics(target_coords, avg_speed_kmh):
     minutes = int((drive_hours - hours) * 60)
     return round(road_dist_km, 1), f"{hours} giờ {minutes} phút"
 
+# Hàm chuyển đổi ảnh local thành base64 để nhúng thẳng vào HTML
+def get_image_base64(path):
+    if path.startswith("http"):
+        return path
+    try:
+        if os.path.exists(path):
+            with open(path, "rb") as f:
+                data = f.read()
+            encoded = base64.b64encode(data).decode()
+            return f"data:image/jpeg;base64,{encoded}"
+    except Exception:
+        pass
+    return path
+
 # ---------------------------------------------------------
 # 4. Giao diện ứng dụng Streamlit
 # ---------------------------------------------------------
@@ -345,12 +361,13 @@ with col_info:
     current_images = current_data["images"]
 
     with st.container(border=True):
-        # Render bộ sưu tập ảnh kiểu vuốt mượt TikTok / Reels qua components.html
+        # Tạo danh sách ảnh được mã hóa base64 để hiển thị chuẩn xác trong component HTML
         items_html = ""
         for idx, img_path in enumerate(current_images):
+            img_src = get_image_base64(img_path)
             items_html += f"""
                 <div class="tiktok-item">
-                    <img src="{img_path}" alt="Image {idx+1}">
+                    <img src="{img_src}" alt="Image {idx+1}">
                     <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
                 </div>
             """
