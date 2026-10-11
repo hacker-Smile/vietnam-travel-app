@@ -188,14 +188,14 @@ DESTINATIONS = {
     "Hà Giang": {
         "coords": (22.8233, 104.9836),
         "images": [
-            "images/SP1.jpg",
-            "images/SP2.jpg",
-            "images/SP3.jpg",
-            "images/SP4.jpg",
-            "images/SP5.jpg",
-            "images/SP6.jpg",
-            "images/SP7.jpg",
-            "images/SP8.jpg"
+            "images/HG1.jpg",
+            "images/HG2.jpg",
+            "images/HG3.jpg",
+            "images/HG4.jpg",
+            "images/HG5.jpg",
+            "images/HG6.jpg",
+            "images/HG7.jpg",
+            "images/HG8.jpg"
         ],
         "description": "Tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên thay đổi rực rỡ theo từng mùa.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
