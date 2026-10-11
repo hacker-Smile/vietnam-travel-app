@@ -207,14 +207,14 @@ DESTINATIONS = {
     "Cao Bằng": {
         "coords": (22.6656, 106.2607),
         "images": [
-            "images/SP1.jpg",
-            "images/SP2.jpg",
-            "images/SP3.jpg",
-            "images/SP4.jpg",
-            "images/SP5.jpg",
-            "images/SP6.jpg",
-            "images/SP7.jpg",
-            "images/SP8.jpg"
+            "images/CB1.jpg",
+            "images/CB2.jpg",
+            "images/CB3.jpg",
+            "images/CB4.jpg",
+            "images/CB5.jpg",
+            "images/CB6.jpg",
+            "images/CB7.jpg",
+            "images/CB8.jpg"
         ],
         "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu 'miền non nước ngàn năm' và sở hữu Công viên Địa chất Toàn cầu UNESCO Non nước Cao Bằng.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
