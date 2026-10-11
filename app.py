@@ -199,6 +199,25 @@ DESTINATIONS = {
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
+    },
+    "Cao Bằng": {
+        "coords": (22.6656, 106.2607),
+        "images": [
+            "images/SP1.jpg",
+            "images/SP2.jpg",
+            "images/SP3.jpg",
+            "images/SP4.jpg",
+            "images/SP5.jpg",
+            "images/SP6.jpg",
+            "images/SP7.jpg",
+            "images/SP8.jpg"
+        ],
+        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu "miền non nước ngàn năm" và sở hữu Công viên Địa chất Toàn cầu UNESCO Non nước Cao Bằng.",
+        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
+        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
+        "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
     }
 }
 
