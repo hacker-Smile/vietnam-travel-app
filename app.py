@@ -14,6 +14,7 @@ import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
 import pandas as pd
+import streamlit.components.v1 as components
 
 # ---------------------------------------------------------
 # 1. Cấu hình trang web Streamlit
@@ -24,7 +25,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện & Khung lướt ảnh phong cách TikTok (Scroll Snap)
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -38,60 +39,6 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
-        }
-
-        /* Khung chứa danh sách ảnh lướt kiểu TikTok / Reels */
-        .tiktok-carousel {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            border-radius: 12px;
-            gap: 12px;
-            padding-bottom: 8px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-        }
-
-        /* Mẹo ẩn thanh cuộn scrollbar giúp giao diện đẹp tinh tế */
-        .tiktok-carousel::-webkit-scrollbar {
-            display: none;
-        }
-        .tiktok-carousel {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* Thẻ chứa từng tấm hình - Hít (Snap) vào giữa khi lướt qua */
-        .tiktok-item {
-            flex: 0 0 100%;
-            scroll-snap-align: center;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-            aspect-ratio: 16 / 9;
-            background-color: #f0f2f5;
-        }
-
-        .tiktok-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        /* Nhãn số thứ tự ảnh đè góc trên phong cách TikTok */
-        .tiktok-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.65);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-            backdrop-filter: blur(4px);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -398,7 +345,7 @@ with col_info:
     current_images = current_data["images"]
 
     with st.container(border=True):
-        # Render bộ sưu tập ảnh kiểu vuốt mượt TikTok / Reels
+        # Render bộ sưu tập ảnh kiểu vuốt mượt TikTok / Reels qua components.html
         items_html = ""
         for idx, img_path in enumerate(current_images):
             items_html += f"""
@@ -409,11 +356,65 @@ with col_info:
             """
 
         carousel_html = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+            .tiktok-carousel {{
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+                -webkit-overflow-scrolling: touch;
+                border-radius: 12px;
+                gap: 12px;
+                padding-bottom: 8px;
+            }}
+            .tiktok-carousel::-webkit-scrollbar {{
+                display: none;
+            }}
+            .tiktok-carousel {{
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }}
+            .tiktok-item {{
+                flex: 0 0 100%;
+                scroll-snap-align: center;
+                border-radius: 12px;
+                overflow: hidden;
+                position: relative;
+                aspect-ratio: 16 / 9;
+                background-color: #f0f2f5;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            }}
+            .tiktok-item img {{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }}
+            .tiktok-badge {{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: rgba(0, 0, 0, 0.65);
+                color: white;
+                padding: 4px 10px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 500;
+                font-family: 'Roboto', sans-serif;
+            }}
+        </style>
+        </head>
+        <body>
             <div class="tiktok-carousel">
                 {items_html}
             </div>
+        </body>
+        </html>
         """
-        st.markdown(carousel_html, unsafe_allow_html=True)
+        components.html(carousel_html, height=310, scrolling=False)
 
         st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
         st.caption(f"📌 *{current_data['package_type']}*")
