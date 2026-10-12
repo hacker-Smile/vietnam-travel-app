@@ -247,8 +247,8 @@ DESTINATIONS = {
     "Lạng Sơn": {
         "coords": (21.8526,106.7610 ),
         "images": [
-            "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
-            "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
+            "images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg",
+            "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"
         ],
         "description": " Lạng Sơn là một tỉnh miền núi biên giới nằm ở vùng Đông Bắc Bộ, nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
