@@ -218,8 +218,8 @@ DESTINATIONS = {
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     },
-    "Quảng Nam": {
-        "coords": (15.648, 108.16),
+    "Tuyên Quang": {
+        "coords": (21.8236, 105.2142),
         "images": [
             "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
             "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
