@@ -230,6 +230,32 @@ DESTINATIONS = {
         "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+    },
+    "Điện Biên": {
+        "coords": (21.38602,103.02301 ),
+        "images": [
+            "images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg",
+            "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"
+        ],
+        "description": " Điện Biên là một tỉnh miền núi thuộc vùng Tây Bắc Bộ, là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử và các bản làng văn hóa độc đáo.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+    },
+    "Thái Nguyên": {
+        "coords": (21.5942,105.8482 ),
+        "images": [
+            "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
+            "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
+        ],
+        "description": " Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt, văn hóa trà lâu đời và các di tích lịch sử cách mạng quan trọng.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     }
 }
 
