@@ -230,6 +230,19 @@ DESTINATIONS = {
         "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+    },
+    "Lai Châu": {
+        "coords": (22.0000, 103.0000),
+        "images": [
+            "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
+            "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
+        ],
+        "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     }
 }
 
