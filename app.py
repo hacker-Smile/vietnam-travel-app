@@ -192,19 +192,6 @@ DESTINATIONS = {
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Cao Bằng"
     },
-    "Bắc Kạn": {
-        "coords": (22.161335, 105.830498),
-        "images": [
-            "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
-            "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
-        ],
-        "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
-        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
-        "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
-    },
     "Tuyên Quang": {
         "coords": (21.8236, 105.2142),
         "images": [
@@ -225,6 +212,19 @@ DESTINATIONS = {
             "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"
         ],
         "description": " Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+    },
+    "Thái Nguyên": {
+        "coords": (21.5942,105.8482 ),
+        "images": [
+            "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
+            "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
+        ],
+        "description": " Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt, văn hóa trà lâu đời và các di tích lịch sử cách mạng quan trọng.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
         "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
