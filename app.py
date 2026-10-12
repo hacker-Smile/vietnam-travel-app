@@ -1,15 +1,4 @@
 import streamlit as st
-
-# Ẩn header, menu chính và footer của Streamlit
-hide_streamlit_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
@@ -27,7 +16,17 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS ĐẶC TRỊ ÉP MOBILE XẾP DỌC 100% WIDTH
+# Ẩn header, menu chính và footer của Streamlit
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# Custom CSS ép mobile xếp dọc 100% width và nút menu nằm ngang
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -59,14 +58,12 @@ st.markdown("""
 
         /* 2. ĐẶC TRỊ DÀNH CHO MOBILE (< 768px): Ép các cột Bản Đồ & Tour XẾP DỌC 100% WIDTH */
         @media screen and (max-width: 768px) {
-            /* Ép hàng chứa cột chuyển sang dạng cột dọc */
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
             }
             
-            /* Ghi đè TẤT CẢ inline-style width px mà Streamlit tự chèn vào cột */
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="stColumn"],
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="column"],
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="width"] {
@@ -77,7 +74,6 @@ st.markdown("""
             }
         }
 
-        /* Banner phong cách Traveloka ở trang chủ */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
@@ -206,7 +202,7 @@ DESTINATIONS = {
             "images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg",
             "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"
         ],
-        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu 'miền non nước ngàn năm' và sở hữu Thác Bản Giốc hùng vĩ.",
+        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu miền non nước ngàn năm và sở hữu Thác Bản Giốc hùng vĩ.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
         "package_type": "Tour Non nước Cao Bằng 3D2N",
         "highlights": ["Thác Bản Giốc", "Động Ngườm Ngao", "Hồ Thang Hen"],
