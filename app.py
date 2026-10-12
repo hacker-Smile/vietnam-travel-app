@@ -153,7 +153,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 10 phút (Bay) hoặc 8 giờ (Tàu hỏa/Xe giường nằm)"
     },
-    "Vịnh Hạ Long (Quảng Ninh)": {
+    "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": [
             "images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg",
@@ -221,8 +221,8 @@ DESTINATIONS = {
     "Tuyên Quang": {
         "coords": (21.8236, 105.2142),
         "images": [
-            "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
-            "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
+            "images/TQ1.jpg", "images/TQ2.jpg", "images/TQ3.jpg", "images/TQ4.jpg",
+            "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"
         ],
         "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
