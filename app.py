@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện và ép riêng thanh Menu nằm ngang trên điện thoại
+# Custom CSS ép 2 nút điều hướng LÔN NẰM NGANG trên mọi màn hình (kể cả di động)
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,17 +43,21 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Ép riêng khối Menu Nav đầu trang luôn nằm ngang 50% - 50% trên điện thoại */
-        div.nav-row > [data-testid="stHorizontalBlock"] {
+        /* GHI ĐÈ CSS CỦA STREAMLIT: Ép st.columns trong khối nav-row luôn nằm ngang trên điện thoại */
+        div.nav-row [data-testid="stHorizontalBlock"] {
             display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
             gap: 10px !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            padding-bottom: 4px !important;
         }
-        div.nav-row > [data-testid="stHorizontalBlock"] > div {
-            width: 50% !important;
-            min-width: 0 !important;
-            flex: 1 1 auto !important;
+
+        div.nav-row [data-testid="stHorizontalBlock"] > div {
+            flex: 1 1 0% !important;
+            min-width: 130px !important; /* Đảm bảo nút không bị bóp nghẹt quá nhỏ */
+            width: auto !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -172,7 +176,7 @@ DESTINATIONS = {
             "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
             "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"
         ],
-        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -198,12 +202,12 @@ DESTINATIONS = {
             "images/TQ1.jpg", "images/TQ2.jpg", "images/TQ3.jpg", "images/TQ4.jpg",
             "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"
         ],
-        "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
+        "description": "Tuyên Quang là tỉnh giàu truyền thống cách mạng, nổi tiếng với di tích lịch sử Tân Trào và lễ hội Trung thu lớn nhất Việt Nam.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
+        "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 3D2N",
+        "highlights": ["Thăm Khu di tích quốc gia đặc biệt Tân Trào", "Check-in Suối Khoáng Mỹ Lâm", "Tham gia Lễ hội Thành Tuyên"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Tuyên Quang"
     },
     "Lai Châu": {
         "coords": (22.3992, 103.4392),
@@ -211,51 +215,51 @@ DESTINATIONS = {
             "images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg",
             "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"
         ],
-        "description": " Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
+        "description": "Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
+        "package_type": "Tour Khám phá Tây Bắc 3D2N",
         "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lai Châu"
     },
     "Thái Nguyên": {
-        "coords": (21.5942,105.8482 ),
+        "coords": (21.5942, 105.8482),
         "images": [
             "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
             "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
         ],
-        "description": " Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt, văn hóa trà lâu đời và các di tích lịch sử cách mạng quan trọng.",
+        "description": "Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt và văn hóa trà lâu đời.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "package_type": "Tour Trải nghiệm Vùng Trà & Sinh Thái 3D2N",
+        "highlights": ["Đồi chè Tân Cương", "Hồ Núi Cốc", "Khu di tích lịch sử ATK Định Hóa"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Thái Nguyên"
     },
     "Điện Biên": {
-        "coords": (21.38602,103.02301 ),
+        "coords": (21.38602, 103.02301),
         "images": [
             "images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg",
             "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"
         ],
-        "description": " Điện Biên là một tỉnh miền núi thuộc vùng Tây Bắc Bộ, là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử và các bản làng văn hóa độc đáo.",
+        "description": "Điện Biên là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử vẻ vang và các bản làng văn hóa độc đáo.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "package_type": "Tour Về Miền Lịch Sử Điện Biên Phủ 3D2N",
+        "highlights": ["Cánh đồng Mường Thanh", "Đồi A1", "Hầm De Castries"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+        "flight_time": "Bay trực tiếp hoặc qua Hà Nội lên Điện Biên"
     },
     "Lạng Sơn": {
-        "coords": (21.8526,106.7610 ),
+        "coords": (21.8526, 106.7610),
         "images": [
             "images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg",
             "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"
         ],
-        "description": " Lạng Sơn là một tỉnh miền núi biên giới nằm ở vùng Đông Bắc Bộ, nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
+        "description": "Lạng Sơn là tỉnh miền núi biên giới nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "package_type": "Tour Khám Phá Xứ Lạng 3D2N",
+        "highlights": ["Ải Chi Lăng", "Động Tam Thanh", "Chợ Kỳ Lừa"],
         "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lạng Sơn"
     }
 }
 
@@ -287,6 +291,9 @@ def get_image_base64(path):
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
+if st.session_state["selected_place"] not in DESTINATIONS:
+    st.session_state["selected_place"] = "Đà Nẵng"
+
 if "zoom_overview" not in st.session_state:
     st.session_state["zoom_overview"] = False
 
@@ -294,7 +301,7 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang (Đã bọc div.nav-row)
+# 4. Thanh điều hướng Tab Nằm Ngang (Được bọc div.nav-row để ép ngang)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
@@ -389,7 +396,7 @@ else:
 
         folium.Marker(
             location=HO_CHI_MINH_COORDS,
-            popup=folium.Popup("<div style='white-space: nowrap;'>Mốc xuất phát: TP. Hồ Chí Minh</div>", max_width=300),
+            popup="Mốc xuất phát: TP. Hồ Chí Minh",
             tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
             icon=folium.Icon(color="red", icon="star")
         ).add_to(m)
@@ -400,7 +407,7 @@ else:
             
             folium.Marker(
                 location=data["coords"],
-                popup=folium.Popup(f"<div style='white-space: nowrap;'>{name}</div>", max_width=300),
+                popup=name,
                 tooltip=f"Xem {name}",
                 icon=folium.Icon(color=marker_color, icon="info-sign")
             ).add_to(m)
