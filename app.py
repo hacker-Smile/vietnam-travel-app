@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS ép ghi đè tuyệt đối inline-style của Streamlit trên Mobile
+# Custom CSS ĐẶC TRỊ ÉP MOBILE XẾP DỌC 100% WIDTH
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -42,7 +42,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. ÉP THANH MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI MÀN HÌNH */
+        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -57,17 +57,22 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. TRÊN ĐIỆN THOẠI (< 768px): ÉP BẢN ĐỒ VÀ THÔNG TIN XẾP DỌC 100% WIDTH (GHI ĐÈ INLINE STYLE CỦA STREAMLIT) */
+        /* 2. ĐẶC TRỊ DÀNH CHO MOBILE (< 768px): Ép các cột Bản Đồ & Tour XẾP DỌC 100% WIDTH */
         @media screen and (max-width: 768px) {
+            /* Ép hàng chứa cột chuyển sang dạng cột dọc */
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
             }
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
+            
+            /* Ghi đè TẤT CẢ inline-style width px mà Streamlit tự chèn vào cột */
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="column"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="width"] {
                 width: 100% !important;
                 max-width: 100% !important;
+                min-width: 100% !important;
                 flex: 1 1 100% !important;
             }
         }
@@ -215,6 +220,231 @@ DESTINATIONS = {
             "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"
         ],
         "description": "Tuyên Quang là tỉnh giàu truyền thống cách mạng, nổi tiếng với di tích lịch sử Tân Trào và lễ hội Trung thu lớn nhất Việt Nam.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 3D2N",
+        "highlights": ["Thăm Khu di tích quốc gia đặc biệt Tân Trào", "Check-in Suối Khoáng Mỹ Lâm", "Tham gia Lễ hội Thành Tuyên"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Tuyên Quang"
+    },
+    "Lai Châu": {
+        "coords": (22.3992, 103.4392),
+        "images": [
+            "images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg",
+            "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"
+        ],
+        "description": "Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám phá Tây Bắc 3D2N",
+        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lai Châu"
+    },
+    "Thái Nguyên": {
+        "coords": (21.5942, 105.8482),
+        "images": [
+            "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
+            "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
+        ],
+        "description": "Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt và văn hóa trà lâu đời.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Trải nghiệm Vùng Trà & Sinh Thái 3D2N",
+        "highlights": ["Đồi chè Tân Cương", "Hồ Núi Cốc", "Khu di tích lịch sử ATK Định Hóa"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Thái Nguyên"
+    },
+    "Điện Biên": {
+        "coords": (21.38602, 103.02301),
+        "images": [
+            "images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg",
+            "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"
+        ],
+        "description": "Điện Biên là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử vẻ vang và các bản làng văn hóa độc đáo.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Về Miền Lịch Sử Điện Biên Phủ 3D2N",
+        "highlights": ["Cánh đồng Mường Thanh", "Đồi A1", "Hầm De Castries"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay trực tiếp hoặc qua Hà Nội lên Điện Biên"
+    },
+    "Lạng Sơn": {
+        "coords": (21.8526, 106.7610),
+        "images": [
+            "images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg",
+            "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"
+        ],
+        "description": "Lạng Sơn là tỉnh miền núi biên giới nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
+        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
+        "package_type": "Tour Khám Phá Xứ Lạng 3D2N",
+        "highlights": ["Ải Chi Lăng", "Động Tam Thanh", "Chợ Kỳ Lừa"],
+        "avg_speed_kmh": 45,
+        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lạng Sơn"
+    }
+}
+
+# ---------------------------------------------------------
+# 3. Hàm tính toán khoảng cách & thời gian di chuyển
+# ---------------------------------------------------------
+def calculate_metrics(target_coords, avg_speed_kmh):
+    dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
+    road_dist_km = dist_km * 1.3
+    drive_hours = road_dist_km / avg_speed_kmh
+    hours = int(drive_hours)
+    minutes = int((drive_hours - hours) * 60)
+    return round(road_dist_km, 1), f"{hours} giờ {minutes} phút"
+
+def get_image_base64(path):
+    if path.startswith("http"):
+        return path
+    try:
+        if os.path.exists(path):
+            with open(path, "rb") as f:
+                data = f.read()
+            encoded = base64.b64encode(data).decode()
+            return f"data:image/jpeg;base64,{encoded}"
+    except Exception:
+        pass
+    return path
+
+# Quản lý trạng thái
+if "selected_place" not in st.session_state:
+    st.session_state["selected_place"] = "Đà Nẵng"
+
+if st.session_state["selected_place"] not in DESTINATIONS:
+    st.session_state["selected_place"] = "Đà Nẵng"
+
+if "zoom_overview" not in st.session_state:
+    st.session_state["zoom_overview"] = False
+
+if "nav_page" not in st.session_state:
+    st.session_state["nav_page"] = "🏠 Trang Chủ"
+
+# ---------------------------------------------------------
+# 4. Thanh điều hướng Tab Nằm Ngang
+# ---------------------------------------------------------
+st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+
+nav_col1, nav_col2 = st.columns([1, 1])
+
+with nav_col1:
+    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
+    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
+        st.session_state["nav_page"] = "🏠 Trang Chủ"
+        st.rerun()
+
+with nav_col2:
+    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
+    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
+        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+        st.rerun()
+
+st.markdown("---")
+
+# =========================================================
+# GIAO DIỆN TRANG CHỦ (HOME PAGE)
+# =========================================================
+if st.session_state["nav_page"] == "🏠 Trang Chủ":
+    st.markdown("""
+        <div class="hero-banner">
+            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
+            <p>Trải nghiệm dịch vụ đặt tour, tra cứu khoảng cách và khám phá danh lam thắng cảnh Việt Nam dễ dàng nhất.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
+    st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
+
+    # Hiển thị danh sách tour hot dạng lưới 3 cột
+    cols = st.columns(3)
+    idx = 0
+    for name, data in DESTINATIONS.items():
+        with cols[idx % 3]:
+            with st.container(border=True):
+                cover_img = get_image_base64(data["images"][0])
+                st.image(cover_img, use_container_width=True)
+                st.markdown(f"#### **{name}**")
+                st.caption(f"📌 {data['package_type']}")
+                st.write(data["description"][:85] + "...")
+                st.success(f"💰 {data['avg_price'].split(' - ')[0]}")
+                
+                if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
+                    st.session_state["selected_place"] = name
+                    st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+                    st.rerun()
+        idx += 1
+
+# =========================================================
+# GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
+# =========================================================
+else:
+    col_map, col_info = st.columns([1.2, 1])
+
+    with col_map:
+        st.subheader("📍 Bản Đồ Việt Nam")
+        
+        col_btn1, col_btn2 = st.columns([1, 1])
+        with col_btn1:
+            if st.button("🔍 Focus Điểm Đến", use_container_width=True):
+                st.session_state["zoom_overview"] = False
+                st.rerun()
+        with col_btn2:
+            if st.button("🌍 Toàn Cảnh Việt Nam", use_container_width=True):
+                st.session_state["zoom_overview"] = True
+                st.rerun()
+
+        if st.session_state["zoom_overview"]:
+            map_center = [16.0000, 106.0000]
+            map_zoom = 5
+        else:
+            current_coords = DESTINATIONS[st.session_state["selected_place"]]["coords"]
+            map_center = [
+                (HO_CHI_MINH_COORDS[0] + current_coords[0]) / 2,
+                (HO_CHI_MINH_COORDS[1] + current_coords[1]) / 2
+            ]
+            map_zoom = 7
+
+        m = folium.Map(
+            location=map_center,
+            zoom_start=map_zoom,
+            tiles="https://mt1.google.com/vt/lyrs=m&hl=vi&x={x}&y={y}&z={z}",
+            attr="Google Maps",
+            attribution_control=False
+        )
+
+        folium.Marker(
+            location=HO_CHI_MINH_COORDS,
+            popup="Mốc xuất phát: TP. Hồ Chí Minh",
+            tooltip="Mốc xuất phát: TP. Hồ Chí Minh",
+            icon=folium.Icon(color="red", icon="star")
+        ).add_to(m)
+
+        for name, data in DESTINATIONS.items():
+            is_selected = (name == st.session_state["selected_place"])
+            marker_color = "orange" if is_selected else "blue"
+            
+            folium.Marker(
+                location=data["coords"],
+                popup=name,
+                tooltip=f"Xem {name}",
+                icon=folium.Icon(color=marker_color, icon="info-sign")
+            ).add_to(m)
+
+            if is_selected:
+                folium.PolyLine(
+                    locations=[HO_CHI_MINH_COORDS, data["coords"]],
+                    color="red",
+                    weight=3,
+                    opacity=0.8,
+                    dash_array="5, 10"
+                ).add_to(m)
+
+        map_data = st_folium(m, width="100%", height=420)
+
+        clicked_place = None
+        if map_data:
+            if map_data.get("last_object_clicked_popup"):
+                clicked_place = map_data["last_object_clicked_popup"]
+            elif map_data.get("last_clicked"):
+                click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
+                for name, data inách mạng, nổi tiếng với di tích lịch sử Tân Trào và lễ hội Trung thu lớn nhất Việt Nam.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 3D2N",
         "highlights": ["Thăm Khu di tích quốc gia đặc biệt Tân Trào", "Check-in Suối Khoáng Mỹ Lâm", "Tham gia Lễ hội Thành Tuyên"],
