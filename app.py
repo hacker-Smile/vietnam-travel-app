@@ -244,13 +244,13 @@ DESTINATIONS = {
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     },
-    "Thái Nguyên": {
-        "coords": (21.5942,105.8482 ),
+    "Lạng Sơn": {
+        "coords": (21.8526,106.7610 ),
         "images": [
             "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
             "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
         ],
-        "description": " Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt, văn hóa trà lâu đời và các di tích lịch sử cách mạng quan trọng.",
+        "description": " Lạng Sơn là một tỉnh miền núi biên giới nằm ở vùng Đông Bắc Bộ, nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
         "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
