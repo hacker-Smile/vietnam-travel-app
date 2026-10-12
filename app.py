@@ -232,7 +232,7 @@ DESTINATIONS = {
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     },
     "Lai Châu": {
-        "coords": (22.0000, 103.0000),
+        "coords": (22.3992, 103.4392),
         "images": [
             "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
             "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
