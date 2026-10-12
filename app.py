@@ -218,7 +218,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     },
-    "Quảng Minh": {
+    "Quảng Nam": {
         "coords": (15.648, 108.16),
         "images": [
             "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
