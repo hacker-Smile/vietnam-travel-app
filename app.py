@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện và ép menu luôn nằm ngang trên điện thoại
+# Custom CSS tinh chỉnh giao diện chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,34 +41,6 @@ st.markdown("""
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
-        }
-
-        /* GHI ĐÈ CSS MẶC ĐỊNH CỦA STREAMLIT TRÊN ĐIỆN THOẠI */
-        @media (max-width: 640px) {
-            div.nav-row [data-testid="stHorizontalBlock"] {
-                display: flex !important;
-                flex-direction: row !important;
-                flex-wrap: nowrap !important;
-                gap: 10px !important;
-            }
-            div.nav-row [data-testid="stHorizontalBlock"] > div {
-                flex: 1 1 0% !important;
-                width: 50% !important;
-                min-width: 0 !important;
-            }
-        }
-
-        /* Khối nav-row chung cho mọi màn hình */
-        div.nav-row [data-testid="stHorizontalBlock"] {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            gap: 10px !important;
-        }
-        div.nav-row [data-testid="stHorizontalBlock"] > div {
-            flex: 1 1 0% !important;
-            width: 50% !important;
-            min-width: 0 !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -311,27 +283,83 @@ if "zoom_overview" not in st.session_state:
 if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
+# Xử lý query param chuyển trang qua HTML component
+query_params = st.query_params
+if "nav" in query_params:
+    nav_val = query_params["nav"]
+    if nav_val == "home" and st.session_state["nav_page"] != "🏠 Trang Chủ":
+        st.session_state["nav_page"] = "🏠 Trang Chủ"
+        st.rerun()
+    elif nav_val == "booking" and st.session_state["nav_page"] != "🗺️ Tra Cứu & Đặt Tour":
+        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+        st.rerun()
+
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang (Được bọc div.nav-row để ép ngang)
+# 4. Thanh điều hướng Tab Nằm Ngang 100% Cố Định Bằng HTML Component (Miễn nhiễm với CSS của Streamlit)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
-st.markdown('<div class="nav-row">', unsafe_allow_html=True)
-nav_col1, nav_col2 = st.columns([1, 1])
+is_home = (st.session_state["nav_page"] == "🏠 Trang Chủ")
 
-with nav_col1:
-    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
-    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
-        st.session_state["nav_page"] = "🏠 Trang Chủ"
-        st.rerun()
+nav_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .nav-container {{
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100%;
+        gap: 12px;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }}
+    .nav-container::-webkit-scrollbar {{
+        display: none;
+    }}
+    .nav-btn {{
+        flex: 1;
+        min-width: 140px;
+        padding: 12px 16px;
+        font-size: 15px;
+        font-weight: 600;
+        font-family: 'Roboto', sans-serif;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }}
+    .btn-home {{
+        background-color: {'#FF4B4B' if is_home else '#262730'};
+        color: white;
+        border: 1px solid {'#FF4B4B' if is_home else '#41444E'};
+    }}
+    .btn-booking {{
+        background-color: {'#262730' if is_home else '#FF4B4B'};
+        color: white;
+        border: 1px solid {'#41444E' if is_home else '#41444E'};
+    }}
+</style>
+</head>
+<body style="margin: 0; padding: 0; background: transparent;">
+    <div class="nav-container">
+        <a href="?nav=home" target="_self" class="nav-btn btn-home">🏠 Trang Chủ</a>
+        <a href="?nav=booking" target="_self" class="nav-btn btn-booking">🗺️ Đặt Tour</a>
+    </div>
+</body>
+</html>
+"""
 
-with nav_col2:
-    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
-    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
-        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-        st.rerun()
-st.markdown('</div>', unsafe_allow_html=True)
-
+components.html(nav_html, height=55, scrolling=False)
 st.markdown("---")
 
 # =========================================================
