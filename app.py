@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS ép hàng nút menu đầu tiên luôn nằm ngang 50%-50% trên mọi màn hình (kể cả điện thoại)
+# Custom CSS tinh chỉnh giao diện responsive chuyên nghiệp
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,7 +43,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* ÉP THANH MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
+        /* 1. ÉP HÀNG MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
         [data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -56,6 +56,18 @@ st.markdown("""
             flex: 1 1 50% !important;
             width: 50% !important;
             min-width: 0 !important;
+        }
+
+        /* 2. TRÊN ĐIỆN THOẠI (< 768px): CÁC KHỐI NỘI DUNG BÊN DƯỚI TỰ ĐỘNG XẾP DỌC 100% ĐỂ CÂN ĐỐI */
+        @media (max-width: 768px) {
+            [data-testid="stHorizontalBlock"]:not(:first-of-type) {
+                flex-direction: column !important;
+            }
+            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="column"],
+            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="stColumn"] {
+                width: 100% !important;
+                flex: 1 1 100% !important;
+            }
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
@@ -299,7 +311,7 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang (Dùng st.columns chuẩn kết hợp CSS :first-of-type)
+# 4. Thanh điều hướng Tab Nằm Ngang
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
