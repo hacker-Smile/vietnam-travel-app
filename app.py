@@ -27,12 +27,11 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện responsive chuyên nghiệp
+# Custom CSS ép ghi đè tuyệt đối inline-style của Streamlit trên Mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* Áp dụng phông chữ Roboto cho toàn bộ trang web */
         html, body, [class*="css"], * {
             font-family: 'Roboto', sans-serif !important;
         }
@@ -43,29 +42,32 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. ÉP HÀNG MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
-        [data-testid="stHorizontalBlock"]:first-of-type {
+        /* 1. ÉP THANH MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI MÀN HÌNH */
+        div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
             gap: 10px !important;
         }
         
-        [data-testid="stHorizontalBlock"]:first-of-type > [data-testid="column"], 
-        [data-testid="stHorizontalBlock"]:first-of-type > [data-testid="stColumn"] {
+        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="stColumn"],
+        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="column"] {
             flex: 1 1 50% !important;
             width: 50% !important;
             min-width: 0 !important;
         }
 
-        /* 2. TRÊN ĐIỆN THOẠI (< 768px): CÁC KHỐI NỘI DUNG BÊN DƯỚI TỰ ĐỘNG XẾP DỌC 100% ĐỂ CÂN ĐỐI */
-        @media (max-width: 768px) {
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) {
+        /* 2. TRÊN ĐIỆN THOẠI (< 768px): ÉP BẢN ĐỒ VÀ THÔNG TIN XẾP DỌC 100% WIDTH (GHI ĐÈ INLINE STYLE CỦA STREAMLIT) */
+        @media screen and (max-width: 768px) {
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
+                display: flex !important;
                 flex-direction: column !important;
-            }
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="column"],
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="stColumn"] {
                 width: 100% !important;
+            }
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
+                width: 100% !important;
+                max-width: 100% !important;
                 flex: 1 1 100% !important;
             }
         }
@@ -99,7 +101,7 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch với bộ hình ảnh chuẩn xác
+# 2. Dữ liệu các điểm du lịch
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
