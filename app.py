@@ -234,13 +234,13 @@ DESTINATIONS = {
     "Lai Châu": {
         "coords": (22.3992, 103.4392),
         "images": [
-            "images/BK1.jpg", "images/BK2.jpg", "images/BK3.jpg", "images/BK4.jpg",
-            "images/BK5.jpg", "images/BK6.jpg", "images/BK7.jpg", "images/BK8.jpg"
+            "images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg",
+            "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"
         ],
-        "description": "Bắc Kạn là một tỉnh thuộc vùng Đông Bắc Bộ, Việt Nam, nổi tiếng với hồ Ba Bể thơ mộng và hệ sinh thái nguyên sinh.",
+        "description": " Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Khám phá Hồ Ba Bể 3D2N",
-        "highlights": ["Thuyền tham quan hồ Ba Bể", "Động Puông", "Thác Đầu Đẳng"],
+        "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Bắc Kạn"
     }
