@@ -27,7 +27,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS ép 2 nút điều hướng LÔN NẰM NGANG trên mọi màn hình (kể cả di động)
+# Custom CSS tinh chỉnh giao diện và ép menu luôn nằm ngang trên điện thoại
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,21 +43,32 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* GHI ĐÈ CSS CỦA STREAMLIT: Ép st.columns trong khối nav-row luôn nằm ngang trên điện thoại */
+        /* GHI ĐÈ CSS MẶC ĐỊNH CỦA STREAMLIT TRÊN ĐIỆN THOẠI */
+        @media (max-width: 640px) {
+            div.nav-row [data-testid="stHorizontalBlock"] {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                gap: 10px !important;
+            }
+            div.nav-row [data-testid="stHorizontalBlock"] > div {
+                flex: 1 1 0% !important;
+                width: 50% !important;
+                min-width: 0 !important;
+            }
+        }
+
+        /* Khối nav-row chung cho mọi màn hình */
         div.nav-row [data-testid="stHorizontalBlock"] {
             display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
             gap: 10px !important;
-            overflow-x: auto !important;
-            -webkit-overflow-scrolling: touch !important;
-            padding-bottom: 4px !important;
         }
-
         div.nav-row [data-testid="stHorizontalBlock"] > div {
             flex: 1 1 0% !important;
-            min-width: 130px !important; /* Đảm bảo nút không bị bóp nghẹt quá nhỏ */
-            width: auto !important;
+            width: 50% !important;
+            min-width: 0 !important;
         }
 
         /* Banner phong cách Traveloka ở trang chủ */
