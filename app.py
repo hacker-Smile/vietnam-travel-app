@@ -179,19 +179,6 @@ DESTINATIONS = {
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
     },
-    "Hà Giang": {
-        "coords": (22.8233, 104.9836),
-        "images": [
-            "images/HG1.jpg", "images/HG2.jpg", "images/HG3.jpg", "images/HG4.jpg",
-            "images/HG5.jpg", "images/HG6.jpg", "images/HG7.jpg", "images/HG8.jpg"
-        ],
-        "description": "Tỉnh miền núi cực Bắc của Việt Nam, nổi tiếng với cao nguyên đá vôi hùng vĩ, những cung đường đèo hiểm trở và cảnh sắc thiên nhiên.",
-        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
-        "package_type": "Tour Khám phá Cao nguyên đá 4D3N",
-        "highlights": ["Chinh phục Mã Pí Lèng", "Sông Nho Quế", "Dinh Vua Mèo"],
-        "avg_speed_kmh": 45,
-        "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm lên Hà Giang"
-    },
     "Cao Bằng": {
         "coords": (22.6656, 106.2607),
         "images": [
