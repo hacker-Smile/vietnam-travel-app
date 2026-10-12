@@ -114,7 +114,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 60,
         "flight_time": "2 giờ 05 phút (Bay trực tiếp từ TP.HCM)"
     },
-    "Đà Lạt (Lâm Đồng)": {
+    "Lâm Đồng": {
         "coords": (11.9404, 108.4583),
         "images": [
             "images/DL1.jpg", "images/DL2.jpg", "images/DL3.jpg", "images/DL4.jpg",
@@ -127,7 +127,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 50,
         "flight_time": "50 phút (Bay) hoặc 6-7 giờ (Xe Limousine từ TP.HCM)"
     },
-    "Phú Quốc (Kiên Giang)": {
+    "An Giang": {
         "coords": (10.2899, 103.9840),
         "images": [
             "images/PQ1.jpg", "images/PQ2.jpg", "images/PQ3.jpg", "images/PQ4.jpg",
@@ -140,7 +140,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 40,
         "flight_time": "1 giờ 00 phút (Bay trực tiếp từ TP.HCM)"
     },
-    "Nha Trang (Khánh Hòa)": {
+    "Khánh Hòa": {
         "coords": (12.2388, 109.1967),
         "images": [
             "images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg",
@@ -166,7 +166,7 @@ DESTINATIONS = {
         "avg_speed_kmh": 60,
         "flight_time": "Bay ra Hà Nội (2h) + Xe đưa đón cao tốc tới Quảng Ninh"
     },
-    "Sapa (Lào Cai)": {
+    "Lào Cai": {
         "coords": (22.3364, 103.8438),
         "images": [
             "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
