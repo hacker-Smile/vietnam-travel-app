@@ -21,7 +21,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
