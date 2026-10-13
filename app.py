@@ -442,4 +442,135 @@ else:
             elif map_data.get("last_clicked"):
                 click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
                 for name, data in DESTINATIONS.items():
-             
+                    if geodesic(click_coord, data["coords"]).km < 40:
+                        clicked_place = name
+                        break
+
+        if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
+            st.session_state["selected_place"] = clicked_place
+            st.session_state["zoom_overview"] = False
+            st.rerun()
+
+    with col_info:
+        st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
+        
+        selected_option = st.selectbox(
+            "✨ Lựa chọn điểm đến mơ ước của bạn:",
+            options=list(DESTINATIONS.keys()),
+            index=list(DESTINATIONS.keys()).index(st.session_state["selected_place"])
+        )
+
+        if selected_option != st.session_state["selected_place"]:
+            st.session_state["selected_place"] = selected_option
+            st.session_state["zoom_overview"] = False
+            st.rerun()
+
+        current_data = DESTINATIONS[st.session_state["selected_place"]]
+        road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
+        current_images = current_data["images"]
+
+        with st.container(border=True):
+            items_html = ""
+            for idx, img_path in enumerate(current_images):
+                img_src = get_image_base64(img_path)
+                items_html += f"""
+                    <div class="tiktok-item">
+                        <img src="{img_src}" alt="Image {idx+1}">
+                        <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
+                    </div>
+                """
+
+            carousel_html = f"""
+            <!DOCTYPE html>
+            <html>
+            <head>
+            <style>
+                .tiktok-carousel {{
+                    display: flex;
+                    overflow-x: auto;
+                    scroll-snap-type: x mandatory;
+                    scroll-behavior: smooth;
+                    -webkit-overflow-scrolling: touch;
+                    border-radius: 12px;
+                    gap: 12px;
+                    padding-bottom: 8px;
+                }}
+                .tiktok-carousel::-webkit-scrollbar {{
+                    display: none;
+                }}
+                .tiktok-carousel {{
+                    -ms-overflow-style: none;
+                    scrollbar-width: none;
+                }}
+                .tiktok-item {{
+                    flex: 0 0 100%;
+                    scroll-snap-align: center;
+                    border-radius: 12px;
+                    overflow: hidden;
+                    position: relative;
+                    aspect-ratio: 16 / 9;
+                    background-color: #f0f2f5;
+                    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+                }}
+                .tiktok-item img {{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 12px;
+                }}
+                .tiktok-badge {{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    background: rgba(0, 0, 0, 0.65);
+                    color: white;
+                    padding: 4px 10px;
+                    border-radius: 20px;
+                    font-size: 12px;
+                    font-weight: 500;
+                    font-family: 'Roboto', sans-serif;
+                }}
+            </style>
+            </head>
+            <body>
+                <div class="tiktok-carousel">
+                    {items_html}
+                </div>
+            </body>
+            </html>
+            """
+            components.html(carousel_html, height=310, scrolling=False)
+
+            st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
+            st.caption(f"📌 *{current_data['package_type']}*")
+            st.write(current_data["description"])
+            
+            st.markdown("---")
+            st.markdown("##### 🚗 **Thông Tin Di Chuyển (Xuất phát từ TP.HCM)**")
+            
+            col_m1, col_m2 = st.columns(2)
+            col_m1.metric(label="Khoảng cách ước tính", value=f"{road_dist} km")
+            col_m2.metric(label="Thời gian ô tô/xe khách", value=drive_time)
+            
+            st.info(f"✈️ **Gợi ý di chuyển hàng không:** {current_data['flight_time']}")
+
+            st.markdown("##### 💳 **Báo Giá & Ưu Đãi Trọn Gói**")
+            st.success(f"**Mức giá tham khảo:** {current_data['avg_price']}")
+
+            st.markdown("##### ⭐ **Điểm Nhấn Trải Nghiệm Nổi Bật**")
+            for tag in current_data["highlights"]:
+                st.markdown(f"✔️ {tag}")
+
+            st.markdown("---")
+            
+            col_book1, col_book2 = st.columns([2, 1])
+            with col_book1:
+                booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
+            with col_book2:
+                saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
+                
+            if booking_btn:
+                st.balloons()
+                st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
+            if saved_btn:
+                st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
