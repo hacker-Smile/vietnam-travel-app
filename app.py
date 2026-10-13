@@ -26,7 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Custom CSS ép mobile xếp dọc 100% width và nút menu nằm ngang
+# Custom CSS hoàn thiện: Ép menu ngang 50%-50% và ép các cột nội dung xếp dọc 100% trên mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,7 +41,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% */
+        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -56,21 +56,22 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. ĐẶC TRỊ DÀNH CHO MOBILE (< 768px): Ép các cột Bản Đồ & Tour XẾP DỌC 100% WIDTH */
+        /* 2. ĐẶC TRỊ DÀNH CHO MOBILE (< 768px): GHI ĐÈ INLINE STYLE, ÉP CÁC CỘT PHÍA DƯỚI XẾP DỌC 100% WIDTH */
         @media screen and (max-width: 768px) {
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
+                gap: 15px !important;
             }
             
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="stColumn"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[data-testid="column"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"],
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="width"] {
                 width: 100% !important;
                 max-width: 100% !important;
                 min-width: 100% !important;
-                flex: 1 1 100% !important;
+                flex: 0 0 auto !important;
             }
         }
 
@@ -348,7 +349,7 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
 
-    # Hiển thị danh sách tour hot dạng lưới 3 cột
+    # Hiển thị danh sách tour hot dạng lưới 3 cột (tự động xếp dọc trên điện thoại nhờ CSS)
     cols = st.columns(3)
     idx = 0
     for name, data in DESTINATIONS.items():
@@ -441,135 +442,4 @@ else:
             elif map_data.get("last_clicked"):
                 click_coord = (map_data["last_clicked"]["lat"], map_data["last_clicked"]["lng"])
                 for name, data in DESTINATIONS.items():
-                    if geodesic(click_coord, data["coords"]).km < 40:
-                        clicked_place = name
-                        break
-
-        if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
-            st.session_state["selected_place"] = clicked_place
-            st.session_state["zoom_overview"] = False
-            st.rerun()
-
-    with col_info:
-        st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
-        
-        selected_option = st.selectbox(
-            "✨ Lựa chọn điểm đến mơ ước của bạn:",
-            options=list(DESTINATIONS.keys()),
-            index=list(DESTINATIONS.keys()).index(st.session_state["selected_place"])
-        )
-
-        if selected_option != st.session_state["selected_place"]:
-            st.session_state["selected_place"] = selected_option
-            st.session_state["zoom_overview"] = False
-            st.rerun()
-
-        current_data = DESTINATIONS[st.session_state["selected_place"]]
-        road_dist, drive_time = calculate_metrics(current_data["coords"], current_data["avg_speed_kmh"])
-        current_images = current_data["images"]
-
-        with st.container(border=True):
-            items_html = ""
-            for idx, img_path in enumerate(current_images):
-                img_src = get_image_base64(img_path)
-                items_html += f"""
-                    <div class="tiktok-item">
-                        <img src="{img_src}" alt="Image {idx+1}">
-                        <div class="tiktok-badge">📷 {idx+1}/{len(current_images)}</div>
-                    </div>
-                """
-
-            carousel_html = f"""
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <style>
-                .tiktok-carousel {{
-                    display: flex;
-                    overflow-x: auto;
-                    scroll-snap-type: x mandatory;
-                    scroll-behavior: smooth;
-                    -webkit-overflow-scrolling: touch;
-                    border-radius: 12px;
-                    gap: 12px;
-                    padding-bottom: 8px;
-                }}
-                .tiktok-carousel::-webkit-scrollbar {{
-                    display: none;
-                }}
-                .tiktok-carousel {{
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }}
-                .tiktok-item {{
-                    flex: 0 0 100%;
-                    scroll-snap-align: center;
-                    border-radius: 12px;
-                    overflow: hidden;
-                    position: relative;
-                    aspect-ratio: 16 / 9;
-                    background-color: #f0f2f5;
-                    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-                }}
-                .tiktok-item img {{
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 12px;
-                }}
-                .tiktok-badge {{
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    background: rgba(0, 0, 0, 0.65);
-                    color: white;
-                    padding: 4px 10px;
-                    border-radius: 20px;
-                    font-size: 12px;
-                    font-weight: 500;
-                    font-family: 'Roboto', sans-serif;
-                }}
-            </style>
-            </head>
-            <body>
-                <div class="tiktok-carousel">
-                    {items_html}
-                </div>
-            </body>
-            </html>
-            """
-            components.html(carousel_html, height=310, scrolling=False)
-
-            st.markdown(f"## 🌟 **{st.session_state['selected_place']}**")
-            st.caption(f"📌 *{current_data['package_type']}*")
-            st.write(current_data["description"])
-            
-            st.markdown("---")
-            st.markdown("##### 🚗 **Thông Tin Di Chuyển (Xuất phát từ TP.HCM)**")
-            
-            col_m1, col_m2 = st.columns(2)
-            col_m1.metric(label="Khoảng cách ước tính", value=f"{road_dist} km")
-            col_m2.metric(label="Thời gian ô tô/xe khách", value=drive_time)
-            
-            st.info(f"✈️ **Gợi ý di chuyển hàng không:** {current_data['flight_time']}")
-
-            st.markdown("##### 💳 **Báo Giá & Ưu Đãi Trọn Gói**")
-            st.success(f"**Mức giá tham khảo:** {current_data['avg_price']}")
-
-            st.markdown("##### ⭐ **Điểm Nhấn Trải Nghiệm Nổi Bật**")
-            for tag in current_data["highlights"]:
-                st.markdown(f"✔️ {tag}")
-
-            st.markdown("---")
-            
-            col_book1, col_book2 = st.columns([2, 1])
-            with col_book1:
-                booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
-            with col_book2:
-                saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
-                
-            if booking_btn:
-                st.balloons()
-                st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
-            if saved_btn:
-                st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
+             
