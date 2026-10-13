@@ -711,48 +711,34 @@ elif current_tab == "bookings":
     else:
         for idx, booking in enumerate(st.session_state["booked_tours"]):
             with st.container(border=True):
-                col_d1, col_d2 = st.columns([3, 1])
-                with col_d1:
-                    st.markdown(f"#### 🏷️ **{booking['tour']}**")
-                    st.caption(f"🕒 Thời gian đặt: {booking['time']}")
-                    st.write(f"👤 **Khách hàng:** {booking['name']} — 📞 **SĐT:** {booking['phone']}")
-                    st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
-                    st.success(f"💰 **Tổng giá trị gói:** {booking['price']}")
-                    st.info("📌 **Trạng thái:** Đã tiếp nhận đơn hàng — Nhân viên đang liên hệ xác nhận.")
-                with col_d2:
-                    if st.button("❌ Hủy đơn", key=f"cancel_book_{idx}", use_container_width=True):
-                        st.session_state["booked_tours"].pop(idx)
-                        st.success("Đã hủy đơn thành công!")
-                        st.rerun()
+                st.markdown(f"#### 🌟 **{booking['tour']}**")
+                st.caption(f"🕒 Thời gian đặt: {booking['time']}")
+                st.write(f"👤 **Họ tên:** {booking['name']} | 📞 **SĐT:** {booking['phone']}")
+                st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
+                st.success(f"💰 **Mức giá:** {booking['price']}")
 
 # =========================================================
-# TAB 5: TÀI KHOẢN
+# TAB 5: TÀI KHOẢN & CÀI ĐẶT
 # =========================================================
 elif current_tab == "account":
-    st.markdown("### 👤 **Thông Tin Tài Khoản & Ứng Dụng**")
+    st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
     
     with st.container(border=True):
-        st.markdown("#### **Mai Travel - Nền tảng Du Lịch Việt Nam**")
-        st.write("🌟 **Phiên bản:** 2.6.0 (Pro Mobile Edition)")
-        st.write("🇻🇳 **Mục tiêu:** Hỗ trợ trải nghiệm khám phá các danh lam thắng cảnh 63 tỉnh thành Việt Nam trực quan và hiện đại nhất.")
+        st.markdown("#### **Thông Tin Ứng Dụng**")
+        st.write("**Tên ứng dụng:** Mai Travel - Du Lịch Việt Nam")
+        st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
+        st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 1234")
         st.markdown("---")
-        st.markdown("📞 **Hỗ trợ khách hàng 24/7:** `1900 1234`")
-        st.markdown("📧 **Email liên hệ:** `support@maitravel.vn`")
-        
-        if st.button("🚪 Đăng xuất / Làm mới phiên", type="secondary"):
-            st.session_state.clear()
+        if st.button("🗑️ Xóa toàn bộ lịch sử đặt tour & yêu thích", type="secondary"):
+            st.session_state["saved_tours"] = []
+            st.session_state["booked_tours"] = []
+            st.success("Đã làm sạch dữ liệu phiên làm việc!")
             st.rerun()
 
 # ---------------------------------------------------------
-# THANH BOTTOM NAVIGATION CHUẨN APP (ICON Ở TRÊN, CHỮ Ở DƯỚI)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã sửa lỗi hiển thị & ghim đúng viewport)
 # ---------------------------------------------------------
-saved_count = len(st.session_state['saved_tours'])
-booked_count = len(st.session_state['booked_tours'])
-
-nav_html = f"""
-<!DOCTYPE html>
-<html>
-<head>
+menu_html = f"""
 <style>
     .bottom-nav {{
         position: fixed;
@@ -763,61 +749,52 @@ nav_html = f"""
         display: flex;
         justify-content: space-around;
         align-items: center;
-        padding: 8px 0 12px 0;
-        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
-        border-top: 1px solid #eaeaea;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+        padding: 10px 0;
         z-index: 999999;
+        border-top-left-radius: 16px;
+        border-top-right-radius: 16px;
+        border-top: 1px solid #f0f2f5;
     }}
     .nav-item {{
+        text-align: center;
         text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        color: #717171;
+        color: #666666;
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
         font-weight: 500;
-        transition: color 0.2s;
         flex: 1;
-        text-align: center;
-    }}
-    .nav-item:hover {{
-        color: #0071c2;
+        cursor: pointer;
+        transition: 0.2s;
     }}
     .nav-item.active {{
-        color: #0071c2;
+        color: #ff4b4b;
         font-weight: 700;
     }}
     .nav-icon {{
         font-size: 20px;
-        margin-bottom: 4px;
+        display: block;
+        margin-bottom: 2px;
     }}
 </style>
-</head>
-<body>
-    <div class="bottom-nav">
-        <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
-            <span class="nav-icon">🔍</span>
-            <span>Tìm kiếm</span>
-        </a>
-        <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
-            <span class="nav-icon">🗺️</span>
-            <span>Đặt tour</span>
-        </a>
-        <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
-            <span class="nav-icon">❤️</span>
-            <span>Đã lưu ({saved_count})</span>
-        </a>
-        <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
-            <span class="nav-icon">💼</span>
-            <span>Đã đặt ({booked_count})</span>
-        </a>
-        <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
-            <span class="nav-icon">👤</span>
-            <span>Tài khoản</span>
-        </a>
-    </div>
-</body>
-</html>
+
+<div class="bottom-nav">
+    <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+        <span class="nav-icon">🏠</span>Trang chủ
+    </a>
+    <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+        <span class="nav-icon">🗺️</span>Bản đồ
+    </a>
+    <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+        <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
+    </a>
+    <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+        <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
+    </a>
+    <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+        <span class="nav-icon">👤</span>Tài khoản
+    </a>
+</div>
 """
-components.html(nav_html, height=70, scrolling=False)
+
+st.markdown(menu_html, unsafe_allow_html=True)
