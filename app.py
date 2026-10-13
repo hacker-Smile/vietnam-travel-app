@@ -21,7 +21,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -55,83 +55,37 @@ if "saved_tours" not in st.session_state:
 if "booked_tours" not in st.session_state:
     st.session_state["booked_tours"] = []
 
-# Đọc tab hiện tại từ query params (Mặc định là 'home')
-query_params = st.query_params
-current_tab = query_params.get("tab", "home")
-
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH & THANH ĐIỀU HƯỚNG CỐ ĐỊNH Ở ĐÁY (BOTTOM NAV)
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
-st.markdown(f"""
+st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        html, body, [class*="css"], * {{
+        html, body, [class*="css"], * {
             font-family: 'Roboto', sans-serif !important;
-        }}
+        }
         
-        .stButton>button {{
+        .stButton>button {
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
-        }}
+        }
 
         /* BO TRÒN 4 GÓC BẢN ĐỒ */
         div[data-testid="stIFrame"], 
-        iframe {{
+        iframe {
             border-radius: 16px !important;
             overflow: hidden !important;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
-        }}
+        }
 
         /* Ẩn header, footer mặc định của Streamlit */
-        #MainMenu {{visibility: hidden;}}
-        footer {{visibility: hidden;}}
-        header {{visibility: hidden;}}
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
 
-        /* TĂNG PADDING DƯỚI ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE KHUẤT */
-        .block-container {{
-            padding-bottom: 90px !important;
-        }}
-
-        /* THANH ĐIỀU HƯỚNG ĐÁY MÀN HÌNH (BOTTOM NAVIGATION BAR) */
-        .bottom-nav {{
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #ffffff;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
-            z-index: 999999;
-            border-top: 1px solid #eaeaea;
-        }}
-        .bottom-nav-item {{
-            text-align: center;
-            text-decoration: none !important;
-            color: #888888;
-            font-size: 11px;
-            font-weight: 500;
-            font-family: 'Roboto', sans-serif;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: all 0.2s ease;
-        }}
-        .bottom-nav-item.active {{
-            color: #ff385c;
-            font-weight: 700;
-        }}
-        .bottom-nav-item span.icon {{
-            font-size: 20px;
-            margin-bottom: 3px;
-        }}
-
-        .hero-banner {{
+        .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
@@ -140,33 +94,10 @@ st.markdown(f"""
             border-radius: 16px;
             color: white;
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }}
+        }
     </style>
-
-    <div class="bottom-nav">
-        <a href="?tab=home" class="bottom-nav-item {'active' if current_tab == 'home' else ''}">
-            <span class="icon">🔍</span>
-            <span>Tìm kiếm</span>
-        </a>
-        <a href="?tab=map" class="bottom-nav-item {'active' if current_tab == 'map' else ''}">
-            <span class="icon">🗺️</span>
-            <span>Đặt tour</span>
-        </a>
-        <a href="?tab=saved" class="bottom-nav-item {'active' if current_tab == 'saved' else ''}">
-            <span class="icon">❤️</span>
-            <span>Đã lưu ({len(st.session_state['saved_tours'])})</span>
-        </a>
-        <a href="?tab=bookings" class="bottom-nav-item {'active' if current_tab == 'bookings' else ''}">
-            <span class="icon">💼</span>
-            <span>Đã đặt ({len(st.session_state['booked_tours'])})</span>
-        </a>
-        <a href="?tab=account" class="bottom-nav-item {'active' if current_tab == 'account' else ''}">
-            <span class="icon">👤</span>
-            <span>Tài khoản</span>
-        </a>
-    </div>
 """, unsafe_allow_html=True)
 
 # Tọa độ mốc gốc: TP. Hồ Chí Minh
@@ -423,12 +354,34 @@ def get_image_base64(path):
 
 # Tiêu đề ứng dụng
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+
+# ---------------------------------------------------------
+# THANH ĐIỀU HƯỚNG MENU CHÍNH (CÓ KEY ĐỂ CỐ ĐỊNH TRẠNG THÁI)
+# ---------------------------------------------------------
+saved_count = len(st.session_state['saved_tours'])
+booked_count = len(st.session_state['booked_tours'])
+
+menu_options = [
+    "🔍 Tìm kiếm", 
+    "🗺️ Đặt tour", 
+    f"❤️ Đã lưu ({saved_count})", 
+    f"💼 Đã đặt ({booked_count})", 
+    "👤 Tài khoản"
+]
+
+selected_menu = st.radio(
+    "Menu", 
+    options=menu_options, 
+    horizontal=True, 
+    label_visibility="collapsed",
+    key="main_navigation_tab"
+)
 st.markdown("---")
 
 # =========================================================
-# TAB 1: TÌM KIẾM / TRANG CHỦ (tab == 'home')
+# TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
-if current_tab == "home":
+if "Tìm kiếm" in selected_menu:
     st.markdown("""
         <div class="hero-banner">
             <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
@@ -438,7 +391,6 @@ if current_tab == "home":
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     
-    # Thanh tìm kiếm nhanh điểm đến
     search_query = st.text_input("🔍 Tìm kiếm nhanh điểm đến (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "")
 
     filtered_destinations = {
@@ -464,7 +416,7 @@ if current_tab == "home":
                 with col_h1:
                     if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                         st.session_state["selected_place"] = name
-                        st.query_params["tab"] = "map"
+                        st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
                         st.rerun()
                 with col_h2:
                     is_saved = name in st.session_state["saved_tours"]
@@ -472,10 +424,8 @@ if current_tab == "home":
                     if st.button(saved_label, key=f"save_hot_{name}", use_container_width=True):
                         if is_saved:
                             st.session_state["saved_tours"].remove(name)
-                            st.toast(f"Đã xóa {name} khỏi danh sách lưu!")
                         else:
                             st.session_state["saved_tours"].append(name)
-                            st.toast(f"Đã lưu {name} thành công!")
                         st.rerun()
     else:
         cols = st.columns(3)
@@ -494,7 +444,7 @@ if current_tab == "home":
                     with col_h1:
                         if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                             st.session_state["selected_place"] = name
-                            st.query_params["tab"] = "map"
+                            st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
                             st.rerun()
                     with col_h2:
                         is_saved = name in st.session_state["saved_tours"]
@@ -502,17 +452,15 @@ if current_tab == "home":
                         if st.button(saved_label, key=f"save_hot_{name}", use_container_width=True):
                             if is_saved:
                                 st.session_state["saved_tours"].remove(name)
-                                st.toast(f"Đã xóa {name} khỏi danh sách lưu!")
                             else:
                                 st.session_state["saved_tours"].append(name)
-                                st.toast(f"Đã lưu {name} thành công!")
                             st.rerun()
             idx += 1
 
 # =========================================================
-# TAB 2: ĐẶT TOUR & BẢN ĐỒ (tab == 'map')
+# TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
-elif current_tab == "map":
+elif "Đặt tour" in selected_menu:
     def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
@@ -725,9 +673,9 @@ elif current_tab == "map":
             render_info_content()
 
 # =========================================================
-# TAB 3: ĐÃ LƯU (tab == 'saved')
+# TAB 3: ĐÃ LƯU
 # =========================================================
-elif current_tab == "saved":
+elif "Đã lưu" in selected_menu:
     st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
     
     if not st.session_state["saved_tours"]:
@@ -750,7 +698,7 @@ elif current_tab == "saved":
                         with col_b1:
                             if st.button(f"🚀 Xem tour", key=f"go_{name}", use_container_width=True):
                                 st.session_state["selected_place"] = name
-                                st.query_params["tab"] = "map"
+                                st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
                                 st.rerun()
                         with col_b2:
                             if st.button(f"🗑️ Xóa", key=f"del_{name}", use_container_width=True):
@@ -758,9 +706,9 @@ elif current_tab == "saved":
                                 st.rerun()
 
 # =========================================================
-# TAB 4: TOUR ĐÃ ĐẶT / ĐẶT CHỖ (tab == 'bookings')
+# TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
-elif current_tab == "bookings":
+elif "Đã đặt" in selected_menu:
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
@@ -768,17 +716,24 @@ elif current_tab == "bookings":
     else:
         for idx, booking in enumerate(st.session_state["booked_tours"]):
             with st.container(border=True):
-                st.markdown(f"#### 🏷️ **{booking['tour']}**")
-                st.caption(f"🕒 Thời gian đặt: {booking['time']}")
-                st.write(f"👤 **Khách hàng:** {booking['name']} — 📞 **SĐT:** {booking['phone']}")
-                st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
-                st.success(f"💰 **Tổng giá trị gói:** {booking['price']}")
-                st.info("📌 **Trạng thái:** Đã tiếp nhận đơn hàng — Nhân viên đang liên hệ xác nhận.")
+                col_d1, col_d2 = st.columns([3, 1])
+                with col_d1:
+                    st.markdown(f"#### 🏷️ **{booking['tour']}**")
+                    st.caption(f"🕒 Thời gian đặt: {booking['time']}")
+                    st.write(f"👤 **Khách hàng:** {booking['name']} — 📞 **SĐT:** {booking['phone']}")
+                    st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
+                    st.success(f"💰 **Tổng giá trị gói:** {booking['price']}")
+                    st.info("📌 **Trạng thái:** Đã tiếp nhận đơn hàng — Nhân viên đang liên hệ xác nhận.")
+                with col_d2:
+                    if st.button("❌ Hủy đơn", key=f"cancel_book_{idx}", use_container_width=True):
+                        st.session_state["booked_tours"].pop(idx)
+                        st.success("Đã hủy đơn thành công!")
+                        st.rerun()
 
 # =========================================================
-# TAB 5: TÀI KHOẢN (tab == 'account')
+# TAB 5: TÀI KHOẢN
 # =========================================================
-elif current_tab == "account":
+elif "Tài khoản" in selected_menu:
     st.markdown("### 👤 **Thông Tin Tài Khoản & Ứng Dụng**")
     
     with st.container(border=True):
@@ -791,5 +746,4 @@ elif current_tab == "account":
         
         if st.button("🚪 Đăng xuất / Làm mới phiên", type="secondary"):
             st.session_state.clear()
-            st.query_params["tab"] = "home"
             st.rerun()
