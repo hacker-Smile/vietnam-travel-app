@@ -7,6 +7,7 @@ import streamlit.components.v1 as components
 import base64
 import os
 import requests
+from datetime import datetime
 
 # ---------------------------------------------------------
 # 1. Cấu hình trang web Streamlit
@@ -20,7 +21,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link vừa tạo vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -39,87 +40,144 @@ def send_booking_to_email(destination_name, package_price, full_name, phone_numb
     except Exception:
         return False
 
-# Ẩn header, menu chính và footer của Streamlit
-hide_streamlit_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+# ---------------------------------------------------------
+# QUẢN LÝ SESSION STATE
+# ---------------------------------------------------------
+if "selected_place" not in st.session_state:
+    st.session_state["selected_place"] = "Đà Nẵng"
 
-# Custom CSS giao diện & Bo tròn góc bản đồ
-st.markdown("""
+if "zoom_overview" not in st.session_state:
+    st.session_state["zoom_overview"] = False
+
+if "saved_tours" not in st.session_state:
+    st.session_state["saved_tours"] = []
+
+if "booked_tours" not in st.session_state:
+    st.session_state["booked_tours"] = []
+
+# Đọc tab hiện tại từ query params (Mặc định là 'home')
+query_params = st.query_params
+current_tab = query_params.get("tab", "home")
+
+# ---------------------------------------------------------
+# CSS TÙY CHỈNH & THANH ĐIỀU HƯỚNG CỐ ĐỊNH Ở ĐÁY (BOTTOM NAV)
+# ---------------------------------------------------------
+st.markdown(f"""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        html, body, [class*="css"], * {
+        html, body, [class*="css"], * {{
             font-family: 'Roboto', sans-serif !important;
-        }
+        }}
         
-        .stButton>button {
+        .stButton>button {{
             border-radius: 8px;
             font-weight: 600;
             font-family: 'Roboto', sans-serif !important;
-        }
+        }}
 
-        /* BO TRÒN 4 GÓC BẢN ĐỒ FOLIUM / GOOGLE MAPS */
+        /* BO TRÒN 4 GÓC BẢN ĐỒ */
         div[data-testid="stIFrame"], 
-        iframe {
+        iframe {{
             border-radius: 16px !important;
             overflow: hidden !important;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
-        }
+        }}
 
-        /* Thanh menu 2 nút luôn nằm ngang 50% - 50% */
-        div[data-testid="stHorizontalBlock"]:first-of-type {
-            display: flex !important;
-            flex-direction: row !important;
-            flex-wrap: nowrap !important;
-            gap: 10px !important;
-        }
-        
-        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="stColumn"],
-        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="column"] {
-            flex: 1 1 50% !important;
-            width: 50% !important;
-            min-width: 0 !important;
-        }
+        /* Ẩn header, footer mặc định của Streamlit */
+        #MainMenu {{visibility: hidden;}}
+        footer {{visibility: hidden;}}
+        header {{visibility: hidden;}}
 
-        .hero-banner {
+        /* TĂNG PADDING DƯỚI ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE KHUẤT */
+        .block-container {{
+            padding-bottom: 90px !important;
+        }}
+
+        /* THANH ĐIỀU HƯỚNG ĐÁY MÀN HÌNH (BOTTOM NAVIGATION BAR) */
+        .bottom-nav {{
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.1);
+            z-index: 999999;
+            border-top: 1px solid #eaeaea;
+        }}
+        .bottom-nav-item {{
+            text-align: center;
+            text-decoration: none !important;
+            color: #888888;
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s ease;
+        }}
+        .bottom-nav-item.active {{
+            color: #ff385c;
+            font-weight: 700;
+        }}
+        .bottom-nav-item span.icon {{
+            font-size: 20px;
+            margin-bottom: 3px;
+        }}
+
+        .hero-banner {{
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             border-radius: 16px;
             color: white;
             text-align: center;
             margin-bottom: 25px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-        }
-        .hero-banner h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .hero-banner p {
-            font-size: 15px;
-            font-weight: 300;
-        }
+        }}
     </style>
+
+    <div class="bottom-nav">
+        <a href="?tab=home" class="bottom-nav-item {'active' if current_tab == 'home' else ''}">
+            <span class="icon">🔍</span>
+            <span>Tìm kiếm</span>
+        </a>
+        <a href="?tab=map" class="bottom-nav-item {'active' if current_tab == 'map' else ''}">
+            <span class="icon">🗺️</span>
+            <span>Đặt tour</span>
+        </a>
+        <a href="?tab=saved" class="bottom-nav-item {'active' if current_tab == 'saved' else ''}">
+            <span class="icon">❤️</span>
+            <span>Đã lưu ({len(st.session_state['saved_tours'])})</span>
+        </a>
+        <a href="?tab=bookings" class="bottom-nav-item {'active' if current_tab == 'bookings' else ''}">
+            <span class="icon">💼</span>
+            <span>Đã đặt ({len(st.session_state['booked_tours'])})</span>
+        </a>
+        <a href="?tab=account" class="bottom-nav-item {'active' if current_tab == 'account' else ''}">
+            <span class="icon">👤</span>
+            <span>Tài khoản</span>
+        </a>
+    </div>
 """, unsafe_allow_html=True)
 
 # Tọa độ mốc gốc: TP. Hồ Chí Minh
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
-# Nhận diện thiết bị từ Request Header để phân biệt Điện thoại vs iPad/PC
+# Nhận diện thiết bị từ Request Header
 user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR GIỮA MÀN HÌNH (GIỐNG WEB NẠP GAME)
+# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH)
 # ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
@@ -152,12 +210,23 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
+                # Lưu vào danh sách tour đã đặt trong session
+                st.session_state["booked_tours"].append({
+                    "tour": destination_name,
+                    "price": package_price,
+                    "name": full_name,
+                    "phone": phone_number,
+                    "adults": num_adults,
+                    "children": num_children,
+                    "time": datetime.now().strftime("%d/%m/%Y %H:%M")
+                })
+                
                 st.balloons()
                 st.success(f"🎉 Chúc mừng quý khách **{full_name}** đã đăng ký thành công!")
                 st.info(f"📞 Tư vấn viên sẽ liên hệ qua SĐT **{phone_number}** trong thời gian sớm nhất.")
 
 # ---------------------------------------------------------
-# 3. Dữ liệu các điểm du lịch
+# 3. DỮ LIỆU CÁC ĐIỂM DU LỊCH
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -331,9 +400,6 @@ DESTINATIONS = {
     }
 }
 
-# ---------------------------------------------------------
-# 4. Hàm tính toán khoảng cách & thời gian di chuyển
-# ---------------------------------------------------------
 def calculate_metrics(target_coords, avg_speed_kmh):
     dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
     road_dist_km = dist_km * 1.3
@@ -355,56 +421,37 @@ def get_image_base64(path):
         pass
     return path
 
-# Quản lý trạng thái Session
-if "selected_place" not in st.session_state:
-    st.session_state["selected_place"] = "Đà Nẵng"
-
-if st.session_state["selected_place"] not in DESTINATIONS:
-    st.session_state["selected_place"] = "Đà Nẵng"
-
-if "zoom_overview" not in st.session_state:
-    st.session_state["zoom_overview"] = False
-
-if "nav_page" not in st.session_state:
-    st.session_state["nav_page"] = "🏠 Trang Chủ"
-
-# ---------------------------------------------------------
-# 5. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
-# ---------------------------------------------------------
+# Tiêu đề ứng dụng
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
-
-nav_col1, nav_col2 = st.columns([1, 1])
-
-with nav_col1:
-    btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
-    if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
-        st.session_state["nav_page"] = "🏠 Trang Chủ"
-        st.rerun()
-
-with nav_col2:
-    btn_type_booking = "primary" if st.session_state["nav_page"] == "🗺️ Tra Cứu & Đặt Tour" else "secondary"
-    if st.button("🗺️ Đặt Tour", type=btn_type_booking, use_container_width=True):
-        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-        st.rerun()
-
 st.markdown("---")
 
 # =========================================================
-# GIAO DIỆN TRANG CHỦ (HOME PAGE)
+# TAB 1: TÌM KIẾM / TRANG CHỦ (tab == 'home')
 # =========================================================
-if st.session_state["nav_page"] == "🏠 Trang Chủ":
+if current_tab == "home":
     st.markdown("""
         <div class="hero-banner">
-            <h1>Đưa bạn tới mọi chân trời</h1>
+            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
             <p>Trải nghiệm dịch vụ đặt tour, tra cứu khoảng cách và khám phá danh lam thắng cảnh Việt Nam dễ dàng nhất.</p>
         </div>
     """, unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
-    st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
+    
+    # Thanh tìm kiếm nhanh điểm đến
+    search_query = st.text_input("🔍 Tìm kiếm nhanh điểm đến (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "")
+
+    filtered_destinations = {
+        name: data for name, data in DESTINATIONS.items() 
+        if search_query.lower() in name.lower() or search_query.lower() in data["description"].lower()
+    }
+
+    if not filtered_destinations:
+        st.warning("Không tìm thấy điểm đến phù hợp với từ khóa của bạn!")
+        filtered_destinations = DESTINATIONS
 
     if is_phone:
-        for name, data in DESTINATIONS.items():
+        for name, data in filtered_destinations.items():
             with st.container(border=True):
                 cover_img = get_image_base64(data["images"][0])
                 st.image(cover_img, use_container_width=True)
@@ -413,14 +460,27 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
                 st.write(data["description"][:85] + "...")
                 st.success(f"💰 {data['avg_price'].split(' - ')[0]}")
                 
-                if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
-                    st.session_state["selected_place"] = name
-                    st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-                    st.rerun()
+                col_h1, col_h2 = st.columns(2)
+                with col_h1:
+                    if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
+                        st.session_state["selected_place"] = name
+                        st.query_params["tab"] = "map"
+                        st.rerun()
+                with col_h2:
+                    is_saved = name in st.session_state["saved_tours"]
+                    saved_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
+                    if st.button(saved_label, key=f"save_hot_{name}", use_container_width=True):
+                        if is_saved:
+                            st.session_state["saved_tours"].remove(name)
+                            st.toast(f"Đã xóa {name} khỏi danh sách lưu!")
+                        else:
+                            st.session_state["saved_tours"].append(name)
+                            st.toast(f"Đã lưu {name} thành công!")
+                        st.rerun()
     else:
         cols = st.columns(3)
         idx = 0
-        for name, data in DESTINATIONS.items():
+        for name, data in filtered_destinations.items():
             with cols[idx % 3]:
                 with st.container(border=True):
                     cover_img = get_image_base64(data["images"][0])
@@ -430,16 +490,29 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
                     st.write(data["description"][:85] + "...")
                     st.success(f"💰 {data['avg_price'].split(' - ')[0]}")
                     
-                    if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
-                        st.session_state["selected_place"] = name
-                        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-                        st.rerun()
+                    col_h1, col_h2 = st.columns(2)
+                    with col_h1:
+                        if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
+                            st.session_state["selected_place"] = name
+                            st.query_params["tab"] = "map"
+                            st.rerun()
+                    with col_h2:
+                        is_saved = name in st.session_state["saved_tours"]
+                        saved_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
+                        if st.button(saved_label, key=f"save_hot_{name}", use_container_width=True):
+                            if is_saved:
+                                st.session_state["saved_tours"].remove(name)
+                                st.toast(f"Đã xóa {name} khỏi danh sách lưu!")
+                            else:
+                                st.session_state["saved_tours"].append(name)
+                                st.toast(f"Đã lưu {name} thành công!")
+                            st.rerun()
             idx += 1
 
 # =========================================================
-# GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
+# TAB 2: ĐẶT TOUR & BẢN ĐỒ (tab == 'map')
 # =========================================================
-else:
+elif current_tab == "map":
     def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
@@ -449,7 +522,7 @@ else:
                 st.session_state["zoom_overview"] = False
                 st.rerun()
         with col_btn2:
-            if st.button("🌍 Toàn Cảnh Việt Nam", use_container_width=True):
+            if st.button("🌍 Toàn Cảnh VN", use_container_width=True):
                 st.session_state["zoom_overview"] = True
                 st.rerun()
 
@@ -564,10 +637,6 @@ else:
                 .tiktok-carousel::-webkit-scrollbar {{
                     display: none;
                 }}
-                .tiktok-carousel {{
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }}
                 .tiktok-item {{
                     flex: 0 0 100%;
                     scroll-snap-align: center;
@@ -594,7 +663,6 @@ else:
                     border-radius: 20px;
                     font-size: 12px;
                     font-weight: 500;
-                    font-family: 'Roboto', sans-serif;
                 }}
             </style>
             </head>
@@ -634,11 +702,17 @@ else:
                 if st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True):
                     booking_modal(st.session_state["selected_place"], current_data["avg_price"])
             with col_book2:
-                saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
-                if saved_btn:
-                    st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
+                is_saved = st.session_state["selected_place"] in st.session_state["saved_tours"]
+                save_btn_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
+                if st.button(save_btn_label, use_container_width=True):
+                    if is_saved:
+                        st.session_state["saved_tours"].remove(st.session_state["selected_place"])
+                        st.toast("Đã xóa khỏi danh sách yêu thích!")
+                    else:
+                        st.session_state["saved_tours"].append(st.session_state["selected_place"])
+                        st.toast("Đã thêm vào danh sách yêu thích!")
+                    st.rerun()
 
-    # Render giao diện Booking page dựa theo thiết bị
     if is_phone:
         render_map_content()
         st.markdown("---")
@@ -649,3 +723,73 @@ else:
             render_map_content()
         with col_info:
             render_info_content()
+
+# =========================================================
+# TAB 3: ĐÃ LƯU (tab == 'saved')
+# =========================================================
+elif current_tab == "saved":
+    st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
+    
+    if not st.session_state["saved_tours"]:
+        st.info("Bạn chưa lưu điểm đến nào. Hãy bấm nút **'Lưu tin'** ở các tour bạn quan tâm nhé!")
+    else:
+        for name in st.session_state["saved_tours"]:
+            if name in DESTINATIONS:
+                data = DESTINATIONS[name]
+                with st.container(border=True):
+                    col_s1, col_s2 = st.columns([1, 2])
+                    with col_s1:
+                        cover_img = get_image_base64(data["images"][0])
+                        st.image(cover_img, use_container_width=True)
+                    with col_s2:
+                        st.markdown(f"#### **{name}**")
+                        st.caption(f"📌 {data['package_type']}")
+                        st.success(f"💰 {data['avg_price']}")
+                        
+                        col_b1, col_b2 = st.columns(2)
+                        with col_b1:
+                            if st.button(f"🚀 Xem tour", key=f"go_{name}", use_container_width=True):
+                                st.session_state["selected_place"] = name
+                                st.query_params["tab"] = "map"
+                                st.rerun()
+                        with col_b2:
+                            if st.button(f"🗑️ Xóa", key=f"del_{name}", use_container_width=True):
+                                st.session_state["saved_tours"].remove(name)
+                                st.rerun()
+
+# =========================================================
+# TAB 4: TOUR ĐÃ ĐẶT / ĐẶT CHỖ (tab == 'bookings')
+# =========================================================
+elif current_tab == "bookings":
+    st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
+    
+    if not st.session_state["booked_tours"]:
+        st.info("Bạn chưa có đơn đặt tour nào. Hãy chọn tour và tiến hành đặt giữ chỗ ngay trên hệ thống!")
+    else:
+        for idx, booking in enumerate(st.session_state["booked_tours"]):
+            with st.container(border=True):
+                st.markdown(f"#### 🏷️ **{booking['tour']}**")
+                st.caption(f"🕒 Thời gian đặt: {booking['time']}")
+                st.write(f"👤 **Khách hàng:** {booking['name']} — 📞 **SĐT:** {booking['phone']}")
+                st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
+                st.success(f"💰 **Tổng giá trị gói:** {booking['price']}")
+                st.info("📌 **Trạng thái:** Đã tiếp nhận đơn hàng — Nhân viên đang liên hệ xác nhận.")
+
+# =========================================================
+# TAB 5: TÀI KHOẢN (tab == 'account')
+# =========================================================
+elif current_tab == "account":
+    st.markdown("### 👤 **Thông Tin Tài Khoản & Ứng Dụng**")
+    
+    with st.container(border=True):
+        st.markdown("#### **Mai Travel - Nền tảng Du Lịch Việt Nam**")
+        st.write("🌟 **Phiên bản:** 2.6.0 (Pro Mobile Edition)")
+        st.write("🇻🇳 **Mục tiêu:** Hỗ trợ trải nghiệm khám phá các danh lam thắng cảnh 63 tỉnh thành Việt Nam trực quan và hiện đại nhất.")
+        st.markdown("---")
+        st.markdown("📞 **Hỗ trợ khách hàng 24/7:** `1900 1234`")
+        st.markdown("📧 **Email liên hệ:** `support@maitravel.vn`")
+        
+        if st.button("🚪 Đăng xuất / Làm mới phiên", type="secondary"):
+            st.session_state.clear()
+            st.query_params["tab"] = "home"
+            st.rerun()
