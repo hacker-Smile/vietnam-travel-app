@@ -56,7 +56,7 @@ if "booked_tours" not in st.session_state:
     st.session_state["booked_tours"] = []
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH: BIẾN ST.RADIO THÀNH BOTTOM NAVIGATION BAR CỐ ĐỊNH Ở ĐÁY
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -84,6 +84,47 @@ st.markdown("""
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
+
+        /* TĂNG PADDING ĐÁY ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE KHUẤT */
+        .block-container {
+            padding-bottom: 100px !important;
+        }
+
+        /* BIẾN st.radio THÀNH THANH ĐIỀU HƯỚNG CỐ ĐỊNH Ở ĐÁY MÀN HÌNH */
+        div[data-testid="stRadio"] {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            background-color: #ffffff !important;
+            z-index: 999999 !important;
+            padding: 10px 0 15px 0 !important;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.12) !important;
+            border-top: 1px solid #eaeaea !important;
+        }
+
+        /* Sắp xếp các lựa chọn trong radio nằm ngang và đều nhau */
+        div[data-testid="stRadio"] > div {
+            display: flex !important;
+            justify-content: space-around !important;
+            flex-direction: row !important;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Ẩn chấm tròn mặc định của radio, biến thành nút bấm gọn gàng */
+        div[data-testid="stRadio"] label {
+            background-color: transparent !important;
+            border: none !important;
+            padding: 4px 8px !important;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        div[data-testid="stRadio"] label:hover {
+            background-color: #f7f7f7;
+        }
 
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
@@ -354,34 +395,12 @@ def get_image_base64(path):
 
 # Tiêu đề ứng dụng
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
-
-# ---------------------------------------------------------
-# THANH ĐIỀU HƯỚNG MENU CHÍNH (CÓ KEY ĐỂ CỐ ĐỊNH TRẠNG THÁI)
-# ---------------------------------------------------------
-saved_count = len(st.session_state['saved_tours'])
-booked_count = len(st.session_state['booked_tours'])
-
-menu_options = [
-    "🔍 Tìm kiếm", 
-    "🗺️ Đặt tour", 
-    f"❤️ Đã lưu ({saved_count})", 
-    f"💼 Đã đặt ({booked_count})", 
-    "👤 Tài khoản"
-]
-
-selected_menu = st.radio(
-    "Menu", 
-    options=menu_options, 
-    horizontal=True, 
-    label_visibility="collapsed",
-    key="main_navigation_tab"
-)
 st.markdown("---")
 
 # =========================================================
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
-if "Tìm kiếm" in selected_menu:
+if "Tìm kiếm" in st.session_state.get("main_navigation_tab", "🔍 Tìm kiếm"):
     st.markdown("""
         <div class="hero-banner">
             <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
@@ -460,7 +479,7 @@ if "Tìm kiếm" in selected_menu:
 # =========================================================
 # TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
-elif "Đặt tour" in selected_menu:
+elif "Đặt tour" in st.session_state.get("main_navigation_tab", ""):
     def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
@@ -675,7 +694,7 @@ elif "Đặt tour" in selected_menu:
 # =========================================================
 # TAB 3: ĐÃ LƯU
 # =========================================================
-elif "Đã lưu" in selected_menu:
+elif "Đã lưu" in st.session_state.get("main_navigation_tab", ""):
     st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
     
     if not st.session_state["saved_tours"]:
@@ -708,7 +727,7 @@ elif "Đã lưu" in selected_menu:
 # =========================================================
 # TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
-elif "Đã đặt" in selected_menu:
+elif "Đã đặt" in st.session_state.get("main_navigation_tab", ""):
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
@@ -733,7 +752,7 @@ elif "Đã đặt" in selected_menu:
 # =========================================================
 # TAB 5: TÀI KHOẢN
 # =========================================================
-elif "Tài khoản" in selected_menu:
+elif "Tài khoản" in st.session_state.get("main_navigation_tab", ""):
     st.markdown("### 👤 **Thông Tin Tài Khoản & Ứng Dụng**")
     
     with st.container(border=True):
@@ -747,3 +766,25 @@ elif "Tài khoản" in selected_menu:
         if st.button("🚪 Đăng xuất / Làm mới phiên", type="secondary"):
             st.session_state.clear()
             st.rerun()
+
+# ---------------------------------------------------------
+# ĐẶT THANH MENU DƯỚI ĐÁY BẰNG CSS FIXED BOTTOM
+# ---------------------------------------------------------
+saved_count = len(st.session_state['saved_tours'])
+booked_count = len(st.session_state['booked_tours'])
+
+menu_options = [
+    "🔍 Tìm kiếm", 
+    "🗺️ Đặt tour", 
+    f"❤️ Đã lưu ({saved_count})", 
+    f"💼 Đã đặt ({booked_count})", 
+    "👤 Tài khoản"
+]
+
+st.radio(
+    "Menu", 
+    options=menu_options, 
+    horizontal=True, 
+    label_visibility="collapsed",
+    key="main_navigation_tab"
+)
