@@ -26,7 +26,9 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Custom CSS cho giao diện chung
+# CSS ĐẶC TRỊ CƯỠNG CHẾ RESPONSIVE:
+# - PC / iPad (> 768px): Hiển thị 2 cột song song chuẩn đẹp.
+# - Mobile (< 768px): Ép TẤT CẢ các cột trừ menu xếp dọc 100% tràn màn hình.
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,7 +43,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Thanh menu 2 nút luôn 50% - 50% */
+        /* MENU 2 NÚT BAN ĐẦU: Luôn giữ 50% - 50% trên MỌI thiết bị */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -54,6 +56,28 @@ st.markdown("""
             flex: 1 1 50% !important;
             width: 50% !important;
             min-width: 0 !important;
+        }
+
+        /* DÀNH RIÊNG CHO ĐIỆN THOẠI (< 768px): Bẻ tất cả st.columns còn lại thành 100% width xếp dọc */
+        @media screen and (max-width: 768px) {
+            /* Chuyển container chứa cột sang flex-column */
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 20px !important;
+            }
+            
+            /* Đập tan inline style flex-basis/width của Streamlit trên Mobile */
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="flex"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="width"] {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 100% !important;
+                flex: 1 1 100% !important;
+            }
         }
 
         .hero-banner {
@@ -79,61 +103,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
-# SCRIPT JAVASCRIPT & CSS ĐẶC TRỊ MOBILE RESPONSIVE
-# Script này can thiệp trực tiếp vào DOM cha bên ngoài iframe để ghi đè thuộc tính width của Streamlit trên điện thoại
-responsive_script = """
-<script>
-function fixMobileLayout() {
-    const parentDoc = window.parent.document;
-    const width = window.parent.innerWidth;
-    const columns = parentDoc.querySelectorAll('div[data-testid="stColumn"], div[data-testid="column"]');
-    const horizontalBlocks = parentDoc.querySelectorAll('div[data-testid="stHorizontalBlock"]');
-    
-    // Nếu màn hình nhỏ hơn 768px (Điện thoại)
-    if (width < 768) {
-        horizontalBlocks.forEach((block, index) => {
-            if (index > 0) { // Bỏ qua thanh menu 2 nút đầu tiên
-                block.style.display = 'flex';
-                block.style.flexDirection = 'column';
-                block.style.width = '100%';
-            }
-        });
-        columns.forEach(col => {
-            // Nếu không thuộc thanh menu đầu tiên thì ép full 100%
-            if (!col.closest('div[data-testid="stHorizontalBlock"]:first-of-type')) {
-                col.style.width = '100%';
-                col.style.maxWidth = '100%';
-                col.style.minWidth = '100%';
-                col.style.flex = '1 1 100%';
-            }
-        });
-    } else {
-        // Màn hình iPad / PC (> 768px): Khôi phục lại dạng song song
-        horizontalBlocks.forEach((block, index) => {
-            if (index > 0) {
-                block.style.display = '';
-                block.style.flexDirection = '';
-                block.style.width = '';
-            }
-        });
-        columns.forEach(col => {
-            if (!col.closest('div[data-testid="stHorizontalBlock"]:first-of-type')) {
-                col.style.width = '';
-                col.style.maxWidth = '';
-                col.style.minWidth = '';
-                col.style.flex = '';
-            }
-        });
-    }
-}
-
-// Chạy khi tải trang và khi xoay/thay đổi kích thước màn hình
-fixMobileLayout();
-window.parent.addEventListener('resize', fixMobileLayout);
-</script>
-"""
-components.html(responsive_script, height=0, width=0)
 
 # Tọa độ mốc gốc: TP. Hồ Chí Minh
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
@@ -351,7 +320,7 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang
+# 4. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
@@ -385,7 +354,7 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
 
-    # Hiển thị 3 cột trên PC/iPad, tự động biến thành 1 cột trên Mobile nhờ JS
+    # 3 cột trên PC/iPad, tự bẻ dọc 100% width trên điện thoại
     cols = st.columns(3)
     idx = 0
     for name, data in DESTINATIONS.items():
@@ -406,8 +375,8 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
 
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
-# PC / iPad: Song song 2 cột (1.2 : 1)
-# Mobile: Tự động xuống hàng thành 100% full width
+# - PC / iPad (> 768px): Hiển thị 2 cột song song (1.2 : 1)
+# - Mobile (< 768px): CSS bẻ tự động thành 100% Width xếp dọc
 # =========================================================
 else:
     col_map, col_info = st.columns([1.2, 1])
