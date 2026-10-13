@@ -26,9 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# ---------------------------------------------------------
-# 2. CSS RESPONSIVE ĐẶC TRỊ CẤP ĐỘ ROOT (ĐẦP TÂN INLINE STYLES TRÊN MOBILE)
-# ---------------------------------------------------------
+# Custom CSS giao diện chung
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,7 +41,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. THANH MENU 2 NÚT ĐẦU TIÊN: Luôn nằm ngang 50% - 50% */
+        /* Thanh menu 2 nút đầu tiên luôn nằm ngang 50% - 50% */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -58,33 +56,12 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. ĐẬP TÂN CẤU TRÚC CHI SÓ CỘT NẰM NGANG TRÊN ĐIỆN THOẠI KHỔ NGHẼN (< 768px) */
-        @media screen and (max-width: 768px) {
-            /* Ép toàn bộ các thẻ chứa cột chuyển thành flex-direction: column */
-            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                margin: 0 !important;
-            }
-            
-            /* Triệt hạ hoàn toàn thuộc tính width/flex-basis mà Streamlit gắn inline */
-            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
-            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
-                width: 100% !important;
-                max-width: 100% !important;
-                min-width: 100% !important;
-                flex: 1 1 100% !important;
-                margin-bottom: 15px !important;
-            }
-        }
-
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 15px;
+            padding: 50px 20px;
             border-radius: 16px;
             color: white;
             text-align: center;
@@ -92,12 +69,12 @@ st.markdown("""
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         .hero-banner h1 {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
             margin-bottom: 10px;
         }
         .hero-banner p {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 300;
         }
     </style>
@@ -106,8 +83,12 @@ st.markdown("""
 # Tọa độ mốc gốc: TP. Hồ Chí Minh
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
+# Nhận diện thiết bị từ Request Header để phân biệt chính xác Điện thoại vs iPad/PC
+user_agent = st.context.headers.get("User-Agent", "").lower()
+is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
+
 # ---------------------------------------------------------
-# 3. Dữ liệu các điểm du lịch
+# 2. Dữ liệu các điểm du lịch
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -282,7 +263,7 @@ DESTINATIONS = {
 }
 
 # ---------------------------------------------------------
-# 4. Hàm tính toán khoảng cách & thời gian di chuyển
+# 3. Hàm tính toán khoảng cách & thời gian di chuyển
 # ---------------------------------------------------------
 def calculate_metrics(target_coords, avg_speed_kmh):
     dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
@@ -319,7 +300,7 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 5. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
+# 4. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
@@ -353,11 +334,9 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
 
-    # Lưới danh sách tour: Hiển thị 3 cột trên PC/iPad, tự động bẻ dọc full 100% trên điện thoại
-    cols = st.columns(3)
-    idx = 0
-    for name, data in DESTINATIONS.items():
-        with cols[idx % 3]:
+    if is_phone:
+        # Điện thoại: Hiển thị 1 cột dọc full width
+        for name, data in DESTINATIONS.items():
             with st.container(border=True):
                 cover_img = get_image_base64(data["images"][0])
                 st.image(cover_img, use_container_width=True)
@@ -370,17 +349,31 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
                     st.session_state["selected_place"] = name
                     st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
                     st.rerun()
-        idx += 1
+    else:
+        # PC / iPad: Hiển thị 3 cột ngang
+        cols = st.columns(3)
+        idx = 0
+        for name, data in DESTINATIONS.items():
+            with cols[idx % 3]:
+                with st.container(border=True):
+                    cover_img = get_image_base64(data["images"][0])
+                    st.image(cover_img, use_container_width=True)
+                    st.markdown(f"#### **{name}**")
+                    st.caption(f"📌 {data['package_type']}")
+                    st.write(data["description"][:85] + "...")
+                    st.success(f"💰 {data['avg_price'].split(' - ')[0]}")
+                    
+                    if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
+                        st.session_state["selected_place"] = name
+                        st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
+                        st.rerun()
+            idx += 1
 
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
-# PC / iPad: Tự động giữ dạng 2 cột song song (1.2 : 1)
-# Mobile: CSS cấp Root tự động cưỡng chế bẻ 100% Width xếp dọc
 # =========================================================
 else:
-    col_map, col_info = st.columns([1.2, 1])
-
-    with col_map:
+    def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
         col_btn1, col_btn2 = st.columns([1, 1])
@@ -457,7 +450,7 @@ else:
             st.session_state["zoom_overview"] = False
             st.rerun()
 
-    with col_info:
+    def render_info_content():
         st.markdown("### ✈️ Tra Cứu & Đặt Tour Du Lịch")
         
         selected_option = st.selectbox(
@@ -580,3 +573,15 @@ else:
                 st.success(f"🎉 Đã gửi yêu cầu giữ chỗ tour **{st.session_state['selected_place']}** thành công! Nhân viên tư vấn sẽ liên hệ với bạn trong ít phút.")
             if saved_btn:
                 st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
+
+    # Render giao diện Booking page dựa theo thiết bị đã nhận diện
+    if is_phone:
+        render_map_content()
+        st.markdown("---")
+        render_info_content()
+    else:
+        col_map, col_info = st.columns([1.2, 1])
+        with col_map:
+            render_map_content()
+        with col_info:
+            render_info_content()
