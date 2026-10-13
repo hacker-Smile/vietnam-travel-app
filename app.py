@@ -26,7 +26,9 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# CSS RESPONSIVE THÔNG MINH: Tự động song song trên PC/iPad và full width trên Mobile
+# ---------------------------------------------------------
+# 2. CSS RESPONSIVE ĐẶC TRỊ CẤP ĐỘ ROOT (ĐẦP TÂN INLINE STYLES TRÊN MOBILE)
+# ---------------------------------------------------------
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,7 +43,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. THANH MENU 2 NÚT ĐẦU TIÊN: Luôn nằm ngang 50% - 50% trên mọi thiết bị */
+        /* 1. THANH MENU 2 NÚT ĐẦU TIÊN: Luôn nằm ngang 50% - 50% */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -56,20 +58,25 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. CÁC KHỐI BỐ CỤC CHÍNH BÊN DƯỚI (Booking & Home): 
-           Sử dụng Flex-wrap thông minh: Tự động song song trên màn hình rộng 
-           và tự động xếp dọc full 100% khi màn hình thu nhỏ trên điện thoại */
-        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
-            display: flex !important;
-            flex-wrap: wrap !important;
-            gap: 20px !important;
-        }
-        
-        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
-        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
-            flex: 1 1 380px !important;
-            min-width: 340px !important;
-            max-width: 100% !important;
+        /* 2. ĐẬP TÂN CẤU TRÚC CHI SÓ CỘT NẰM NGANG TRÊN ĐIỆN THOẠI KHỔ NGHẼN (< 768px) */
+        @media screen and (max-width: 768px) {
+            /* Ép toàn bộ các thẻ chứa cột chuyển thành flex-direction: column */
+            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
+                display: flex !important;
+                flex-direction: column !important;
+                width: 100% !important;
+                margin: 0 !important;
+            }
+            
+            /* Triệt hạ hoàn toàn thuộc tính width/flex-basis mà Streamlit gắn inline */
+            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
+            [data-testid="stAppViewContent"] div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 100% !important;
+                flex: 1 1 100% !important;
+                margin-bottom: 15px !important;
+            }
         }
 
         .hero-banner {
@@ -77,7 +84,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 50px 20px;
+            padding: 40px 15px;
             border-radius: 16px;
             color: white;
             text-align: center;
@@ -85,12 +92,12 @@ st.markdown("""
             box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
         .hero-banner h1 {
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
             margin-bottom: 10px;
         }
         .hero-banner p {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 300;
         }
     </style>
@@ -100,7 +107,7 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch
+# 3. Dữ liệu các điểm du lịch
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -275,7 +282,7 @@ DESTINATIONS = {
 }
 
 # ---------------------------------------------------------
-# 3. Hàm tính toán khoảng cách & thời gian di chuyển
+# 4. Hàm tính toán khoảng cách & thời gian di chuyển
 # ---------------------------------------------------------
 def calculate_metrics(target_coords, avg_speed_kmh):
     dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
@@ -298,7 +305,7 @@ def get_image_base64(path):
         pass
     return path
 
-# Quản lý trạng thái
+# Quản lý trạng thái Session
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
 
@@ -312,7 +319,7 @@ if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
+# 5. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
@@ -346,7 +353,7 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
 
-    # 3 cột trên PC/iPad, tự động xếp dọc full width trên điện thoại
+    # Lưới danh sách tour: Hiển thị 3 cột trên PC/iPad, tự động bẻ dọc full 100% trên điện thoại
     cols = st.columns(3)
     idx = 0
     for name, data in DESTINATIONS.items():
@@ -367,6 +374,8 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
 
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
+# PC / iPad: Tự động giữ dạng 2 cột song song (1.2 : 1)
+# Mobile: CSS cấp Root tự động cưỡng chế bẻ 100% Width xếp dọc
 # =========================================================
 else:
     col_map, col_info = st.columns([1.2, 1])
