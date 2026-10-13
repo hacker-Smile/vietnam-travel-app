@@ -246,7 +246,7 @@ DESTINATIONS = {
             "images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg",
             "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"
         ],
-        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "K kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -647,7 +647,6 @@ elif current_tab == "map":
             with col_book2:
                 is_saved = st.session_state["selected_place"] in st.session_state["saved_tours"]
                 save_btn_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
-                # Đã thêm key tường minh để tránh lỗi mất state nút bấm
                 if st.button(save_btn_label, key=f"save_map_{st.session_state['selected_place']}", use_container_width=True):
                     if is_saved:
                         st.session_state["saved_tours"].remove(st.session_state["selected_place"])
@@ -737,7 +736,7 @@ elif current_tab == "account":
             st.rerun()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã fix mất dữ liệu & bỏ gạch chân)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã fix hoàn toàn lỗi tab & gạch chân)
 # ---------------------------------------------------------
 menu_html = f"""
 <style>
@@ -785,22 +784,23 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home" target="_top" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map" target="_top" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved" target="_top" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings" target="_top" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account" target="_top" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
 """
 
-components.html(menu_html, height=70, scrolling=False)
+# Dùng st.markdown thay cho components.html để ghim đúng viewport, loại bỏ cuộn thừa và nhận query params mượt mà
+st.markdown(menu_html, unsafe_allow_html=True)
