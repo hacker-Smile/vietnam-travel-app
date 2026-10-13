@@ -1,15 +1,4 @@
 import streamlit as st
-
-# Ẩn header, menu chính và footer của Streamlit
-hide_streamlit_style = """
-    <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    </style>
-"""
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 import folium
 from streamlit_folium import st_folium
 from geopy.distance import geodesic
@@ -27,12 +16,21 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS tinh chỉnh giao diện responsive chuyên nghiệp
+# Ẩn header, menu chính và footer của Streamlit
+hide_streamlit_style = """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
+# Custom CSS đặc trị siêu chuẩn cho mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* Áp dụng phông chữ Roboto cho toàn bộ trang web */
         html, body, [class*="css"], * {
             font-family: 'Roboto', sans-serif !important;
         }
@@ -43,34 +41,41 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. ÉP HÀNG MENU ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
-        [data-testid="stHorizontalBlock"]:first-of-type {
+        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
+        div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
             flex-wrap: nowrap !important;
             gap: 10px !important;
         }
         
-        [data-testid="stHorizontalBlock"]:first-of-type > [data-testid="column"], 
-        [data-testid="stHorizontalBlock"]:first-of-type > [data-testid="stColumn"] {
+        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="stColumn"],
+        div[data-testid="stHorizontalBlock"]:first-of-type > div[data-testid="column"] {
             flex: 1 1 50% !important;
             width: 50% !important;
             min-width: 0 !important;
         }
 
-        /* 2. TRÊN ĐIỆN THOẠI (< 768px): CÁC KHỐI NỘI DUNG BÊN DƯỚI TỰ ĐỘNG XẾP DỌC 100% ĐỂ CÂN ĐỐI */
-        @media (max-width: 768px) {
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) {
+        /* 2. CHỈ ĐỊNH CHÍNH XÁC KHỐI BẢN ĐỒ & TOUR XẾP DỌC TRÊN MOBILE (< 768px) */
+        @media screen and (max-width: 768px) {
+            /* Tìm đúng hàng chứa bản đồ (có iframe) để bẻ dọc thành 100% width */
+            div[data-testid="stHorizontalBlock"]:has(iframe) {
+                display: flex !important;
                 flex-direction: column !important;
-            }
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="column"],
-            [data-testid="stHorizontalBlock"]:not(:first-of-type) > [data-testid="stColumn"] {
                 width: 100% !important;
+                gap: 20px !important;
+            }
+            
+            div[data-testid="stHorizontalBlock"]:has(iframe) > div[data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:has(iframe) > div[data-testid="column"],
+            div[data-testid="stHorizontalBlock"]:has(iframe) > div {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 100% !important;
                 flex: 1 1 100% !important;
             }
         }
 
-        /* Banner phong cách Traveloka ở trang chủ */
         .hero-banner {
             background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
@@ -99,7 +104,7 @@ st.markdown("""
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch với bộ hình ảnh chuẩn xác
+# 2. Dữ liệu các điểm du lịch
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -199,7 +204,7 @@ DESTINATIONS = {
             "images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg",
             "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"
         ],
-        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu 'miền non nước ngàn năm' và sở hữu Thác Bản Giốc hùng vĩ.",
+        "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu miền non nước ngàn năm và sở hữu Thác Bản Giốc hùng vĩ.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
         "package_type": "Tour Non nước Cao Bằng 3D2N",
         "highlights": ["Thác Bản Giốc", "Động Ngườm Ngao", "Hồ Thang Hen"],
@@ -429,7 +434,7 @@ else:
                     dash_array="5, 10"
                 ).add_to(m)
 
-        map_data = st_folium(m, width="100%", height=485)
+        map_data = st_folium(m, width="100%", height=420)
 
         clicked_place = None
         if map_data:
