@@ -26,7 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# CSS RESPONSIVE CHUẨN XÁC 100% CHO MOBILE, IPAD VÀ PC
+# CSS RESPONSIVE THÔNG MINH: Tự động song song trên PC/iPad và full width trên Mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -56,25 +56,20 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. DÀNH RIÊNG CHO ĐIỆN THOẠI (< 768px): 
-           Chỉ bẻ các khối bố cục CHÍNH (cấp cao nhất) thành dọc 100%, 
-           giữ nguyên các nút bấm/metric con bên trong không bị ảnh hưởng. */
-        @media screen and (max-width: 768px) {
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
-                display: flex !important;
-                flex-direction: column !important;
-                width: 100% !important;
-                gap: 20px !important;
-            }
-            
-            /* Dùng toán tử trực tiếp (>) để chỉ tác động đến cột cấp 1 của trang */
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
-                width: 100% !important;
-                max-width: 100% !important;
-                min-width: 100% !important;
-                flex: 1 1 100% !important;
-            }
+        /* 2. CÁC KHỐI BỐ CỤC CHÍNH BÊN DƯỚI (Booking & Home): 
+           Sử dụng Flex-wrap thông minh: Tự động song song trên màn hình rộng 
+           và tự động xếp dọc full 100% khi màn hình thu nhỏ trên điện thoại */
+        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 20px !important;
+        }
+        
+        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
+        div.block-container div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
+            flex: 1 1 380px !important;
+            min-width: 340px !important;
+            max-width: 100% !important;
         }
 
         .hero-banner {
@@ -372,8 +367,6 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
 
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
-# - PC / iPad (> 768px): Song song 2 cột (1.2 : 1)
-# - Mobile (< 768px): Cột chính tự động bẻ dọc full 100%
 # =========================================================
 else:
     col_map, col_info = st.columns([1.2, 1])
