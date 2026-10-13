@@ -58,8 +58,16 @@ if "booked_tours" not in st.session_state:
 if "current_tab" not in st.session_state:
     st.session_state["current_tab"] = "home"
 
+# Lắng nghe query params từ menu HTML bấm chuyển tab
+query_params = st.query_params
+if "tab" in query_params:
+    target_tab = query_params["tab"]
+    if target_tab in ["home", "map", "saved", "bookings", "account"]:
+        if st.session_state["current_tab"] != target_tab:
+            st.session_state["current_tab"] = target_tab
+
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH: BIẾN ST.RADIO THÀNH BOTTOM NAV BAR GIỐNG APP CHUYÊN NGHIỆP
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -91,61 +99,6 @@ st.markdown("""
         /* TĂNG PADDING ĐÁY ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE */
         .block-container {
             padding-bottom: 110px !important;
-        }
-
-        /* GHIM THANH st.radio CỐ ĐỊNH Ở ĐÁY MÀN HÌNH */
-        div[data-testid="stRadio"] {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            background-color: #ffffff !important;
-            z-index: 999999 !important;
-            padding: 8px 0 12px 0 !important;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.1) !important;
-            border-top: 1px solid #eaeaea !important;
-            margin: 0 !important;
-        }
-
-        /* Sắp xếp các mục trải đều ngang */
-        div[data-testid="stRadio"] > div {
-            display: flex !important;
-            justify-content: space-around !important;
-            flex-direction: row !important;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* ẨN HOÀN TOÀN CÁC CHẤT TRÒN (RADIO BUTTON) */
-        div[data-testid="stRadio"] input[type="radio"] {
-            display: none !important;
-        }
-
-        /* Biến các nhãn thành các nút bấm điều hướng đẹp mắt */
-        div[data-testid="stRadio"] label {
-            background-color: transparent !important;
-            border: none !important;
-            padding: 6px 12px !important;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 500;
-            color: #555555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        div[data-testid="stRadio"] label:hover {
-            background-color: #f2f2f2;
-            color: #000000;
-        }
-
-        /* Làm nổi bật tab đang chọn */
-        div[data-testid="stRadio"] label[data-checked="true"],
-        div[data-testid="stRadio"] div[checked="true"] {
-            color: #ff4b4b !important;
-            font-weight: 700 !important;
         }
 
         .hero-banner {
@@ -204,7 +157,6 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
-                # Lưu vào danh sách tour đã đặt trong session
                 st.session_state["booked_tours"].append({
                     "tour": destination_name,
                     "price": package_price,
@@ -419,32 +371,12 @@ def get_image_base64(path):
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 st.markdown("---")
 
-# ---------------------------------------------------------
-# QUẢN LÝ TAB BẰNG ST.RADIO (ĐÃ ẨN HOÀN TOÀN CHẤM TRÒN BẰNG CSS)
-# ---------------------------------------------------------
-saved_count = len(st.session_state['saved_tours'])
-booked_count = len(st.session_state['booked_tours'])
-
-menu_options = [
-    "🔍 Tìm kiếm", 
-    "🗺️ Đặt tour", 
-    f"❤️ Đã lưu ({saved_count})", 
-    f"💼 Đã đặt ({booked_count})", 
-    "👤 Tài khoản"
-]
-
-selected_menu = st.radio(
-    "Menu", 
-    options=menu_options, 
-    horizontal=True, 
-    label_visibility="collapsed",
-    key="main_navigation_tab"
-)
+current_tab = st.session_state["current_tab"]
 
 # =========================================================
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
-if "Tìm kiếm" in selected_menu:
+if current_tab == "home":
     st.markdown("""
         <div class="hero-banner">
             <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
@@ -479,7 +411,7 @@ if "Tìm kiếm" in selected_menu:
                 with col_h1:
                     if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                         st.session_state["selected_place"] = name
-                        st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
+                        st.session_state["current_tab"] = "map"
                         st.rerun()
                 with col_h2:
                     is_saved = name in st.session_state["saved_tours"]
@@ -507,7 +439,7 @@ if "Tìm kiếm" in selected_menu:
                     with col_h1:
                         if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                             st.session_state["selected_place"] = name
-                            st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
+                            st.session_state["current_tab"] = "map"
                             st.rerun()
                     with col_h2:
                         is_saved = name in st.session_state["saved_tours"]
@@ -523,7 +455,7 @@ if "Tìm kiếm" in selected_menu:
 # =========================================================
 # TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
-elif "Đặt tour" in selected_menu:
+elif current_tab == "map":
     def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
@@ -738,7 +670,7 @@ elif "Đặt tour" in selected_menu:
 # =========================================================
 # TAB 3: ĐÃ LƯU
 # =========================================================
-elif "Đã lưu" in selected_menu:
+elif current_tab == "saved":
     st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
     
     if not st.session_state["saved_tours"]:
@@ -761,7 +693,7 @@ elif "Đã lưu" in selected_menu:
                         with col_b1:
                             if st.button(f"🚀 Xem tour", key=f"go_{name}", use_container_width=True):
                                 st.session_state["selected_place"] = name
-                                st.session_state["main_navigation_tab"] = "🗺️ Đặt tour"
+                                st.session_state["current_tab"] = "map"
                                 st.rerun()
                         with col_b2:
                             if st.button(f"🗑️ Xóa", key=f"del_{name}", use_container_width=True):
@@ -771,7 +703,7 @@ elif "Đã lưu" in selected_menu:
 # =========================================================
 # TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
-elif "Đã đặt" in selected_menu:
+elif current_tab == "bookings":
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
@@ -796,7 +728,7 @@ elif "Đã đặt" in selected_menu:
 # =========================================================
 # TAB 5: TÀI KHOẢN
 # =========================================================
-elif "Tài khoản" in selected_menu:
+elif current_tab == "account":
     st.markdown("### 👤 **Thông Tin Tài Khoản & Ứng Dụng**")
     
     with st.container(border=True):
@@ -810,3 +742,82 @@ elif "Tài khoản" in selected_menu:
         if st.button("🚪 Đăng xuất / Làm mới phiên", type="secondary"):
             st.session_state.clear()
             st.rerun()
+
+# ---------------------------------------------------------
+# THANH BOTTOM NAVIGATION CHUẨN APP (ICON Ở TRÊN, CHỮ Ở DƯỚI)
+# ---------------------------------------------------------
+saved_count = len(st.session_state['saved_tours'])
+booked_count = len(st.session_state['booked_tours'])
+
+nav_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    .bottom-nav {{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 8px 0 12px 0;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        border-top: 1px solid #eaeaea;
+        z-index: 999999;
+    }}
+    .nav-item {{
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: #717171;
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+        font-weight: 500;
+        transition: color 0.2s;
+        flex: 1;
+        text-align: center;
+    }}
+    .nav-item:hover {{
+        color: #0071c2;
+    }}
+    .nav-item.active {{
+        color: #0071c2;
+        font-weight: 700;
+    }}
+    .nav-icon {{
+        font-size: 20px;
+        margin-bottom: 4px;
+    }}
+</style>
+</head>
+<body>
+    <div class="bottom-nav">
+        <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+            <span class="nav-icon">🔍</span>
+            <span>Tìm kiếm</span>
+        </a>
+        <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+            <span class="nav-icon">🗺️</span>
+            <span>Đặt tour</span>
+        </a>
+        <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+            <span class="nav-icon">❤️</span>
+            <span>Đã lưu ({saved_count})</span>
+        </a>
+        <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+            <span class="nav-icon">💼</span>
+            <span>Đã đặt ({booked_count})</span>
+        </a>
+        <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+            <span class="nav-icon">👤</span>
+            <span>Tài khoản</span>
+        </a>
+    </div>
+</body>
+</html>
+"""
+components.html(nav_html, height=70, scrolling=False)
