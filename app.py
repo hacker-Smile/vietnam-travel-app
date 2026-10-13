@@ -26,9 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# CSS ĐẶC TRỊ CƯỠNG CHẾ RESPONSIVE:
-# - PC / iPad (> 768px): Hiển thị 2 cột song song chuẩn đẹp.
-# - Mobile (< 768px): Ép TẤT CẢ các cột trừ menu xếp dọc 100% tràn màn hình.
+# CSS RESPONSIVE CHUẨN XÁC 100% CHO MOBILE, IPAD VÀ PC
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -43,7 +41,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* MENU 2 NÚT BAN ĐẦU: Luôn giữ 50% - 50% trên MỌI thiết bị */
+        /* 1. THANH MENU 2 NÚT ĐẦU TIÊN: Luôn nằm ngang 50% - 50% trên mọi thiết bị */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -58,9 +56,10 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* DÀNH RIÊNG CHO ĐIỆN THOẠI (< 768px): Bẻ tất cả st.columns còn lại thành 100% width xếp dọc */
+        /* 2. DÀNH RIÊNG CHO ĐIỆN THOẠI (< 768px): 
+           Chỉ bẻ các khối bố cục CHÍNH (cấp cao nhất) thành dọc 100%, 
+           giữ nguyên các nút bấm/metric con bên trong không bị ảnh hưởng. */
         @media screen and (max-width: 768px) {
-            /* Chuyển container chứa cột sang flex-column */
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
                 display: flex !important;
                 flex-direction: column !important;
@@ -68,11 +67,9 @@ st.markdown("""
                 gap: 20px !important;
             }
             
-            /* Đập tan inline style flex-basis/width của Streamlit trên Mobile */
+            /* Dùng toán tử trực tiếp (>) để chỉ tác động đến cột cấp 1 của trang */
             div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="stColumn"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="flex"],
-            div[data-testid="stHorizontalBlock"]:not(:first-of-type) div[style*="width"] {
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) > div[data-testid="column"] {
                 width: 100% !important;
                 max-width: 100% !important;
                 min-width: 100% !important;
@@ -354,7 +351,7 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
     st.write("Lựa chọn những điểm đến hàng đầu được yêu thích nhất trong mùa này:")
 
-    # 3 cột trên PC/iPad, tự bẻ dọc 100% width trên điện thoại
+    # 3 cột trên PC/iPad, tự động xếp dọc full width trên điện thoại
     cols = st.columns(3)
     idx = 0
     for name, data in DESTINATIONS.items():
@@ -375,8 +372,8 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
 
 # =========================================================
 # GIAO DIỆN TRANG ĐẶT TOUR & BẢN ĐỒ (BOOKING PAGE)
-# - PC / iPad (> 768px): Hiển thị 2 cột song song (1.2 : 1)
-# - Mobile (< 768px): CSS bẻ tự động thành 100% Width xếp dọc
+# - PC / iPad (> 768px): Song song 2 cột (1.2 : 1)
+# - Mobile (< 768px): Cột chính tự động bẻ dọc full 100%
 # =========================================================
 else:
     col_map, col_info = st.columns([1.2, 1])
