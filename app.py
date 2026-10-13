@@ -45,14 +45,14 @@ def send_booking_to_email(destination_name, package_price, full_name, phone_numb
 # HỆ THỐNG ĐỒNG BỘ TRẠNG THÁI VỚI URL (CHỐNG MẤT DỮ LIỆU KHI RELOAD)
 # ---------------------------------------------------------
 def save_state_to_query_params():
-    st.query_params["tab"] = st.session_state["current_tab"]
+    st.query_params["tab"] = st.session_state.get("current_tab", "home")
     
-    if st.session_state["saved_tours"]:
+    if st.session_state.get("saved_tours"):
         st.query_params["saved"] = ",".join(st.session_state["saved_tours"])
     else:
         st.query_params.pop("saved", None)
         
-    if st.session_state["booked_tours"]:
+    if st.session_state.get("booked_tours"):
         try:
             json_str = json.dumps(st.session_state["booked_tours"], ensure_ascii=False)
             b64_str = base64.urlsafe_b64encode(json_str.encode("utf-8")).decode("utf-8")
@@ -72,7 +72,8 @@ def load_state_from_query_params():
     if "tab" in st.query_params:
         st.session_state["current_tab"] = st.query_params["tab"]
     else:
-        st.session_state["current_tab"] = "home"
+        if "current_tab" not in st.session_state:
+            st.session_state["current_tab"] = "home"
 
     # Khôi phục Tour đã lưu
     if "saved" in st.query_params:
@@ -94,7 +95,7 @@ def load_state_from_query_params():
         if "booked_tours" not in st.session_state:
             st.session_state["booked_tours"] = []
 
-# Gọi hàm khôi phục trạng thái ngay khi khởi động
+# Khôi phục trạng thái
 load_state_from_query_params()
 
 # ---------------------------------------------------------
@@ -155,7 +156,7 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH)
+# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH - ĐÃ FIX RERUN LƯU ĐƠN)
 # ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
@@ -188,6 +189,7 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
+                # Thêm đơn đặt vào session_state
                 st.session_state["booked_tours"].append({
                     "tour": destination_name,
                     "price": package_price,
@@ -198,12 +200,11 @@ def booking_modal(destination_name, package_price):
                     "time": datetime.now().strftime("%d/%m/%Y %H:%M")
                 })
                 
-                # Lưu đồng bộ vào URL ngay sau khi đặt thành công
+                # Lưu ngay vào URL query params
                 save_state_to_query_params()
                 
-                st.balloons()
-                st.success(f"🎉 Chúc mừng quý khách **{full_name}** đã đăng ký thành công!")
-                st.info(f"📞 Tư vấn viên sẽ liên hệ qua SĐT **{phone_number}** trong thời gian sớm nhất.")
+                # Rerun để trang chính cập nhật lại URL chứa thông tin đơn đặt
+                st.rerun()
 
 # ---------------------------------------------------------
 # 3. DỮ LIỆU CÁC ĐIỂM DU LỊCH
