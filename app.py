@@ -7,6 +7,7 @@ import streamlit.components.v1 as components
 import base64
 import os
 import requests
+import json
 from datetime import datetime
 
 # ---------------------------------------------------------
@@ -41,30 +42,60 @@ def send_booking_to_email(destination_name, package_price, full_name, phone_numb
         return False
 
 # ---------------------------------------------------------
-# QUẢN LÝ SESSION STATE
+# HỆ THỐNG ĐỒNG BỘ TRẠNG THÁI VỚI URL (CHỐNG MẤT DỮ LIỆU KHI RELOAD)
 # ---------------------------------------------------------
-if "selected_place" not in st.session_state:
-    st.session_state["selected_place"] = "Đà Nẵng"
+def save_state_to_query_params():
+    st.query_params["tab"] = st.session_state["current_tab"]
+    
+    if st.session_state["saved_tours"]:
+        st.query_params["saved"] = ",".join(st.session_state["saved_tours"])
+    else:
+        st.query_params.pop("saved", None)
+        
+    if st.session_state["booked_tours"]:
+        try:
+            json_str = json.dumps(st.session_state["booked_tours"], ensure_ascii=False)
+            b64_str = base64.urlsafe_b64encode(json_str.encode("utf-8")).decode("utf-8")
+            st.query_params["booked"] = b64_str
+        except Exception:
+            pass
+    else:
+        st.query_params.pop("booked", None)
 
-if "zoom_overview" not in st.session_state:
-    st.session_state["zoom_overview"] = False
+def load_state_from_query_params():
+    if "selected_place" not in st.session_state:
+        st.session_state["selected_place"] = "Đà Nẵng"
+    if "zoom_overview" not in st.session_state:
+        st.session_state["zoom_overview"] = False
 
-if "saved_tours" not in st.session_state:
-    st.session_state["saved_tours"] = []
+    # Khôi phục Tab
+    if "tab" in st.query_params:
+        st.session_state["current_tab"] = st.query_params["tab"]
+    else:
+        st.session_state["current_tab"] = "home"
 
-if "booked_tours" not in st.session_state:
-    st.session_state["booked_tours"] = []
+    # Khôi phục Tour đã lưu
+    if "saved" in st.query_params:
+        val = st.query_params["saved"]
+        st.session_state["saved_tours"] = val.split(",") if val else []
+    else:
+        if "saved_tours" not in st.session_state:
+            st.session_state["saved_tours"] = []
 
-if "current_tab" not in st.session_state:
-    st.session_state["current_tab"] = "home"
+    # Khôi phục Tour đã đặt
+    if "booked" in st.query_params:
+        try:
+            b64_str = st.query_params["booked"]
+            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
+            st.session_state["booked_tours"] = json.loads(json_str)
+        except Exception:
+            st.session_state["booked_tours"] = []
+    else:
+        if "booked_tours" not in st.session_state:
+            st.session_state["booked_tours"] = []
 
-# Lắng nghe query params từ menu HTML bấm chuyển tab
-query_params = st.query_params
-if "tab" in query_params:
-    target_tab = query_params["tab"]
-    if target_tab in ["home", "map", "saved", "bookings", "account"]:
-        if st.session_state["current_tab"] != target_tab:
-            st.session_state["current_tab"] = target_tab
+# Gọi hàm khôi phục trạng thái ngay khi khởi động
+load_state_from_query_params()
 
 # ---------------------------------------------------------
 # CSS TÙY CHỈNH GIAO DIỆN
@@ -167,6 +198,9 @@ def booking_modal(destination_name, package_price):
                     "time": datetime.now().strftime("%d/%m/%Y %H:%M")
                 })
                 
+                # Lưu đồng bộ vào URL ngay sau khi đặt thành công
+                save_state_to_query_params()
+                
                 st.balloons()
                 st.success(f"🎉 Chúc mừng quý khách **{full_name}** đã đăng ký thành công!")
                 st.info(f"📞 Tư vấn viên sẽ liên hệ qua SĐT **{phone_number}** trong thời gian sớm nhất.")
@@ -246,7 +280,7 @@ DESTINATIONS = {
             "images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg",
             "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"
         ],
-        "description": "K kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -412,6 +446,7 @@ if current_tab == "home":
                     if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                         st.session_state["selected_place"] = name
                         st.session_state["current_tab"] = "map"
+                        save_state_to_query_params()
                         st.rerun()
                 with col_h2:
                     is_saved = name in st.session_state["saved_tours"]
@@ -421,6 +456,7 @@ if current_tab == "home":
                             st.session_state["saved_tours"].remove(name)
                         else:
                             st.session_state["saved_tours"].append(name)
+                        save_state_to_query_params()
                         st.rerun()
     else:
         cols = st.columns(3)
@@ -440,6 +476,7 @@ if current_tab == "home":
                         if st.button(f"🚀 Xem tour", key=f"btn_hot_{name}", use_container_width=True):
                             st.session_state["selected_place"] = name
                             st.session_state["current_tab"] = "map"
+                            save_state_to_query_params()
                             st.rerun()
                     with col_h2:
                         is_saved = name in st.session_state["saved_tours"]
@@ -449,6 +486,7 @@ if current_tab == "home":
                                 st.session_state["saved_tours"].remove(name)
                             else:
                                 st.session_state["saved_tours"].append(name)
+                            save_state_to_query_params()
                             st.rerun()
             idx += 1
 
@@ -463,10 +501,12 @@ elif current_tab == "map":
         with col_btn1:
             if st.button("🔍 Focus Điểm Đến", use_container_width=True):
                 st.session_state["zoom_overview"] = False
+                save_state_to_query_params()
                 st.rerun()
         with col_btn2:
             if st.button("🌍 Toàn Cảnh VN", use_container_width=True):
                 st.session_state["zoom_overview"] = True
+                save_state_to_query_params()
                 st.rerun()
 
         if st.session_state["zoom_overview"]:
@@ -531,6 +571,7 @@ elif current_tab == "map":
         if clicked_place and clicked_place in DESTINATIONS and clicked_place != st.session_state["selected_place"]:
             st.session_state["selected_place"] = clicked_place
             st.session_state["zoom_overview"] = False
+            save_state_to_query_params()
             st.rerun()
 
     def render_info_content():
@@ -545,6 +586,7 @@ elif current_tab == "map":
         if selected_option != st.session_state["selected_place"]:
             st.session_state["selected_place"] = selected_option
             st.session_state["zoom_overview"] = False
+            save_state_to_query_params()
             st.rerun()
 
         current_data = DESTINATIONS[st.session_state["selected_place"]]
@@ -654,6 +696,7 @@ elif current_tab == "map":
                     else:
                         st.session_state["saved_tours"].append(st.session_state["selected_place"])
                         st.toast("Đã thêm vào danh sách yêu thích!")
+                    save_state_to_query_params()
                     st.rerun()
 
     if is_phone:
@@ -694,10 +737,12 @@ elif current_tab == "saved":
                             if st.button(f"🚀 Xem tour", key=f"go_{name}", use_container_width=True):
                                 st.session_state["selected_place"] = name
                                 st.session_state["current_tab"] = "map"
+                                save_state_to_query_params()
                                 st.rerun()
                         with col_b2:
                             if st.button(f"🗑️ Xóa", key=f"del_{name}", use_container_width=True):
                                 st.session_state["saved_tours"].remove(name)
+                                save_state_to_query_params()
                                 st.rerun()
 
 # =========================================================
@@ -732,11 +777,17 @@ elif current_tab == "account":
         if st.button("🗑️ Xóa toàn bộ lịch sử đặt tour & yêu thích", type="secondary"):
             st.session_state["saved_tours"] = []
             st.session_state["booked_tours"] = []
+            save_state_to_query_params()
             st.success("Đã làm sạch dữ liệu phiên làm việc!")
             st.rerun()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã fix hoàn toàn lỗi tab & gạch chân)
+# CẬP NHẬT TRẠNG THÁI VÀO URL TRƯỚC KHI VẼ MENU
+# ---------------------------------------------------------
+save_state_to_query_params()
+
+# ---------------------------------------------------------
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH
 # ---------------------------------------------------------
 menu_html = f"""
 <style>
@@ -784,23 +835,22 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
 """
 
-# Dùng st.markdown thay cho components.html để ghim đúng viewport, loại bỏ cuộn thừa và nhận query params mượt mà
 st.markdown(menu_html, unsafe_allow_html=True)
