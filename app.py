@@ -21,7 +21,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -41,7 +41,7 @@ def send_booking_to_email(destination_name, package_price, full_name, phone_numb
         return False
 
 # ---------------------------------------------------------
-# QUẢN LÝ SESSION STATE (KHÔNG BAO GIỜ BỊ MẤT DỮ LIỆU)
+# QUẢN LÝ SESSION STATE
 # ---------------------------------------------------------
 if "selected_place" not in st.session_state:
     st.session_state["selected_place"] = "Đà Nẵng"
@@ -59,7 +59,7 @@ if "current_tab" not in st.session_state:
     st.session_state["current_tab"] = "home"
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN & DỰNG THANH BOTTOM NAV CHUẨN APP
+# CSS TÙY CHỈNH: GHIM THANH MENU XUỐNG ĐÁY MÀN HÌNH (FIXED BOTTOM)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -88,9 +88,23 @@ st.markdown("""
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        /* TĂNG PADDING ĐÁY ĐỂ THANH MENU KHÔNG CHE MẤT NỘI DUNG */
+        /* TĂNG PADDING ĐÁY ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE KHUẤT */
         .block-container {
-            padding-bottom: 120px !important;
+            padding-bottom: 110px !important;
+        }
+
+        /* GHIM KHỐI CỘT CUỐI CÙNG (THANH MENU) CỐ ĐỊNH Ở ĐÁY MÀN HÌNH */
+        div[data-testid="stHorizontalBlock"]:last-of-type {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            background-color: #ffffff !important;
+            z-index: 999999 !important;
+            padding: 10px 20px !important;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12) !important;
+            border-top: 1px solid #eaeaea !important;
+            margin: 0 !important;
         }
 
         .hero-banner {
@@ -737,9 +751,8 @@ elif current_tab == "account":
             st.rerun()
 
 # ---------------------------------------------------------
-# THANH BOTTOM NAVIGATION NẰM CỐ ĐỊNH Ở ĐÁY MÀN HÌNH
+# THANH BOTTOM NAVIGATION CỐ ĐỊNH Ở ĐÁY MÀN HÌNH (LUÔN HIỂN THỊ)
 # ---------------------------------------------------------
-st.markdown("---")
 saved_count = len(st.session_state['saved_tours'])
 booked_count = len(st.session_state['booked_tours'])
 
