@@ -26,7 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Custom CSS giao diện chung
+# Custom CSS giao diện & Bo tròn góc bản đồ
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,7 +41,15 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* Thanh menu 2 nút đầu tiên luôn nằm ngang 50% - 50% */
+        /* BO TRÒN 4 GÓC BẢN ĐỒ FOLIUM / GOOGLE MAPS */
+        div[data-testid="stIFrame"], 
+        iframe {
+            border-radius: 16px !important;
+            overflow: hidden !important;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        /* Thanh menu 2 nút luôn nằm ngang 50% - 50% */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -88,7 +96,39 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. Dữ liệu các điểm du lịch
+# 2. POPUP MODAL ĐẶT TOUR GIỮA MÀN HÌNH (GIỐNG WEB NẠP GAME)
+# ---------------------------------------------------------
+@st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
+def booking_modal(destination_name, package_price):
+    st.markdown(f"#### 🌟 Tour: **{destination_name}**")
+    st.caption(f"💰 Mức giá: **{package_price}**")
+    st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
+    
+    with st.form("modal_booking_form"):
+        full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
+        phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
+        email_addr = st.text_input("Email", placeholder="name@example.com")
+        
+        col_f1, col_f2 = st.columns(2)
+        with col_f1:
+            num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1)
+        with col_f2:
+            num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0)
+            
+        note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...")
+        
+        submitted = st.form_submit_button("🚀 XÁC NHẬN ĐẶT TOUR", type="primary", use_container_width=True)
+        
+        if submitted:
+            if not full_name.strip() or not phone_number.strip():
+                st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
+            else:
+                st.balloons()
+                st.success(f"🎉 Chúc mừng quý khách **{full_name}** đã đăng ký thành công!")
+                st.info(f"📞 Tư vấn viên sẽ liên hệ qua SĐT **{phone_number}** trong thời gian sớm nhất.")
+
+# ---------------------------------------------------------
+# 3. Dữ liệu các điểm du lịch
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -175,7 +215,7 @@ DESTINATIONS = {
             "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
             "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"
         ],
-        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -263,7 +303,7 @@ DESTINATIONS = {
 }
 
 # ---------------------------------------------------------
-# 3. Hàm tính toán khoảng cách & thời gian di chuyển
+# 4. Hàm tính toán khoảng cách & thời gian di chuyển
 # ---------------------------------------------------------
 def calculate_metrics(target_coords, avg_speed_kmh):
     dist_km = geodesic(HO_CHI_MINH_COORDS, target_coords).km
@@ -299,11 +339,8 @@ if "zoom_overview" not in st.session_state:
 if "nav_page" not in st.session_state:
     st.session_state["nav_page"] = "🏠 Trang Chủ"
 
-if "show_booking_form" not in st.session_state:
-    st.session_state["show_booking_form"] = False
-
 # ---------------------------------------------------------
-# 4. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
+# 5. Thanh điều hướng Tab Nằm Ngang (Luôn 50% - 50%)
 # ---------------------------------------------------------
 st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
 
@@ -313,7 +350,6 @@ with nav_col1:
     btn_type_home = "primary" if st.session_state["nav_page"] == "🏠 Trang Chủ" else "secondary"
     if st.button("🏠 Trang Chủ", type=btn_type_home, use_container_width=True):
         st.session_state["nav_page"] = "🏠 Trang Chủ"
-        st.session_state["show_booking_form"] = False
         st.rerun()
 
 with nav_col2:
@@ -351,7 +387,6 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
                 if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
                     st.session_state["selected_place"] = name
                     st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-                    st.session_state["show_booking_form"] = False
                     st.rerun()
     else:
         cols = st.columns(3)
@@ -369,7 +404,6 @@ if st.session_state["nav_page"] == "🏠 Trang Chủ":
                     if st.button(f"🚀 Xem & Đặt Tour", key=f"btn_hot_{name}", use_container_width=True):
                         st.session_state["selected_place"] = name
                         st.session_state["nav_page"] = "🗺️ Tra Cứu & Đặt Tour"
-                        st.session_state["show_booking_form"] = False
                         st.rerun()
             idx += 1
 
@@ -466,7 +500,6 @@ else:
         if selected_option != st.session_state["selected_place"]:
             st.session_state["selected_place"] = selected_option
             st.session_state["zoom_overview"] = False
-            st.session_state["show_booking_form"] = False
             st.rerun()
 
         current_data = DESTINATIONS[st.session_state["selected_place"]]
@@ -569,46 +602,13 @@ else:
             
             col_book1, col_book2 = st.columns([2, 1])
             with col_book1:
-                booking_btn = st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True)
+                # KHI BẤM VÀO NÚT ĐẶT TOUR -> MỞ POPUP MODAL Ở CHÍNH GIỮA MÀN HÌNH
+                if st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True):
+                    booking_modal(st.session_state["selected_place"], current_data["avg_price"])
             with col_book2:
                 saved_btn = st.button("❤️ Lưu tin", use_container_width=True)
-                
-            if booking_btn:
-                st.session_state["show_booking_form"] = True
-                st.rerun()
-
-            if saved_btn:
-                st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
-
-            # HIỂN THỊ FORM ĐIỀN THÔNG TIN CÁ NHÂN KHI BẤM ĐẶT TOUR
-            if st.session_state["show_booking_form"]:
-                st.markdown("---")
-                st.markdown(f"### 📝 **Phiếu Đăng Ký Tour: {st.session_state['selected_place']}**")
-                st.write("Vui lòng điền đầy đủ thông tin bên dưới để nhân viên liên hệ xác nhận tour:")
-                
-                with st.form("personal_booking_form"):
-                    full_name = st.text_input("Họ và tên khách hàng (*)")
-                    phone_number = st.text_input("Số điện thoại liên hệ (*)")
-                    email_addr = st.text_input("Địa chỉ Email")
-                    
-                    col_f1, col_f2 = st.columns(2)
-                    with col_f1:
-                        num_adults = st.number_input("Số lượng người lớn", min_value=1, max_value=20, value=1)
-                    with col_f2:
-                        num_children = st.number_input("Số lượng trẻ em", min_value=0, max_value=20, value=0)
-                        
-                    note_text = st.text_area("Yêu cầu đặc biệt / Ghi chú (nếu có)")
-                    
-                    submitted = st.form_submit_button("✅ Gửi Yêu Cầu Đặt Tour", use_container_width=True)
-                    
-                    if submitted:
-                        if not full_name.strip() or not phone_number.strip():
-                            st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại để chúng tôi có thể liên hệ!")
-                        else:
-                            st.balloons()
-                            st.success(f"🎉 Chúc mừng **{full_name}** đã đăng ký thành công tour **{st.session_state['selected_place']}**!")
-                            st.info(f"📞 Nhân viên tư vấn sẽ gọi điện xác nhận qua số **{phone_number}** trong vòng 15 phút tới. Xin cảm ơn quý khách!")
-                            st.session_state["show_booking_form"] = False
+                if saved_btn:
+                    st.toast("Đã thêm vào danh sách yêu thích!", icon="❤️")
 
     # Render giao diện Booking page dựa theo thiết bị
     if is_phone:
