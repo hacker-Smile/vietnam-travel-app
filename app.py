@@ -647,7 +647,8 @@ elif current_tab == "map":
             with col_book2:
                 is_saved = st.session_state["selected_place"] in st.session_state["saved_tours"]
                 save_btn_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
-                if st.button(save_btn_label, use_container_width=True):
+                # Đã thêm key tường minh để tránh lỗi mất state nút bấm
+                if st.button(save_btn_label, key=f"save_map_{st.session_state['selected_place']}", use_container_width=True):
                     if is_saved:
                         st.session_state["saved_tours"].remove(st.session_state["selected_place"])
                         st.toast("Đã xóa khỏi danh sách yêu thích!")
@@ -736,7 +737,7 @@ elif current_tab == "account":
             st.rerun()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã sửa lỗi hiển thị & ghim đúng viewport)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (Đã fix mất dữ liệu & bỏ gạch chân)
 # ---------------------------------------------------------
 menu_html = f"""
 <style>
@@ -758,7 +759,7 @@ menu_html = f"""
     }}
     .nav-item {{
         text-align: center;
-        text-decoration: none;
+        text-decoration: none !important;
         color: #666666;
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
@@ -767,7 +768,12 @@ menu_html = f"""
         cursor: pointer;
         transition: 0.2s;
     }}
+    .nav-item:hover {{
+        text-decoration: none !important;
+        color: #ff4b4b;
+    }}
     .nav-item.active {{
+        text-decoration: none !important;
         color: #ff4b4b;
         font-weight: 700;
     }}
@@ -779,22 +785,22 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home" target="_top" class="nav-item {'active' if current_tab == 'home' else ''}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map" target="_top" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved" target="_top" class="nav-item {'active' if current_tab == 'saved' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings" target="_top" class="nav-item {'active' if current_tab == 'bookings' else ''}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account" target="_top" class="nav-item {'active' if current_tab == 'account' else ''}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
 """
 
-st.markdown(menu_html, unsafe_allow_html=True)
+components.html(menu_html, height=70, scrolling=False)
