@@ -26,7 +26,7 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Custom CSS đặc trị siêu chuẩn cho mobile
+# Custom CSS CỰC MẠNH: Triệt hạ hoàn toàn inline-style width của Streamlit trên Mobile
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
@@ -41,7 +41,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% TRÊN MỌI THIẾT BỊ */
+        /* 1. ÉP THANH MENU 2 NÚT ĐẦU TIÊN LUÔN NẰM NGANG 50% - 50% */
         div[data-testid="stHorizontalBlock"]:first-of-type {
             display: flex !important;
             flex-direction: row !important;
@@ -56,19 +56,21 @@ st.markdown("""
             min-width: 0 !important;
         }
 
-        /* 2. CHỈ ĐỊNH CHÍNH XÁC KHỐI BẢN ĐỒ & TOUR XẾP DỌC TRÊN MOBILE (< 768px) */
+        /* 2. ÉP TẤT CẢ CÁC CỘT CÒN LẠI THÀNH 100% WIDTH TRÊN ĐIỆN THOẠI (< 768px) */
         @media screen and (max-width: 768px) {
-            /* Tìm đúng hàng chứa bản đồ (có iframe) để bẻ dọc thành 100% width */
-            div[data-testid="stHorizontalBlock"]:has(iframe) {
+            /* Ép hàng chứa cột chuyển sang dạng cột dọc */
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) {
                 display: flex !important;
                 flex-direction: column !important;
                 width: 100% !important;
                 gap: 20px !important;
             }
             
-            div[data-testid="stHorizontalBlock"]:has(iframe) > div[data-testid="stColumn"],
-            div[data-testid="stHorizontalBlock"]:has(iframe) > div[data-testid="column"],
-            div[data-testid="stHorizontalBlock"]:has(iframe) > div {
+            /* Ghi đè TẤT CẢ các thuộc tính width/flex mà Streamlit tự động bơm vào thẻ div */
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) [data-testid="stColumn"],
+            div[data-testid="stHorizontalBlock"]:not(:first-of-type) [data-testid="column"],
+            div[data-testid="stColumn"],
+            div[data-testid="column"] {
                 width: 100% !important;
                 max-width: 100% !important;
                 min-width: 100% !important;
