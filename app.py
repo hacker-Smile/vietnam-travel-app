@@ -366,7 +366,7 @@ st.markdown("---")
 if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("""
         <div class="hero-banner">
-            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
+            <h1>Đưa bạn tới mọi chân trời</h1>
             <p>Trải nghiệm dịch vụ đặt tour, tra cứu khoảng cách và khám phá danh lam thắng cảnh Việt Nam dễ dàng nhất.</p>
         </div>
     """, unsafe_allow_html=True)
