@@ -6,6 +6,7 @@ import pandas as pd
 import streamlit.components.v1 as components
 import base64
 import os
+import requests
 
 # ---------------------------------------------------------
 # 1. Cấu hình trang web Streamlit
@@ -15,6 +16,28 @@ st.set_page_config(
     page_icon="🇻🇳",
     layout="wide"
 )
+
+# ---------------------------------------------------------
+# CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
+# ---------------------------------------------------------
+FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link vừa tạo vào đây
+
+def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
+    try:
+        payload = {
+            "Tour": destination_name,
+            "Giá": package_price,
+            "Họ tên": full_name,
+            "Số điện thoại": phone_number,
+            "Email": email_addr if email_addr else "Không có",
+            "Người lớn": num_adults,
+            "Trẻ em": num_children,
+            "Ghi chú": note_text if note_text else "Không có"
+        }
+        response = requests.post(FORMSPREE_URL, data=payload)
+        return response.status_code == 200
+    except Exception:
+        return False
 
 # Ẩn header, menu chính và footer của Streamlit
 hide_streamlit_style = """
@@ -123,6 +146,12 @@ def booking_modal(destination_name, package_price):
             if not full_name.strip() or not phone_number.strip():
                 st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
             else:
+                with st.spinner("Đang gửi thông tin đặt tour..."):
+                    send_booking_to_email(
+                        destination_name, package_price, full_name,
+                        phone_number, email_addr, num_adults, num_children, note_text
+                    )
+                
                 st.balloons()
                 st.success(f"🎉 Chúc mừng quý khách **{full_name}** đã đăng ký thành công!")
                 st.info(f"📞 Tư vấn viên sẽ liên hệ qua SĐT **{phone_number}** trong thời gian sớm nhất.")
@@ -366,7 +395,7 @@ st.markdown("---")
 if st.session_state["nav_page"] == "🏠 Trang Chủ":
     st.markdown("""
         <div class="hero-banner">
-            <h1>Đưa bạn tới mọi chân trời</h1>
+            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
             <p>Trải nghiệm dịch vụ đặt tour, tra cứu khoảng cách và khám phá danh lam thắng cảnh Việt Nam dễ dàng nhất.</p>
         </div>
     """, unsafe_allow_html=True)
@@ -602,7 +631,6 @@ else:
             
             col_book1, col_book2 = st.columns([2, 1])
             with col_book1:
-                # KHI BẤM VÀO NÚT ĐẶT TOUR -> MỞ POPUP MODAL Ở CHÍNH GIỮA MÀN HÌNH
                 if st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True):
                     booking_modal(st.session_state["selected_place"], current_data["avg_price"])
             with col_book2:
