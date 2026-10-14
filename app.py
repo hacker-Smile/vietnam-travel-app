@@ -22,7 +22,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -745,9 +745,11 @@ elif current_tab == "account":
 save_state_to_query_params()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (ĐÃ KHẮC PHỤC TRONG SUỐT)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (GIỮ NGUYÊN CẢ SAVED VÀ BOOKED)
 # ---------------------------------------------------------
-saved_query_str = f"&saved={st.query_params.get('saved', '')}" if st.query_params.get('saved') else ""
+saved_val = st.query_params.get('saved', '')
+booked_val = st.query_params.get('booked', '')
+params_str = f"{f'&saved={saved_val}' if saved_val else ''}{f'&booked={booked_val}' if booked_val else ''}"
 
 menu_html = f"""
 <style>
@@ -803,19 +805,19 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home{params_str}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map{params_str}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved{params_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings{params_str}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account{params_str}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
