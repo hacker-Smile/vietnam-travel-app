@@ -99,7 +99,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (FIX HIỂN THỊ LOGO TRÊN BANNER)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -115,7 +115,7 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* GIỮ BO TRÒN 4 GÓC BẢN ĐỒ VÀ KHUNG ẢNH KHÁC */
+        /* GIỮ BO TRÒN BẢN ĐỒ */
         div[data-testid="stIFrame"], 
         iframe {
             border-radius: 16px !important;
@@ -128,25 +128,25 @@ st.markdown("""
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        /* CANH LỀ CHO KHU VỰC CHÍNH */
+        /* CANH LỀ KHU VỰC NỘI DUNG CHÍNH */
         .block-container {
             padding-top: 0rem !important;
             padding-bottom: 110px !important;
         }
 
-        /* BANNER KHÔNG BO GÓC - TRÀN VIỀN Y HỆT TRAVELOKA */
+        /* BANNER CÂN CHỈNH HIỂN THỊ ĐẦY ĐỦ LOGO VÀ CHỮ */
         .traveloka-hero {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 50px 5rem 70px 5rem;
+            padding: 30px 5rem 60px 5rem;
             border-radius: 0px !important;
             color: white;
             text-align: center;
             margin-left: -5rem;
             margin-right: -5rem;
-            margin-top: -6rem;
+            margin-top: -3.5rem;
             margin-bottom: 30px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.12);
         }
@@ -154,15 +154,17 @@ st.markdown("""
             font-size: 2.2rem;
             font-weight: 800;
             text-align: left;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             letter-spacing: -0.5px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            color: white !important;
         }
         .traveloka-hero h1 {
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             font-weight: 700;
             margin-bottom: 12px;
             text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            color: white !important;
         }
         .traveloka-hero p {
             font-size: 1.15rem;
@@ -170,17 +172,22 @@ st.markdown("""
             max-width: 750px;
             margin: 0 auto;
             text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+            color: white !important;
         }
 
         @media (max-width: 768px) {
             .traveloka-hero {
-                padding: 30px 1.5rem 50px 1.5rem;
+                padding: 20px 1.5rem 40px 1.5rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
-                margin-top: -4rem;
+                margin-top: -2rem;
+            }
+            .traveloka-brand {
+                font-size: 1.6rem;
+                margin-bottom: 15px;
             }
             .traveloka-hero h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -404,7 +411,7 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    # 1. TRAVELOKA HERO BANNER KHÔNG BO GÓC - TRÀN VIỀN
+    # 1. BANNER TRÀN VIỀN - LOGO VÀ CHỮ TRỌN VẸN
     st.markdown("""
         <div class="traveloka-hero">
             <div class="traveloka-brand">Mai travel ✈️</div>
