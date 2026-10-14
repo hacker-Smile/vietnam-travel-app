@@ -22,7 +22,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -156,7 +156,7 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH)
+# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH - ĐÃ LƯU ĐẦY ĐỦ GHI CHÚ)
 # ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
@@ -189,6 +189,7 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
+                # Lưu đầy đủ ghi chú vào session_state
                 st.session_state["booked_tours"].append({
                     "tour": destination_name,
                     "price": package_price,
@@ -196,6 +197,7 @@ def booking_modal(destination_name, package_price):
                     "phone": phone_number,
                     "adults": num_adults,
                     "children": num_children,
+                    "note": note_text if note_text else "Không có",
                     "time": datetime.now().strftime("%d/%m/%Y %H:%M")
                 })
                 
@@ -704,7 +706,7 @@ elif current_tab == "saved":
                                 st.rerun()
 
 # =========================================================
-# TAB 4: TOUR ĐÃ ĐẶT
+# TAB 4: TOUR ĐÃ ĐẶT (HIỂN THỊ ĐẦY ĐỦ GHI CHÚ)
 # =========================================================
 elif current_tab == "bookings":
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
@@ -718,6 +720,8 @@ elif current_tab == "bookings":
                 st.caption(f"🕒 Thời gian đặt: {booking['time']}")
                 st.write(f"👤 **Họ tên:** {booking['name']} | 📞 **SĐT:** {booking['phone']}")
                 st.write(f"👥 **Số lượng:** {booking['adults']} Người lớn, {booking['children']} Trẻ em")
+                if booking.get('note') and booking['note'] != "Không có":
+                    st.info(f"💬 **Ghi chú:** {booking['note']}")
                 st.success(f"💰 **Mức giá:** {booking['price']}")
 
 # =========================================================
@@ -745,7 +749,7 @@ elif current_tab == "account":
 save_state_to_query_params()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (GIỮ NGUYÊN CẢ SAVED VÀ BOOKED)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH
 # ---------------------------------------------------------
 saved_val = st.query_params.get('saved', '')
 booked_val = st.query_params.get('booked', '')
