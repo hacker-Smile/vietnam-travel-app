@@ -22,7 +22,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -156,7 +156,7 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH - ĐÃ FIX RERUN LƯU ĐƠN)
+# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH)
 # ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
@@ -189,7 +189,6 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
-                # Thêm đơn đặt vào session_state
                 st.session_state["booked_tours"].append({
                     "tour": destination_name,
                     "price": package_price,
@@ -200,22 +199,16 @@ def booking_modal(destination_name, package_price):
                     "time": datetime.now().strftime("%d/%m/%Y %H:%M")
                 })
                 
-                # Lưu ngay vào URL query params
                 save_state_to_query_params()
-                
-                # Rerun để trang chính cập nhật lại URL chứa thông tin đơn đặt
                 st.rerun()
 
 # ---------------------------------------------------------
-# 3. DỮ LIỆU CÁC ĐIỂM DU LỊCH
+# 3. DỮ LIỆU CÁC ĐIỂM DU LỊCH (ĐẦY ĐỦ 13 TỈNH THÀNH)
 # ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
-        "images": [
-            "images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg",
-            "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"
-        ],
+        "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
         "package_type": "Combo Vé máy bay + Khách sạn 3D2N (Tiêu chuẩn 4 sao)",
@@ -225,10 +218,7 @@ DESTINATIONS = {
     },
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
-        "images": [
-            "images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg",
-            "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"
-        ],
+        "images": ["images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg", "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"],
         "description": "Thủ đô nghìn năm văn hiến lưu giữ dấu ấn lịch sử, Hồ Hoàn Kiếm thơ mộng và văn hóa ẩm thực phố cổ đặc sắc.",
         "avg_price": "3.200.000 - 5.500.000 VNĐ / người",
         "package_type": "Tour Khám phá Phố Cổ & Ẩm thực 4D3N",
@@ -238,10 +228,7 @@ DESTINATIONS = {
     },
     "Lâm Đồng": {
         "coords": (11.9404, 108.4583),
-        "images": [
-            "images/DL1.jpg", "images/DL2.jpg", "images/DL3.jpg", "images/DL4.jpg",
-            "images/DL5.jpg", "images/DL6.jpg", "images/DL7.jpg", "images/DL8.jpg"
-        ],
+        "images": ["images/DL1.jpg", "images/DL2.jpg", "images/DL3.jpg", "images/DL4.jpg", "images/DL5.jpg", "images/DL6.jpg", "images/DL7.jpg", "images/DL8.jpg"],
         "description": "Thành phố ngàn hoa với khí hậu ôn đới quanh năm mát mẻ, những đồi thông reo và các quán cà phê view thung lũng mộng mơ.",
         "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
         "package_type": "Combo Xe Limousine khứ hồi + Khách sạn view đồi thông 3D2N",
@@ -251,10 +238,7 @@ DESTINATIONS = {
     },
     "An Giang": {
         "coords": (10.2899, 103.9840),
-        "images": [
-            "images/PQ1.jpg", "images/PQ2.jpg", "images/PQ3.jpg", "images/PQ4.jpg",
-            "images/PQ5.jpg", "images/PQ6.jpg", "images/PQ7.jpg", "images/PQ8.jpg"
-        ],
+        "images": ["images/PQ1.jpg", "images/PQ2.jpg", "images/PQ3.jpg", "images/PQ4.jpg", "images/PQ5.jpg", "images/PQ6.jpg", "images/PQ7.jpg", "images/PQ8.jpg"],
         "description": "Đảo Ngọc thiên đường nghỉ dưỡng hàng đầu với bãi cát trắng mịn như kem, nước biển trong ngọc bích và hoàng hôn tuyệt mỹ.",
         "avg_price": "3.500.000 - 6.000.000 VNĐ / người",
         "package_type": "Combo Resort 5 sao sát biển + Vé VinWonders 3D2N",
@@ -264,10 +248,7 @@ DESTINATIONS = {
     },
     "Khánh Hòa": {
         "coords": (12.2388, 109.1967),
-        "images": [
-            "images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg",
-            "images/NT5.jpg", "images/NT6.jpg", "images/NT7.jpg", "images/NT8.jpg"
-        ],
+        "images": ["images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg", "images/NT5.jpg", "images/NT6.jpg", "images/NT7.jpg", "images/NT8.jpg"],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
         "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 3D2N",
@@ -277,10 +258,7 @@ DESTINATIONS = {
     },
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
-        "images": [
-            "images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg",
-            "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"
-        ],
+        "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
         "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
@@ -290,10 +268,7 @@ DESTINATIONS = {
     },
     "Lào Cai": {
         "coords": (22.3364, 103.8438),
-        "images": [
-            "images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg",
-            "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"
-        ],
+        "images": ["images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg", "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"],
         "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
@@ -303,10 +278,7 @@ DESTINATIONS = {
     },
     "Cao Bằng": {
         "coords": (22.6656, 106.2607),
-        "images": [
-            "images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg",
-            "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"
-        ],
+        "images": ["images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg", "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"],
         "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu miền non nước ngàn năm và sở hữu Thác Bản Giốc hùng vĩ.",
         "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
         "package_type": "Tour Non nước Cao Bằng 3D2N",
@@ -316,10 +288,7 @@ DESTINATIONS = {
     },
     "Tuyên Quang": {
         "coords": (21.8236, 105.2142),
-        "images": [
-            "images/TQ1.jpg", "images/TQ2.jpg", "images/TQ3.jpg", "images/TQ4.jpg",
-            "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"
-        ],
+        "images": ["images/TQ1.jpg", "images/TQ2.jpg", "images/TQ3.jpg", "images/TQ4.jpg", "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"],
         "description": "Tuyên Quang là tỉnh giàu truyền thống cách mạng, nổi tiếng với di tích lịch sử Tân Trào và lễ hội Trung thu lớn nhất Việt Nam.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 3D2N",
@@ -329,10 +298,7 @@ DESTINATIONS = {
     },
     "Lai Châu": {
         "coords": (22.3992, 103.4392),
-        "images": [
-            "images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg",
-            "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"
-        ],
+        "images": ["images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg", "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"],
         "description": "Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Khám phá Tây Bắc 3D2N",
@@ -342,10 +308,7 @@ DESTINATIONS = {
     },
     "Thái Nguyên": {
         "coords": (21.5942, 105.8482),
-        "images": [
-            "images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg",
-            "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"
-        ],
+        "images": ["images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg", "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"],
         "description": "Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt và văn hóa trà lâu đời.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Trải nghiệm Vùng Trà & Sinh Thái 3D2N",
@@ -355,10 +318,7 @@ DESTINATIONS = {
     },
     "Điện Biên": {
         "coords": (21.38602, 103.02301),
-        "images": [
-            "images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg",
-            "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"
-        ],
+        "images": ["images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg", "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"],
         "description": "Điện Biên là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử vẻ vang và các bản làng văn hóa độc đáo.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Về Miền Lịch Sử Điện Biên Phủ 3D2N",
@@ -368,10 +328,7 @@ DESTINATIONS = {
     },
     "Lạng Sơn": {
         "coords": (21.8526, 106.7610),
-        "images": [
-            "images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg",
-            "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"
-        ],
+        "images": ["images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg", "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"],
         "description": "Lạng Sơn là tỉnh miền núi biên giới nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
         "package_type": "Tour Khám Phá Xứ Lạng 3D2N",
@@ -788,8 +745,10 @@ elif current_tab == "account":
 save_state_to_query_params()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (TỰ ĐỔI MÀN THEO LIGHT/DARK MODE)
 # ---------------------------------------------------------
+saved_query_str = f"&saved={st.query_params.get('saved', '')}" if st.query_params.get('saved') else ""
+
 menu_html = f"""
 <style>
     .bottom-nav {{
@@ -797,36 +756,39 @@ menu_html = f"""
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: #ffffff;
+        background-color: var(--background-color);
         display: flex;
         justify-content: space-around;
         align-items: center;
-        box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.18);
         padding: 10px 0;
         z-index: 999999;
         border-top-left-radius: 16px;
         border-top-right-radius: 16px;
-        border-top: 1px solid #f0f2f5;
+        border-top: 1px solid rgba(128, 128, 128, 0.25);
     }}
     .nav-item {{
         text-align: center;
         text-decoration: none !important;
-        color: #666666;
+        color: var(--text-color);
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
         font-weight: 500;
         flex: 1;
         cursor: pointer;
+        opacity: 0.75;
         transition: 0.2s;
     }}
     .nav-item:hover {{
         text-decoration: none !important;
+        opacity: 1;
         color: #ff4b4b;
     }}
     .nav-item.active {{
         text-decoration: none !important;
         color: #ff4b4b;
         font-weight: 700;
+        opacity: 1;
     }}
     .nav-icon {{
         font-size: 20px;
@@ -836,19 +798,19 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account&saved={st.query_params.get('saved', '')}&booked={st.query_params.get('booked', '')}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account{saved_query_str}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
