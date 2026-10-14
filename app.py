@@ -362,7 +362,7 @@ def get_image_base64(path):
     return path
 
 # Tiêu đề ứng dụng
-st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+st.title("Mai travel")
 st.markdown("---")
 
 current_tab = st.session_state["current_tab"]
