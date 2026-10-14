@@ -745,7 +745,7 @@ elif current_tab == "account":
 save_state_to_query_params()
 
 # ---------------------------------------------------------
-# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (TỰ ĐỔI MÀN THEO LIGHT/DARK MODE)
+# THANH MENU ĐIỀU HƯỚNG CỐ ĐỊNH DƯỚI MÀN HÌNH (ĐÃ KHẮC PHỤC TRONG SUỐT)
 # ---------------------------------------------------------
 saved_query_str = f"&saved={st.query_params.get('saved', '')}" if st.query_params.get('saved') else ""
 
@@ -756,7 +756,7 @@ menu_html = f"""
         bottom: 0;
         left: 0;
         width: 100%;
-        background-color: var(--background-color);
+        background-color: #ffffff;
         display: flex;
         justify-content: space-around;
         align-items: center;
@@ -767,10 +767,15 @@ menu_html = f"""
         border-top-right-radius: 16px;
         border-top: 1px solid rgba(128, 128, 128, 0.25);
     }}
+    @media (prefers-color-scheme: dark) {{
+        .bottom-nav {{
+            background-color: #0e1117 !important;
+        }}
+    }}
     .nav-item {{
         text-align: center;
         text-decoration: none !important;
-        color: var(--text-color);
+        color: inherit;
         font-family: 'Roboto', sans-serif;
         font-size: 12px;
         font-weight: 500;
