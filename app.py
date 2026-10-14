@@ -99,7 +99,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (LÀM GIỐNG HỆT TRAVELOKA)
+# CSS TÙY CHỈNH GIAO DIỆN CHUẨN TRAVELOKA (BANNER PHỦ XUỐNG TẬN KHUNG TÌM KIẾM)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -132,73 +132,77 @@ st.markdown("""
         .block-container {
             padding-top: 0rem !important;
             padding-bottom: 110px !important;
+            max-width: 100% !important;
         }
 
-        /* BANNER TO TRÀN VIỀN PHONG CÁCH TRAVELOKA */
+        /* BANNER TRÀN VIỀN KÉO DÀI XUỐNG TẬN KHUNG TÌM KIẾM */
         .traveloka-hero-wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.35)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 35px 5rem 120px 5rem;
+            padding: 30px 4rem 150px 4rem;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
             color: white;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
         }
         .traveloka-brand {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             text-align: left;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             letter-spacing: -0.5px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
             color: white !important;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
         .traveloka-hero-title {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 10px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
             color: white !important;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
         .traveloka-hero-subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             text-align: center;
             opacity: 0.95;
-            max-width: 750px;
-            margin: 0 auto 20px auto;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            max-width: 700px;
+            margin: 0 auto;
             color: white !important;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
-        /* KHUNG TÌM KIẾM NỔI ĐÈ LÊN BANNER */
+        /* KHUNG TÌM KIẾM NỔI ĐÈ SÂU VÀO TRONG BANNER */
         .floating-search-card {
-            margin-top: -80px;
+            margin-top: -105px;
             margin-bottom: 35px;
             position: relative;
             z-index: 10;
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
         }
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 20px 1.5rem 80px 1.5rem;
+                padding: 20px 1.5rem 110px 1.5rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
             .traveloka-brand {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 margin-bottom: 15px;
             }
             .traveloka-hero-title {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
             }
             .floating-search-card {
-                margin-top: -50px;
+                margin-top: -70px;
             }
         }
     </style>
@@ -419,10 +423,10 @@ def get_image_base64(path):
 current_tab = st.session_state["current_tab"]
 
 # =========================================================
-# TAB 1: TÌM KIẾM / TRANG CHỦ (THIẾT KẾ Y HỆT TRAVELOKA)
+# TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    # 1. TRAVELOKA HERO BANNER RỘNG TRÀN VIỀN
+    # 1. TRAVELOKA HERO BANNER
     st.markdown("""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand">Mai travel ✈️</div>
@@ -431,11 +435,10 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # 2. KHUNG TÌM KIẾM ĐÈ LÊN NỀN BANNER (FLOATING SEARCH CARD)
+    # 2. KHUNG TÌM KIẾM NỔI ĐÈ LÊN BANNER (FLOATING SEARCH CARD)
     st.markdown('<div class="floating-search-card">', unsafe_allow_html=True)
-    with st.container(border=True):
-        st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
-        search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
+    st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
+    search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # 3. DANH SÁCH TOUR
