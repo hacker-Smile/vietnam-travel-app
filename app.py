@@ -99,7 +99,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN CHUẨN TRAVELOKA (BANNER PHỦ XUỐNG TẬN KHUNG TÌM KIẾM)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐẶT CHỮ MAI TRAVEL Ở GÓC TRÊN BÊN TRÁI BANNER)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -135,28 +135,31 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER TRÀN VIỀN KÉO DÀI XUỐNG TẬN KHUNG TÌM KIẾM */
+        /* BANNER TRÀN VIỀN PHỦ LÊN TRÊN HEADER */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 30px 4rem 150px 4rem;
+            padding: 20px 4rem 150px 4rem;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
             color: white;
             position: relative;
         }
-        .traveloka-brand {
+
+        /* MAI TRAVEL NẰM Ở MÉP TRÊN BÊN TRÁI BANNER */
+        .traveloka-brand-top-left {
             font-size: 2rem;
             font-weight: 800;
             text-align: left;
-            margin-bottom: 25px;
+            margin-bottom: 35px;
             letter-spacing: -0.5px;
             color: white !important;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
+
         .traveloka-hero-title {
             font-size: 2.3rem;
             font-weight: 700;
@@ -165,6 +168,7 @@ st.markdown("""
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.4);
         }
+        
         .traveloka-hero-subtitle {
             font-size: 1.1rem;
             text-align: center;
@@ -175,7 +179,7 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.4);
         }
 
-        /* KHUNG TÌM KIẾM NỔI ĐÈ SÂU VÀO TRONG BANNER */
+        /* KHUNG TÌM KIẾM NỔI ĐÈ LÊN BANNER */
         .floating-search-card {
             margin-top: -105px;
             margin-bottom: 35px;
@@ -189,14 +193,14 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 20px 1.5rem 110px 1.5rem;
+                padding: 15px 1.5rem 110px 1.5rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
-            .traveloka-brand {
+            .traveloka-brand-top-left {
                 font-size: 1.5rem;
-                margin-bottom: 15px;
+                margin-bottom: 20px;
             }
             .traveloka-hero-title {
                 font-size: 1.5rem;
@@ -426,10 +430,10 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    # 1. TRAVELOKA HERO BANNER
+    # 1. TRAVELOKA HERO BANNER VỚI MAI TRAVEL Ở GÓC TRÊN BÊN TRÁI
     st.markdown("""
         <div class="traveloka-hero-wrapper">
-            <div class="traveloka-brand">Mai travel ✈️</div>
+            <div class="traveloka-brand-top-left">Mai travel ✈️</div>
             <div class="traveloka-hero-title">App du lịch hàng đầu, một chạm đi bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
