@@ -22,7 +22,7 @@ st.set_page_config(
 # ---------------------------------------------------------
 # CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/YOUR_FORM_ID"  # <--- Thay link Formspree của bạn vào đây
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -99,7 +99,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (PHONG CÁCH TRAVELOKA)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -130,20 +130,35 @@ st.markdown("""
 
         /* TĂNG PADDING ĐÁY ĐỂ NỘI DUNG KHÔNG BỊ THANH MENU CHE */
         .block-container {
+            padding-top: 1rem !important;
             padding-bottom: 110px !important;
         }
 
-        .hero-banner {
-            background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), 
+        /* TRAVELOKA STYLE HERO BANNER */
+        .traveloka-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 20px;
-            border-radius: 16px;
+            padding: 70px 20px 110px 20px;
+            border-radius: 20px;
             color: white;
             text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            margin-bottom: -70px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+        }
+        .traveloka-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        .traveloka-hero p {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -156,7 +171,7 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 # ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH - ĐÃ LƯU ĐẦY ĐỦ GHI CHÚ)
+# 2. POPUP MODAL ĐẶT TOUR (GIỮA MÀN HÌNH)
 # ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
@@ -189,7 +204,6 @@ def booking_modal(destination_name, package_price):
                         phone_number, email_addr, num_adults, num_children, note_text
                     )
                 
-                # Lưu đầy đủ ghi chú vào session_state
                 st.session_state["booked_tours"].append({
                     "tour": destination_name,
                     "price": package_price,
@@ -361,25 +375,27 @@ def get_image_base64(path):
         pass
     return path
 
-# Tiêu đề ứng dụng
-st.title("Mai travel")
-st.markdown("---")
-
 current_tab = st.session_state["current_tab"]
 
 # =========================================================
-# TAB 1: TÌM KIẾM / TRANG CHỦ
+# TAB 1: TÌM KIẾM / TRANG CHỦ (GIAO DIỆN TRAVELOKA STYLE)
 # =========================================================
 if current_tab == "home":
+    # 1. TRAVELOKA HERO BANNER
     st.markdown("""
-        <div class="hero-banner">
-            <h1>App Du Lịch Hàng Đầu, Một Chạm Đi Bất Cứ Đâu</h1>
+        <div class="traveloka-hero">
+            <h1>App du lịch hàng đầu, một chạm đi bất cứ đâu</h1>
+            <p>Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</p>
         </div>
     """, unsafe_allow_html=True)
 
+    # 2. KHUNG TÌM KIẾM NỔI (FLOATING SEARCH BOX)
+    with st.container(border=True):
+        st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
+        search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
+
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
-    
-    search_query = st.text_input("🔍 Tìm kiếm nhanh điểm đến (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "")
 
     filtered_destinations = {
         name: data for name, data in DESTINATIONS.items() 
@@ -453,6 +469,9 @@ if current_tab == "home":
 # TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
 elif current_tab == "map":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
+
     def render_map_content():
         st.subheader("📍 Bản Đồ Việt Nam")
         
@@ -673,6 +692,8 @@ elif current_tab == "map":
 # TAB 3: ĐÃ LƯU
 # =========================================================
 elif current_tab == "saved":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
     st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
     
     if not st.session_state["saved_tours"]:
@@ -705,9 +726,11 @@ elif current_tab == "saved":
                                 st.rerun()
 
 # =========================================================
-# TAB 4: TOUR ĐÃ ĐẶT (HIỂN THỊ ĐẦY ĐỦ GHI CHÚ)
+# TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
 elif current_tab == "bookings":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
@@ -727,6 +750,8 @@ elif current_tab == "bookings":
 # TAB 5: TÀI KHOẢN & CÀI ĐẶT
 # =========================================================
 elif current_tab == "account":
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
+    st.markdown("---")
     st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
     
     with st.container(border=True):
