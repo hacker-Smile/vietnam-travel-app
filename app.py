@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (CHUẨN TRAVELOKA STYLE)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -128,32 +128,34 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO ĐÁY ĐỂ ÔM TRỌN KHUNG TÌM KIẾM */
+        /* BANNER CHÍNH */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 260px 5rem !important;
+            padding: 40px 5rem 170px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
             color: white;
             position: relative;
-        }
-
-        /* KÉO KHUNG TÌM KIẾM CHUI LỌT HẲN VÀO TRONG LÒNG BANNER */
-        .element-container:has(.traveloka-hero-wrapper) {
-            margin-bottom: -210px !important;
-            position: relative;
             z-index: 1;
         }
 
-        /* ĐẨY KHUNG TÌM KIẾM NẰM TRÊN BỀ MẶT BANNER */
-        .element-container:has(.traveloka-hero-wrapper) + .element-container {
-            position: relative;
-            z-index: 10;
-            margin-bottom: 35px;
+        /* ÉP KHUNG TÌM KIẾM CHUI LÊN ĐÈ NỔI LÊN BÊN TRONG BANNER GIỐNG TRAVELOKA */
+        div.element-container:has(input[placeholder*="Thành phố"]) {
+            position: relative !important;
+            margin-top: -125px !important;
+            z-index: 10 !important;
+        }
+
+        /* TẠO ĐỘ BÓNG VÀ BO TRÒN SANG TRỌNG CHO KHUNG TÌM KIẾM */
+        div.element-container:has(input[placeholder*="Thành phố"]) div[data-testid="stVerticalBlockBorderWrapper"] {
+            border-radius: 16px !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18) !important;
+            background-color: white !important;
+            border: 1px solid rgba(0,0,0,0.06) !important;
         }
 
         /* TÊN THƯƠNG HIỆU MAI TRAVEL */
@@ -190,13 +192,13 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 150px 1.5rem !important;
+                padding: 25px 1.5rem 120px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
-            .element-container:has(.traveloka-hero-wrapper) {
-                margin-bottom: -80px !important;
+            div.element-container:has(input[placeholder*="Thành phố"]) {
+                margin-top: -80px !important;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
