@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (CHUẨN TRAVELOKA STYLE)
+# CSS TÙY CHỈNH GIAO DIỆN (TRAVELOKA STYLE CHUẨN ĐẸP)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -134,7 +134,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 130px 5rem !important;
+            padding: 40px 5rem 180px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -143,20 +143,21 @@ st.markdown("""
             z-index: 1;
         }
 
-        /* KÉO KHUNG TÌM KIẾM CHUI LÊN NẰM ĐÈ TRÊN BANNER */
-        div.element-container:has(input[placeholder*="Thành phố"]) {
+        /* KÉO KHUNG TÌM KIẾM BAY HẲN LÊN BÊN TRONG LÒNG BANNER */
+        .element-container:has(.my-floating-marker) {
             position: relative !important;
-            margin-top: -95px !important;
-            z-index: 10 !important;
+            margin-top: -150px !important;
+            z-index: 100 !important;
+            margin-bottom: 30px !important;
         }
 
-        /* TẠO ĐỘ BÓNG VÀ BO TRÒN SANG TRỌNG CHO KHUNG TÌM KIẾM */
-        div.element-container:has(input[placeholder*="Thành phố"]) div[data-testid="stVerticalBlockBorderWrapper"] {
+        /* BO TRÒN VÀ ĐỔ BÓNG NỔI CHO CONTAINER TÌM KIẾM */
+        .element-container:has(.my-floating-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
             background-color: white !important;
-            border: 1px solid rgba(0,0,0,0.06) !important;
-            padding: 10px 15px !important;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            padding: 15px 20px !important;
         }
 
         /* TÊN THƯƠNG HIỆU MAI TRAVEL */
@@ -193,13 +194,13 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 100px 1.5rem !important;
+                padding: 25px 1.5rem 120px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
-            div.element-container:has(input[placeholder*="Thành phố"]) {
-                margin-top: -65px !important;
+            .element-container:has(.my-floating-marker) {
+                margin-top: -90px !important;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
@@ -432,10 +433,12 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
+    # DÙNG CONTAINER CÓ ĐÁNH DẤU LỚP
     with st.container(border=True):
+        st.markdown("<div class='my-floating-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
-        st.markdown("<span style='font-size: 14px; font-weight: 500; color: #444;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</span>", unsafe_allow_html=True)
-        search_query = st.text_input("Tìm kiếm", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #444; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
         
         logo1_base64 = get_image_base64("images/logo1.jpg")
         logo2_base64 = get_image_base64("images/logo2.jpg")
@@ -831,6 +834,12 @@ saved_val = st.query_params.get('saved', '')
 booked_val = st.query_params.get('booked', '')
 params_str = f"{f'&saved={saved_val}' if saved_val else ''}{f'&booked={booked_val}' if booked_val else ''}"
 
+is_tab_saved = 'active' if current_tab == 'saved' else ''
+is_tab_home = 'active' if current_tab == 'home' else ''
+is_tab_map = 'active' if current_tab == 'map' else ''
+is_tab_bookings = 'active' if current_tab == 'bookings' else ''
+is_tab_account = 'active' if current_tab == 'account' else ''
+
 menu_html = f"""
 <style>
     .bottom-nav {{
@@ -885,19 +894,19 @@ menu_html = f"""
 </style>
 
 <div class="bottom-nav">
-    <a href="?tab=home{params_str}" target="_self" class="nav-item {'active' if current_tab == 'home' else ''}">
+    <a href="?tab=home{params_str}" target="_self" class="nav-item {is_tab_home}">
         <span class="nav-icon">🏠</span>Trang chủ
     </a>
-    <a href="?tab=map{params_str}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
+    <a href="?tab=map{params_str}" target="_self" class="nav-item {is_tab_map}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved{params_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' === '' else ''}">
+    <a href="?tab=saved{params_str}" target="_self" class="nav-item {is_tab_saved}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
-    <a href="?tab=bookings{params_str}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
+    <a href="?tab=bookings{params_str}" target="_self" class="nav-item {is_tab_bookings}">
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
-    <a href="?tab=account{params_str}" target="_self" class="nav-item {'active' if current_tab == 'account' else ''}">
+    <a href="?tab=account{params_str}" target="_self" class="nav-item {is_tab_account}">
         <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
