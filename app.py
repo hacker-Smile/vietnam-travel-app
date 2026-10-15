@@ -413,8 +413,8 @@ current_tab = st.session_state["current_tab"]
 if current_tab == "home":
     st.markdown("""
         <div class="traveloka-hero-wrapper">
-            <div class="traveloka-brand-top-left">Mai travel ✈️</div>
-            <div class="traveloka-hero-title">App du lịch hàng đầu, một chạm đi bất cứ đâu</div>
+            <div class="traveloka-brand-top-left">Mai Travel</div>
+            <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
     """, unsafe_allow_html=True)
