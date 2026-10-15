@@ -190,6 +190,7 @@ st.markdown("""
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
                 margin-top: 5px;
+                margin-left: -1rem !important; <--- KÉO CHỮ SANG TRÁI TRÊN ĐIỆN THOẠI */
                 margin-bottom: 15px;
             }
             .traveloka-hero-title {
