@@ -133,7 +133,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 10rem 130px 5rem;
+            padding: 40px 9.5rem 130px 5rem;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
