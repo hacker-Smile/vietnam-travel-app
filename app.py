@@ -154,7 +154,7 @@ st.markdown("""
             font-size: 2.2rem;
             font-weight: 800;
             text-align: left;
-            margin-bottom: 70px;
+            margin-bottom: 25px;
             letter-spacing: -0.5px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
