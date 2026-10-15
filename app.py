@@ -147,6 +147,7 @@ st.markdown("""
             font-weight: 800;
             text-align: left;
             margin-top: 25px;      /* <--- Chỉnh số này để dời chữ Mai travel lên/xuống */
+            margin-left: -3rem !important; /* <-- THÊM DÒNG NÀY ĐỂ KÉO CHỮ SANG TRÁI */
             margin-bottom: 25px;   /* Khoảng cách xuống tiêu đề chính */
             letter-spacing: -0.5px;
             color: white !important;
