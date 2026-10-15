@@ -174,7 +174,7 @@ st.markdown("""
         }
 
         .floating-search-card {
-            margin-top: -85px;
+            margin-top: -190px !important;
             margin-bottom: 35px;
             position: relative;
             z-index: 10;
@@ -432,9 +432,9 @@ if current_tab == "home":
         st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
                 <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 35px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 35px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 35px; object-fit: contain;">
+                <img src="{logo1_base64}" style="height: 55px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 55px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 55px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
