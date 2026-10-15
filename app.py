@@ -234,7 +234,7 @@ DESTINATIONS = {
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
-        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "K kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -344,21 +344,24 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # BỌC TOÀN BỘ HERO BANNER + KHUNG TÌM KIẾM VÀO MỘT KHỐI HTML (CHUẨN TRAVELOKA)
-    hero_html = f"""
+    # Đọc từ khóa tìm kiếm từ query params (giúp đồng bộ input chuẩn HTML)
+    search_query = st.query_params.get("q", "")
+
+    # GỘP TOÀN BỘ BANNER, KHUNG TÌM KIẾM VÀ LOGO VÀO 1 HTML DUY NHẤT (CHUẨN TRAVELOKA NẰM TRONG BANNER)
+    hero_full_html = f"""
     <style>
         .hero-section {{
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 35px 40px 140px 40px;
+            padding: 35px 40px 160px 40px;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
             color: white;
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }}
         .brand-logo {{
             font-size: 2.2rem;
@@ -379,22 +382,29 @@ if current_tab == "home":
             text-align: center;
             opacity: 0.95;
             max-width: 700px;
-            margin: 0 auto 35px auto;
+            margin: 0 auto 40px auto;
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }}
+        /* KHUNG TRẮNG CHUI LÊN NẰM TRONG BANNER */
         .search-card {{
             background: #ffffff;
             border-radius: 16px;
-            padding: 22px 25px;
+            padding: 25px 30px;
             max-width: 950px;
-            margin: 0 auto -100px auto;
+            margin: 0 auto;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
             color: #333333;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -70px;
+            width: 88%;
+            z-index: 99;
         }}
         .search-card-title {{
             font-size: 1.25rem;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             color: #111827;
             display: flex;
             align-items: center;
@@ -404,7 +414,40 @@ if current_tab == "home":
             font-size: 0.9rem;
             font-weight: 500;
             color: #4b5563;
-            margin-bottom: 6px;
+            margin-bottom: 12px;
+        }}
+        .search-input-box {{
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }}
+        .search-input-box:focus {{
+            border-color: #ff4b4b;
+            box-shadow: 0 0 0 2px rgba(255, 75, 75, 0.2);
+        }}
+        .trusted-row {{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }}
+        .trusted-text {{
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            font-style: italic;
+        }}
+        .trusted-img {{
+            height: 35px;
+            object-fit: contain;
         }}
     </style>
 
@@ -416,58 +459,21 @@ if current_tab == "home":
         <div class="search-card">
             <div class="search-card-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
             <div class="search-label-text">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+            <form action="" method="get">
+                <input type="hidden" name="tab" value="home">
+                <input type="text" name="q" class="search-input-box" value="{search_query}" placeholder="Thành phố, điểm đến hoặc tên tour..." onchange="this.form.submit()">
+            </form>
+            <div class="trusted-row">
+                <span class="trusted-text">Trusted by</span>
+                <img src="{logo1_base64}" class="trusted-img">
+                <img src="{logo2_base64}" class="trusted-img">
+                <img src="{logo3_base64}" class="trusted-img">
+            </div>
         </div>
     </div>
+    <div style="height: 60px;"></div>
     """
-    st.markdown(hero_html, unsafe_allow_html=True)
-
-    # Ô INPUT NẰM NGAY TRONG KHUNG TÌM KIẾM
-    st.markdown("""
-        <style>
-            div.element-container:has(input[placeholder*="Thành phố"]) {
-                max-width: 900px !important;
-                margin: -85px auto 0 auto !important;
-                position: relative !important;
-                z-index: 99 !important;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-    
-    search_query = st.text_input("SearchQuery", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
-
-    # HÀNG LOGO "TRUSTED BY" NẰM TRONG KHUNG
-    trusted_html = f"""
-    <style>
-        .trusted-container {{
-            max-width: 950px;
-            margin: -15px auto 40px auto;
-            background: white;
-            padding: 0 25px 18px 25px;
-            border-bottom-left-radius: 16px;
-            border-bottom-right-radius: 16px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
-            position: relative;
-            z-index: 98;
-        }}
-        .trusted-row {{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #f0f0f0;
-            flex-wrap: wrap;
-        }}
-    </style>
-    <div class="trusted-container">
-        <div class="trusted-row">
-            <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
-            <img src="{logo1_base64}" style="height: 40px; object-fit: contain;">
-            <img src="{logo2_base64}" style="height: 40px; object-fit: contain;">
-            <img src="{logo3_base64}" style="height: 40px; object-fit: contain;">
-        </div>
-    </div>
-    """
-    st.markdown(trusted_html, unsafe_allow_html=True)
+    st.markdown(hero_full_html, unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
