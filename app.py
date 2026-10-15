@@ -128,13 +128,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH */
+        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO ĐÁY ĐỂ ÔM TRỌN KHUNG TÌM KIẾM */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 180px 5rem !important;
+            padding: 40px 5rem 260px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -142,9 +142,9 @@ st.markdown("""
             position: relative;
         }
 
-        /* KÉO VỪA ĐỦ ĐỂ KHUNG TÌM KIẾM NẰM ĐÈ LÊN MỘT PHẦN BANNER */
+        /* KÉO KHUNG TÌM KIẾM CHUI LỌT HẲN VÀO TRONG LÒNG BANNER */
         .element-container:has(.traveloka-hero-wrapper) {
-            margin-bottom: -100px !important;
+            margin-bottom: -210px !important;
             position: relative;
             z-index: 1;
         }
@@ -190,13 +190,13 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 100px 1.5rem !important;
+                padding: 25px 1.5rem 150px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
             .element-container:has(.traveloka-hero-wrapper) {
-                margin-bottom: -50px !important;
+                margin-bottom: -80px !important;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
