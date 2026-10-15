@@ -425,6 +425,18 @@ if current_tab == "home":
     with st.container(border=True):
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        logo1_base64 = get_image_base64("images/logo1.jpg")
+        logo2_base64 = get_image_base64("images/logo2.jpg")
+        logo3_base64 = get_image_base64("images/logo3.jpg")
+        
+        st.markdown(f"""
+            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
+                <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
+                <img src="{logo1_base64}" style="height: 35px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 35px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 35px; object-fit: contain;">
+            </div>
+        """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
