@@ -20,9 +20,9 @@ st.set_page_config(
 )
 
 # ---------------------------------------------------------
-# CẤU HÌNH FORMSPREE (DÁN LINK FORMSPREE CỦA BẠN VÀO ĐÂY)
+# CẤU HÌNH FORMSPREE
 # ---------------------------------------------------------
-FORMSPREE_URL = "https://formspree.io/f/xrpeylye"  # <--- Thay link Formspree của bạn vào đây
+FORMSPREE_URL = "https://formspree.io/f/xrpeylye"
 
 def send_booking_to_email(destination_name, package_price, full_name, phone_number, email_addr, num_adults, num_children, note_text):
     try:
@@ -68,14 +68,12 @@ def load_state_from_query_params():
     if "zoom_overview" not in st.session_state:
         st.session_state["zoom_overview"] = False
 
-    # Khôi phục Tab
     if "tab" in st.query_params:
         st.session_state["current_tab"] = st.query_params["tab"]
     else:
         if "current_tab" not in st.session_state:
             st.session_state["current_tab"] = "home"
 
-    # Khôi phục Tour đã lưu
     if "saved" in st.query_params:
         val = st.query_params["saved"]
         st.session_state["saved_tours"] = val.split(",") if val else []
@@ -83,7 +81,6 @@ def load_state_from_query_params():
         if "saved_tours" not in st.session_state:
             st.session_state["saved_tours"] = []
 
-    # Khôi phục Tour đã đặt
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
@@ -95,11 +92,10 @@ def load_state_from_query_params():
         if "booked_tours" not in st.session_state:
             st.session_state["booked_tours"] = []
 
-# Khôi phục trạng thái
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ SỬA CĂN LỀ BANNER & OVERLAP SEARCH)
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -115,7 +111,6 @@ st.markdown("""
             font-family: 'Roboto', sans-serif !important;
         }
 
-        /* BO TRÒN 4 GÓC BẢN ĐỒ */
         div[data-testid="stIFrame"], 
         iframe {
             border-radius: 16px !important;
@@ -123,19 +118,16 @@ st.markdown("""
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
         }
 
-        /* Ẩn header, footer mặc định của Streamlit */
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        /* CANH LỀ KHU VỰC CHÍNH */
         .block-container {
             padding-top: 0rem !important;
             padding-bottom: 110px !important;
             max-width: 100% !important;
         }
 
-        /* BANNER TRÀN VIỀN */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
@@ -149,12 +141,13 @@ st.markdown("""
             position: relative;
         }
 
-        /* TÊN THƯƠNG HIỆU LỀ TRÊN BÊN TRÁI */
+        /* TÊN THƯƠNG HIỆU MAI TRAVEL - BẠN CÓ THỂ ĐIỀU CHỈNH MARGIN-TOP Ở ĐÂY */
         .traveloka-brand-top-left {
             font-size: 2.2rem;
             font-weight: 800;
             text-align: left;
-            margin-bottom: 25px;
+            margin-top: 10px;      /* <--- Chỉnh số này để dời chữ Mai travel lên/xuống */
+            margin-bottom: 25px;   /* Khoảng cách xuống tiêu đề chính */
             letter-spacing: -0.5px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
@@ -179,7 +172,6 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* KHUNG TÌM KIẾM CHÍNH ĐÈ LÊN BANNER */
         .floating-search-card {
             margin-top: -85px;
             margin-bottom: 35px;
@@ -189,13 +181,14 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 100px 1.5rem 100px 1.5rem;
+                padding: 25px 1.5rem 100px 1.5rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
+                margin-top: 5px;
                 margin-bottom: 15px;
             }
             .traveloka-hero-title {
@@ -208,16 +201,11 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Tọa độ mốc gốc: TP. Hồ Chí Minh
 HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
-# Nhận diện thiết bị từ Request Header
 user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
-# ---------------------------------------------------------
-# 2. POPUP MODAL ĐẶT TOUR
-# ---------------------------------------------------------
 @st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
 def booking_modal(destination_name, package_price):
     st.markdown(f"#### 🌟 Tour: **{destination_name}**")
@@ -263,9 +251,6 @@ def booking_modal(destination_name, package_price):
                 save_state_to_query_params()
                 st.rerun()
 
-# ---------------------------------------------------------
-# 3. DỮ LIỆU CÁC ĐIỂM DU LỊCH (13 TỈNH THÀNH)
-# ---------------------------------------------------------
 DESTINATIONS = {
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
@@ -426,7 +411,6 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    # 1. BANNER NỀN ẢNH VÀ THƯƠNG HIỆU
     st.markdown("""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand-top-left">Mai travel ✈️</div>
@@ -435,14 +419,12 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # 2. KHUNG TÌM KIẾM TRẮNG ĐÈ TRỰC TIẾP LÊN BANNER (ĐƯỢC BỌC VÀO TRONG CARD FLOATING)
     st.markdown('<div class="floating-search-card">', unsafe_allow_html=True)
     with st.container(border=True):
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # 3. DANH SÁCH TOUR DU LỊCH HOT
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
@@ -815,9 +797,6 @@ elif current_tab == "account":
             st.success("Đã làm sạch dữ liệu phiên làm việc!")
             st.rerun()
 
-# ---------------------------------------------------------
-# CẬP NHẬT TRẠNG THÁI VÀO URL TRƯỚC KHI VẼ MENU
-# ---------------------------------------------------------
 save_state_to_query_params()
 
 # ---------------------------------------------------------
