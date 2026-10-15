@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (TRAVELOKA STYLE CHUẨN ĐẸP)
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -126,91 +126,6 @@ st.markdown("""
             padding-top: 0rem !important;
             padding-bottom: 110px !important;
             max-width: 100% !important;
-        }
-
-        /* BANNER CHÍNH */
-        .traveloka-hero-wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 40px 5rem 180px 5rem !important;
-            margin-left: -5rem;
-            margin-right: -5rem;
-            margin-top: -3.5rem;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* KÉO KHUNG TÌM KIẾM BAY HẲN LÊN BÊN TRONG LÒNG BANNER */
-        .element-container:has(.my-floating-marker) {
-            position: relative !important;
-            margin-top: -150px !important;
-            z-index: 100 !important;
-            margin-bottom: 30px !important;
-        }
-
-        /* BO TRÒN VÀ ĐỔ BÓNG NỔI CHO CONTAINER TÌM KIẾM */
-        .element-container:has(.my-floating-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
-            border-radius: 16px !important;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
-            background-color: white !important;
-            border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 15px 20px !important;
-        }
-
-        /* TÊN THƯƠNG HIỆU MAI TRAVEL */
-        .traveloka-brand-top-left {
-            font-size: 2.2rem;
-            font-weight: 800;
-            text-align: left;
-            margin-top: 15px;
-            margin-left: -3rem !important;
-            margin-bottom: 25px;
-            letter-spacing: -0.5px;
-            color: white !important;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-        }
-
-        .traveloka-hero-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 12px;
-            color: white !important;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }
-        
-        .traveloka-hero-subtitle {
-            font-size: 1.15rem;
-            text-align: center;
-            opacity: 0.95;
-            max-width: 750px;
-            margin: 0 auto;
-            color: white !important;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        }
-
-        @media (max-width: 768px) {
-            .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 120px 1.5rem !important;
-                margin-left: -1rem;
-                margin-right: -1rem;
-                margin-top: -2rem;
-            }
-            .element-container:has(.my-floating-marker) {
-                margin-top: -90px !important;
-            }
-            .traveloka-brand-top-left {
-                font-size: 1.6rem;
-                margin-top: 5px;
-                margin-left: 0rem !important;
-                margin-bottom: 15px;
-            }
-            .traveloka-hero-title {
-                font-size: 1.5rem;
-            }
         }
     </style>
 """, unsafe_allow_html=True)
@@ -425,33 +340,154 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    st.markdown("""
-        <div class="traveloka-hero-wrapper">
-            <div class="traveloka-brand-top-left">Mai Travel</div>
-            <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
-            <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
-        </div>
-    """, unsafe_allow_html=True)
+    logo1_base64 = get_image_base64("images/logo1.jpg")
+    logo2_base64 = get_image_base64("images/logo2.jpg")
+    logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # DÙNG CONTAINER CÓ ĐÁNH DẤU LỚP
-    with st.container(border=True):
-        st.markdown("<div class='my-floating-marker'></div>", unsafe_allow_html=True)
-        st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
-        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #444; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
-        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+    # BỌC TOÀN BỘ HERO BANNER + KHUNG TÌM KIẾM VÀO MỘT KHỐI HTML NATIVE
+    hero_html = f"""
+    <style>
+        .hero-section {{
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 35px 40px 140px 40px;
+            margin-left: -5rem;
+            margin-right: -5rem;
+            margin-top: -3.5rem;
+            color: white;
+            position: relative;
+            margin-bottom: 20px;
+        }}
+        .brand-logo {{
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }}
+        .hero-title {{
+            font-size: 2.3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }}
+        .hero-sub {{
+            font-size: 1.1rem;
+            text-align: center;
+            opacity: 0.95;
+            max-width: 700px;
+            margin: 0 auto 35px auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        }
+        /* KHUNG TÌM KIẾM NẰM TRỌN BÊN TRONG BANNER */
+        .search-card {{
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 22px 25px;
+            max-width: 950px;
+            margin: 0 auto -100px auto;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            color: #333333;
+        }}
+        .search-card-title {{
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }}
+        .search-label-text {{
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 6px;
+        }}
+        .trusted-row {{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+            flex-wrap: wrap;
+        }}
+        .trusted-text {{
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            font-style: italic;
+        }}
+        .trusted-img {{
+            height: 40px;
+            object-fit: contain;
+        }}
+    </style>
+
+    <div class="hero-section">
+        <div class="brand-logo">Mai Travel</div>
+        <div class="hero-title">Đưa bạn bay tới bất cứ đâu</div>
+        <div class="hero-sub">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         
-        logo1_base64 = get_image_base64("images/logo1.jpg")
-        logo2_base64 = get_image_base64("images/logo2.jpg")
-        logo3_base64 = get_image_base64("images/logo3.jpg")
-        
-        st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
-                <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 45px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 45px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 45px; object-fit: contain;">
-            </div>
-        """, unsafe_allow_html=True)
+        <div class="search-card">
+            <div class="search-card-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
+            <div class="search-label-text">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+        </div>
+    </div>
+    """
+    st.markdown(hero_html, unsafe_allow_html=True)
+
+    # Ô INPUT NẰM NGAY DƯỚI DẢI THÔNG BÁO VỚI CSS ÉP DỊCH LÊN TRONG KHUNG
+    st.markdown("""
+        <style>
+            div.element-container:has(input[placeholder*="Thành phố"]) {
+                max-width: 900px !important;
+                margin: -85px auto 0 auto !important;
+                position: relative !important;
+                z-index: 99 !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    search_query = st.text_input("SearchQuery", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+
+    # HÀNG LOGO "TRUSTED BY" NẰM TRONG KHUNG
+    trusted_html = f"""
+    <style>
+        .trusted-container {{
+            max-width: 950px;
+            margin: -15px auto 40px auto;
+            background: white;
+            padding: 0 25px 18px 25px;
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+            position: relative;
+            z-index: 98;
+        }}
+        .trusted-row {{
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }}
+    </style>
+    <div class="trusted-container">
+        <div class="trusted-row">
+            <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
+            <img src="{logo1_base64}" style="height: 40px; object-fit: contain;">
+            <img src="{logo2_base64}" style="height: 40px; object-fit: contain;">
+            <img src="{logo3_base64}" style="height: 40px; object-fit: contain;">
+        </div>
+    </div>
+    """
+    st.markdown(trusted_html, unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
