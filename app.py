@@ -128,18 +128,27 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        .traveloka-hero-wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 30px 0rem 280px 5rem;
-            margin-left: -5rem;
-            margin-right: -5rem;
-            margin-top: -3.5rem;
-            color: white;
-            position: relative;
-        }
+/* Tự động kéo khung tìm kiếm chui vào trong banner */
+    .element-container:has(.traveloka-hero-wrapper) + .element-container {
+        margin-top: -220px !important;
+        position: relative;
+        z-index: 10;
+        margin-bottom: 35px;
+    }
+
+    /* Tăng độ dài phần đáy banner để ôm trọn khung tìm kiếm */
+    .traveloka-hero-wrapper {
+        background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                    url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+        background-size: cover;
+        background-position: center;
+        padding: 40px 5rem 260px 5rem !important;
+        margin-left: -5rem;
+        margin-right: -5rem;
+        margin-top: -3.5rem;
+        color: white;
+        position: relative;
+    }
 
         /* TÊN THƯƠNG HIỆU MAI TRAVEL - BẠN CÓ THỂ ĐIỀU CHỈNH MARGIN-TOP Ở ĐÂY */
         .traveloka-brand-top-left {
@@ -421,7 +430,6 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="floating-search-card">', unsafe_allow_html=True)
     with st.container(border=True):
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
@@ -437,7 +445,6 @@ if current_tab == "home":
                 <img src="{logo3_base64}" style="height: 55px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
