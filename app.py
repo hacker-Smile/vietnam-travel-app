@@ -174,7 +174,7 @@ st.markdown("""
         }
 
         .floating-search-card {
-            margin-top: -190px !important;
+            margin-top: -250px !important;
             margin-bottom: 35px;
             position: relative;
             z-index: 10;
