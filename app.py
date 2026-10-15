@@ -128,12 +128,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
+        /* BANNER CHÍNH */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 30px 0rem 280px 5rem;
+            padding: 40px 5rem 240px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -141,14 +142,22 @@ st.markdown("""
             position: relative;
         }
 
-        /* TÊN THƯƠNG HIỆU MAI TRAVEL - BẠN CÓ THỂ ĐIỀU CHỈNH MARGIN-TOP Ở ĐÂY */
+        /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM CHUI LÊN ĐÈ VÀO BANNER */
+        .element-container:has(.traveloka-hero-wrapper) + .element-container {
+            margin-top: -180px !important;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 35px;
+        }
+
+        /* TÊN THƯƠNG HIỆU MAI TRAVEL */
         .traveloka-brand-top-left {
             font-size: 2.2rem;
             font-weight: 800;
             text-align: left;
-            margin-top: 15px;      /* <--- Chỉnh số này để dời chữ Mai travel lên/xuống */
-            margin-left: -3rem !important; /* <-- THÊM DÒNG NÀY ĐỂ KÉO CHỮ SANG TRÁI */
-            margin-bottom: 25px;   /* Khoảng cách xuống tiêu đề chính */
+            margin-top: 15px;
+            margin-left: -3rem !important;
+            margin-bottom: 25px;
             letter-spacing: -0.5px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
@@ -173,31 +182,24 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        .floating-search-card {
-            margin-top: -250px !important;
-            margin-bottom: 35px;
-            position: relative;
-            z-index: 10;
-        }
-
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 100px 1.5rem;
+                padding: 25px 1.5rem 120px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
+            .element-container:has(.traveloka-hero-wrapper) + .element-container {
+                margin-top: -70px !important;
+            }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
                 margin-top: 5px;
-                margin-left: 0rem !important; <--- KÉO CHỮ SANG TRÁI TRÊN ĐIỆN THOẠI */
+                margin-left: 0rem !important;
                 margin-bottom: 15px;
             }
             .traveloka-hero-title {
                 font-size: 1.5rem;
-            }
-            .floating-search-card {
-                margin-top: -60px;
             }
         }
     </style>
@@ -421,7 +423,6 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<div class="floating-search-card">', unsafe_allow_html=True)
     with st.container(border=True):
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
@@ -437,7 +438,6 @@ if current_tab == "home":
                 <img src="{logo3_base64}" style="height: 55px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
