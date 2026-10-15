@@ -134,7 +134,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 220px 5rem !important;
+            padding: 40px 5rem 210px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -142,9 +142,15 @@ st.markdown("""
             position: relative;
         }
 
-        /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM CHUI LÊN NẰM TRONG BANNER */
-        div.element-container:has(.traveloka-hero-wrapper) + div.element-container {
-            margin-top: -160px !important;
+        /* KÉO KHOẢNG TRỐNG PHÍA DƯỚI BANNER ĐỂ KÉO KHUNG TÌM KIẾM CHUI LÊN */
+        .element-container:has(.traveloka-hero-wrapper) {
+            margin-bottom: -160px !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ĐẨY KHUNG TÌM KIẾM NẰM TRÊN BỀ MẶT BANNER */
+        .element-container:has(.traveloka-hero-wrapper) + .element-container {
             position: relative;
             z-index: 10;
             margin-bottom: 35px;
@@ -184,13 +190,13 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 110px 1.5rem !important;
+                padding: 25px 1.5rem 120px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
-            div.element-container:has(.traveloka-hero-wrapper) + div.element-container {
-                margin-top: -65px !important;
+            .element-container:has(.traveloka-hero-wrapper) {
+                margin-bottom: -70px !important;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
@@ -319,7 +325,7 @@ DESTINATIONS = {
     "Lào Cai": {
         "coords": (22.3364, 103.8438),
         "images": ["images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg", "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"],
-        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
