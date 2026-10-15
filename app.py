@@ -344,7 +344,7 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # BỌC TOÀN BỘ HERO BANNER + KHUNG TÌM KIẾM VÀO MỘT KHỐI HTML NATIVE
+    # BỌC TOÀN BỘ HERO BANNER + KHUNG TÌM KIẾM VÀO MỘT KHỐI HTML (CHUẨN TRAVELOKA)
     hero_html = f"""
     <style>
         .hero-section {{
@@ -381,8 +381,7 @@ if current_tab == "home":
             max-width: 700px;
             margin: 0 auto 35px auto;
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        }
-        /* KHUNG TÌM KIẾM NẰM TRỌN BÊN TRONG BANNER */
+        }}
         .search-card {{
             background: #ffffff;
             border-radius: 16px;
@@ -407,25 +406,6 @@ if current_tab == "home":
             color: #4b5563;
             margin-bottom: 6px;
         }}
-        .trusted-row {{
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid #e5e7eb;
-            flex-wrap: wrap;
-        }}
-        .trusted-text {{
-            font-size: 13px;
-            font-weight: 600;
-            color: #6b7280;
-            font-style: italic;
-        }}
-        .trusted-img {{
-            height: 40px;
-            object-fit: contain;
-        }}
     </style>
 
     <div class="hero-section">
@@ -441,7 +421,7 @@ if current_tab == "home":
     """
     st.markdown(hero_html, unsafe_allow_html=True)
 
-    # Ô INPUT NẰM NGAY DƯỚI DẢI THÔNG BÁO VỚI CSS ÉP DỊCH LÊN TRONG KHUNG
+    # Ô INPUT NẰM NGAY TRONG KHUNG TÌM KIẾM
     st.markdown("""
         <style>
             div.element-container:has(input[placeholder*="Thành phố"]) {
