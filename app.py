@@ -134,7 +134,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 170px 5rem !important;
+            padding: 40px 5rem 130px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -143,19 +143,20 @@ st.markdown("""
             z-index: 1;
         }
 
-        /* ÉP KHUNG TÌM KIẾM CHUI LÊN ĐÈ NỔI LÊN BÊN TRONG BANNER GIỐNG TRAVELOKA */
+        /* KÉO KHUNG TÌM KIẾM CHUI LÊN NẰM ĐÈ TRÊN BANNER */
         div.element-container:has(input[placeholder*="Thành phố"]) {
             position: relative !important;
-            margin-top: -125px !important;
+            margin-top: -95px !important;
             z-index: 10 !important;
         }
 
         /* TẠO ĐỘ BÓNG VÀ BO TRÒN SANG TRỌNG CHO KHUNG TÌM KIẾM */
         div.element-container:has(input[placeholder*="Thành phố"]) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18) !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
             background-color: white !important;
             border: 1px solid rgba(0,0,0,0.06) !important;
+            padding: 10px 15px !important;
         }
 
         /* TÊN THƯƠNG HIỆU MAI TRAVEL */
@@ -192,13 +193,13 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 25px 1.5rem 120px 1.5rem !important;
+                padding: 25px 1.5rem 100px 1.5rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
             }
             div.element-container:has(input[placeholder*="Thành phố"]) {
-                margin-top: -80px !important;
+                margin-top: -65px !important;
             }
             .traveloka-brand-top-left {
                 font-size: 1.6rem;
@@ -433,7 +434,9 @@ if current_tab == "home":
 
     with st.container(border=True):
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
-        search_query = st.text_input("🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)", "", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        st.markdown("<span style='font-size: 14px; font-weight: 500; color: #444;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</span>", unsafe_allow_html=True)
+        search_query = st.text_input("Tìm kiếm", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        
         logo1_base64 = get_image_base64("images/logo1.jpg")
         logo2_base64 = get_image_base64("images/logo2.jpg")
         logo3_base64 = get_image_base64("images/logo3.jpg")
@@ -441,9 +444,9 @@ if current_tab == "home":
         st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 15px; padding-top: 10px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
                 <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 55px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 55px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 55px; object-fit: contain;">
+                <img src="{logo1_base64}" style="height: 45px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 45px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 45px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
 
@@ -888,7 +891,7 @@ menu_html = f"""
     <a href="?tab=map{params_str}" target="_self" class="nav-item {'active' if current_tab == 'map' else ''}">
         <span class="nav-icon">🗺️</span>Bản đồ
     </a>
-    <a href="?tab=saved{params_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' else ''}">
+    <a href="?tab=saved{params_str}" target="_self" class="nav-item {'active' if current_tab == 'saved' === '' else ''}">
         <span class="nav-icon">❤️</span>Đã lưu ({len(st.session_state['saved_tours'])})
     </a>
     <a href="?tab=bookings{params_str}" target="_self" class="nav-item {'active' if current_tab == 'bookings' else ''}">
