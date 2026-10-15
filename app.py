@@ -189,7 +189,7 @@ st.markdown("""
 
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
-                padding: 200px 1.5rem 100px 1.5rem;
+                padding: 100px 1.5rem 100px 1.5rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -2rem;
