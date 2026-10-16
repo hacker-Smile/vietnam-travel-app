@@ -95,13 +95,13 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (MỞ KHÓA CUỘN & ĐỒ GỌN BANNER CHUẨN TRAVELOKA)
+# CSS TÙY CHỈNH GIAO DIỆN (CHÍNH XÁC TỪNG PIXEL)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* MỞ KHÓA THANH CUỘN CHO TOÀN BỘ CÁC LỚP STREAMLIT */
+        /* GIỮ THANH CUỘN MƯỢT MÀ VẪN HOẠT ĐỘNG */
         html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {
             font-family: 'Roboto', sans-serif !important;
             overflow-y: auto !important;
@@ -132,13 +132,13 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO XUỐNG SÂU (260px) */
+        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO XUỐNG DƯỚI 310px ĐỂ CHỨA TRỌN KHUNG */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 260px 5rem !important;
+            padding: 40px 5rem 310px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -176,23 +176,23 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* KÉO NỔI TOÀN BỘ KHUNG TÌM KIẾM NẰM TRỌN TRÊN BANNER (-210px) */
+        /* KÉO NỔI TOÀN BỘ KHUNG TÌM KIẾM CỤM TRUSTED BY LÊN BANNER (-250px) */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -210px !important;
+            margin-top: -250px !important;
             z-index: 999 !important;
             max-width: 950px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* TẠO DẠNG KHUNG THẺ TRẮNG NỔI BẬT CHUẨN TRAVELOKA */
+        /* THẺ TRẮNG GỌN GÀNG KHÔNG BỊ TRÀN BÊN DƯỚI */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
             box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 22px 28px !important;
+            padding: 16px 24px 14px 24px !important;
             overflow: visible !important;
         }
     </style>
@@ -416,7 +416,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM NỔI LÊN HOÀN TOÀN TRÊN BANNER BIỂN
+    # KHUNG TÌM KIẾM CÙNG CỤM TRUSTED BY NẰM LỌT THỎM TRONG BANNER BIỂN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -428,11 +428,11 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 38px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 38px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 38px; object-fit: contain;">
+                <img src="{logo1_base64}" style="height: 36px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 36px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 36px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
 
