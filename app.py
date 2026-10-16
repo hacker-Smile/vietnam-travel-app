@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐIỀU CHỈNH ĐỘ OVRELAP VỪA VẶN)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐẨY KHUNG TÌM KIẾM LÊN VÙNG XANH DƯƠNG)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -134,7 +134,7 @@ st.markdown("""
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 50px 5rem 130px 5rem !important;
+            padding: 50px 5rem 170px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -143,10 +143,10 @@ st.markdown("""
             z-index: 1;
         }
 
-        /* KÉO KHUNG TÌM KIẾM LỌT VÀO PHẦN DƯỚI CỦA BANNER MỘT CÁCH HOÀN HẢO */
+        /* KÉO KHUNG TÌM KIẾM CHUI LÊN LỌT HẲN VÀO VÙNG XANH DƯƠNG TRÊN BANNER */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -75px !important;
+            margin-top: -140px !important;
             z-index: 99 !important;
             max-width: 950px;
             margin-left: auto;
@@ -412,7 +412,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM NẰM LỌT VÀO BANNER
+    # KHUNG TÌM KIẾM NẰM LỌT VÀO VÙNG BANNER (VÙNG XANH DƯƠNG)
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
