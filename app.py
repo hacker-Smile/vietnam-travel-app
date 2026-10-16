@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐƯA TOÀN BỘ KHUNG TRUSTED BY VÀO HẲN BANNER BIỂN)
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -129,7 +129,7 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG TẤM ẢNH BIỂN XUỐNG SÂU HOÀN HẢO (320px) */
+        /* BANNER CHÍNH */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
@@ -173,7 +173,7 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* ĐẨY NỔI TOÀN BỘ KHUNG TÌM KIẾM BẤT CHẤP NỘI DUNG DÀI NẰM LỌT VÀO BANNER */
+        /* ĐẨY NỔI KHUNG TÌM KIẾM TRONG BANNER BIỂN */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
             margin-top: -260px !important;
@@ -183,7 +183,7 @@ st.markdown("""
             margin-right: auto;
         }
 
-        /* TẠO KHUNG THẺ TRẮNG BO TRÒN SANG TRỌNG */
+        /* TẠO KHUNG THẺ TRẮNG BO TRÒN */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
             box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
@@ -424,9 +424,10 @@ if current_tab == "home":
         logo2_base64 = get_image_base64("images/logo2.jpg")
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
+        # CĂN GIỮA TOÀN BỘ CỤM TRUSTED BY VÀ MÀU CHỮ SÁNG RÕ
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: flex-start; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
-                <span style="font-size: 13px; font-weight: 600; color: #666; font-style: italic;">Trusted by</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #333333; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" style="height: 38px; object-fit: contain;">
                 <img src="{logo2_base64}" style="height: 38px; object-fit: contain;">
                 <img src="{logo3_base64}" style="height: 38px; object-fit: contain;">
