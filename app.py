@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (KÉO DÀI BANNER & KÉO TOÀN BỘ KHUNG NỔI LÊN)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐƯA TOÀN BỘ KHUNG TRUSTED BY VÀO HẲN BANNER BIỂN)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -129,13 +129,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO XUỐNG SÂU HƠN (260px) */
+        /* BANNER CHÍNH - MỞ RỘNG TẤM ẢNH BIỂN XUỐNG SÂU HOÀN HẢO (320px) */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 260px 5rem !important;
+            padding: 40px 5rem 320px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -173,17 +173,17 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* KÉO NỔI TOÀN BỘ KHUNG TÌM KIẾM CẢ PHẦN KHOANH ĐỎ NẰM TRỌN TRÊN PLATFORM BANNER */
+        /* ĐẨY NỔI TOÀN BỘ KHUNG TÌM KIẾM BẤT CHẤP NỘI DUNG DÀI NẰM LỌT VÀO BANNER */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -210px !important;
+            margin-top: -260px !important;
             z-index: 999 !important;
             max-width: 950px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* TẠO DẠNG KHUNG THẺ TRẮNG NỔI BẬT CHUẨN TRAVELOKA */
+        /* TẠO KHUNG THẺ TRẮNG BO TRÒN SANG TRỌNG */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
             box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
@@ -413,7 +413,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM NỔI BẬT NẰM TRỌN VẸN TRÊN NỀN BANNER SÂU HƠN
+    # KHUNG TÌM KIẾM TRẮNG NẰM TRỌN VẸN 100% NỔI BẬT TRÊN BANNER BIỂN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
