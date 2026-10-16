@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐẨY KHUNG TÌM KIẾM LÊN BANNER)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐẨY KHUNG TÌM KIẾM LỌT VÀO BANNER)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -128,13 +128,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH */
+        /* BANNER CHÍNH - MỞ RỘNG ĐÁY BẰNG PADDING */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 140px 5rem !important;
+            padding: 40px 5rem 220px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -143,10 +143,10 @@ st.markdown("""
             z-index: 1;
         }
 
-        /* KÉO KHUNG TÌM KIẾM CHUI LÊN NẰM TRONG BANNER */
+        /* KÉO KHUNG TÌM KIẾM CHUI LÊN LỌT HẲN VÀO TRONG BANNER */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -110px !important;
+            margin-top: -180px !important;
             z-index: 99 !important;
             max-width: 950px;
             margin-left: auto;
@@ -159,7 +159,7 @@ st.markdown("""
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25) !important;
             background-color: white !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 10px 15px !important;
+            padding: 15px 20px !important;
         }
 
         .traveloka-brand-top-left {
@@ -432,7 +432,7 @@ if current_tab == "home":
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
