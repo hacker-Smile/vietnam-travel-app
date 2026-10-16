@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐẨY KHUNG TÌM KIẾM LỌT VÀO BANNER)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐIỀU CHỈNH ĐỘ OVRELAP VỪA VẶN)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -128,13 +128,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG ĐÁY BẰNG PADDING */
+        /* BANNER CHÍNH */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 220px 5rem !important;
+            padding: 50px 5rem 130px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -143,10 +143,10 @@ st.markdown("""
             z-index: 1;
         }
 
-        /* KÉO KHUNG TÌM KIẾM CHUI LÊN LỌT HẲN VÀO TRONG BANNER */
+        /* KÉO KHUNG TÌM KIẾM LỌT VÀO PHẦN DƯỚI CỦA BANNER MỘT CÁCH HOÀN HẢO */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -180px !important;
+            margin-top: -75px !important;
             z-index: 99 !important;
             max-width: 950px;
             margin-left: auto;
@@ -168,7 +168,7 @@ st.markdown("""
             text-align: left;
             margin-top: 15px;
             margin-left: -3rem !important;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }
@@ -412,7 +412,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # DÙNG CONTAINER CHUẨN CỦA STREAMLIT ĐỂ KHUNG TRẮNG NẰM TRONG BANNER ĐÚNG CHUẨN
+    # KHUNG TÌM KIẾM NẰM LỌT VÀO BANNER
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
