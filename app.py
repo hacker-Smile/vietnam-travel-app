@@ -95,14 +95,16 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ BẬT LẠI THANH CUỘN MANG LẠI TRẢI NGHIỆM MƯỢT MÀ)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        html, body, [class*="css"], * {
+        html, body {
             font-family: 'Roboto', sans-serif !important;
+            overflow-y: auto !important;
+            height: auto !important;
         }
         
         .stButton>button {
@@ -123,19 +125,19 @@ st.markdown("""
         header {visibility: hidden;}
 
         .block-container, [data-testid="stMain"] {
-            overflow: visible !important;
             padding-top: 0rem !important;
             padding-bottom: 110px !important;
             max-width: 100% !important;
+            overflow: visible !important;
         }
 
-        /* BANNER CHÍNH */
+        /* BANNER CHÍNH CHUẨN TRAVELOKA */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 320px 5rem !important;
+            padding: 35px 5rem 160px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -147,24 +149,24 @@ st.markdown("""
             font-size: 2.2rem;
             font-weight: 800;
             text-align: left;
-            margin-top: 10px;
+            margin-top: 5px;
             margin-left: -3rem !important;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }
 
         .traveloka-hero-title {
-            font-size: 2.4rem;
+            font-size: 2.3rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: white !important;
             text-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }
         
         .traveloka-hero-subtitle {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             text-align: center;
             opacity: 0.95;
             max-width: 750px;
@@ -173,23 +175,23 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* ĐẨY NỔI KHUNG TÌM KIẾM TRONG BANNER BIỂN */
+        /* KHUNG TÌM KIẾM DÂNG NỔI TRÊN NỀN BANNER */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -260px !important;
+            margin-top: -110px !important;
             z-index: 999 !important;
             max-width: 950px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* TẠO KHUNG THẺ TRẮNG BO TRÒN */
+        /* KHUNG THẺ TRẮNG NỔI BẬT BO TRÒN */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 22px 28px !important;
+            padding: 20px 25px !important;
             overflow: visible !important;
         }
     </style>
@@ -413,7 +415,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM TRẮNG NẰM TRỌN VẸN 100% NỔI BẬT TRÊN BANNER BIỂN
+    # KHUNG TÌM KIẾM ĐÈ LÊN BANNER BIỂN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -424,7 +426,6 @@ if current_tab == "home":
         logo2_base64 = get_image_base64("images/logo2.jpg")
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
-        # CĂN GIỮA TOÀN BỘ CỤM TRUSTED BY VÀ MÀU CHỮ SÁNG RÕ
         st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f0f0f0; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333; font-style: italic;">Trusted by</span>
@@ -434,7 +435,7 @@ if current_tab == "home":
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
