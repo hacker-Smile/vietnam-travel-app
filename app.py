@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (SỬA LỖI OVERFLOW VÀ DÂNG KHUNG)
+# CSS TÙY CHỈNH GIAO DIỆN (KÉO DÀI BANNER & KÉO TOÀN BỘ KHUNG NỔI LÊN)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -122,7 +122,6 @@ st.markdown("""
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        /* BỎ OVERFLOW HIDDEN ĐỂ KHÔNG BỊ TRẮM CẮT MẤT NỘI DUNG */
         .block-container, [data-testid="stMain"] {
             overflow: visible !important;
             padding-top: 0rem !important;
@@ -130,13 +129,13 @@ st.markdown("""
             max-width: 100% !important;
         }
 
-        /* BANNER CHÍNH CHUẨN TRAVELOKA */
+        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO XUỐNG SÂU HƠN (260px) */
         .traveloka-hero-wrapper {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
             background-size: cover;
             background-position: center;
-            padding: 40px 5rem 130px 5rem !important;
+            padding: 40px 5rem 260px 5rem !important;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -174,23 +173,23 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* DÂNG KHUNG TÌM KIẾM ĐÈ NỔI LÊN MÉP DƯỚI BANNER */
+        /* KÉO NỔI TOÀN BỘ KHUNG TÌM KIẾM CẢ PHẦN KHOANH ĐỎ NẰM TRỌN TRÊN PLATFORM BANNER */
         div.element-container:has(div.search-box-marker) {
             position: relative !important;
-            margin-top: -100px !important;
+            margin-top: -210px !important;
             z-index: 999 !important;
             max-width: 950px;
             margin-left: auto;
             margin-right: auto;
         }
 
-        /* TẠO DẠNG KHUNG THẺ TRẮNG BO TRÒN CHUẨN ĐẸP */
+        /* TẠO DẠNG KHUNG THẺ TRẮNG NỔI BẬT CHUẨN TRAVELOKA */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
-            background-color: white !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
+            background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 20px 25px !important;
+            padding: 22px 28px !important;
             overflow: visible !important;
         }
     </style>
@@ -414,7 +413,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM TRẮNG ĐÈ DÂNG NỔI NẰM ĐÚNG VỊ TRÍ CHUẨN TRAVELOKA
+    # KHUNG TÌM KIẾM NỔI BẬT NẰM TRỌN VẸN TRÊN NỀN BANNER SÂU HƠN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -434,7 +433,7 @@ if current_tab == "home":
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
