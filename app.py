@@ -95,13 +95,14 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ BẬT LẠI THANH CUỘN MANG LẠI TRẢI NGHIỆM MƯỢT MÀ)
+# CSS TÙY CHỈNH GIAO DIỆN (MỞ KHÓA CUỘN TOÀN DIỆN CHO STREAMLIT)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        html, body {
+        /* MỞ KHÓA THANH CUỘN CHO TOÀN BỘ CÁC LỚP STREAMLIT */
+        html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {
             font-family: 'Roboto', sans-serif !important;
             overflow-y: auto !important;
             height: auto !important;
@@ -124,9 +125,9 @@ st.markdown("""
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        .block-container, [data-testid="stMain"] {
+        .block-container, [data-testid="stMainBlockContainer"] {
             padding-top: 0rem !important;
-            padding-bottom: 110px !important;
+            padding-bottom: 120px !important;
             max-width: 100% !important;
             overflow: visible !important;
         }
