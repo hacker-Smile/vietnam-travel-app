@@ -430,9 +430,9 @@ if current_tab == "home":
         st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 36px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 36px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 36px; object-fit: contain;">
+                <img src="{logo1_base64}" style="height: 75px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 75px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 75px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
 
