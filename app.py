@@ -238,7 +238,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -70px !important;
+                margin-top: -385px !important;
                 z-index: 999 !important;
                 width: 100% !important;
                 padding-left: 8px;
