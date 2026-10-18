@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (TỐI ƯU TRONG SUỐT NỀN LOGO & RESPONSIVE)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX ĐỂ LOGO NẰM TRỌN TRÊN BANNER)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -132,9 +132,9 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        /* XÓA NỀN TRẮNG CỦA LOGO BẰNG MIX-BLEND-MODE */
+        /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
         .transparent-logo {
-            height: 45px !important;
+            height: 40px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 250px 5rem !important;
+                padding: 40px 5rem 280px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -200px !important;
+                margin-top: -220px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -202,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 20px 1rem 80px 1rem !important;
+                padding: 20px 1rem 90px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -3.5rem;
@@ -234,7 +234,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -50px !important;
+                margin-top: -60px !important;
                 z-index: 999 !important;
                 width: 100% !important;
             }
