@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TỐI ƯU ĐỂ ÔM TRỌN BANNER & XÓA VIỀN)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX CHUẨN CHO CẢ MOBILE & DESKTOP)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -134,7 +134,7 @@ st.markdown("""
 
         /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
         .transparent-logo {
-            height: 40px !important;
+            height: 38px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
@@ -195,17 +195,17 @@ st.markdown("""
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE) */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE - ĐÃ FIX CHUẨN) */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 20px 1rem 90px 1rem !important;
+                padding: 30px 1rem 110px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
-                margin-top: -3.5rem;
+                margin-top: -1rem !important;
                 color: white;
                 position: relative;
             }
@@ -214,44 +214,52 @@ st.markdown("""
                 font-size: 1.6rem;
                 font-weight: 800;
                 text-align: left;
-                margin-bottom: 15px;
+                margin-top: 5px !important;
+                margin-bottom: 12px;
                 color: white !important;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             }
 
             .traveloka-hero-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
                 font-weight: 700;
                 text-align: center;
                 margin-bottom: 8px;
                 color: white !important;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
             }
             
             .traveloka-hero-subtitle {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 text-align: center;
                 color: white !important;
+                opacity: 0.95;
             }
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -60px !important;
+                margin-top: -70px !important;
                 z-index: 999 !important;
                 width: 100% !important;
+                padding-left: 8px;
+                padding-right: 8px;
             }
         }
 
-        /* KHUNG THẺ TRẮNG */
+        /* KHUNG THẺ TRẮNG CHÍNH (CỐ ĐỊNH NỀN TRẮNG & CHỮ SÁNG SỦA, KHÔNG BỊ ẢNH HƯỞNG BỞI DARK MODE ĐIỆN THOẠI) */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 16px 20px !important;
+            padding: 20px 20px !important;
             overflow: visible !important;
         }
 
         div.element-container:has(div.search-box-marker) h3,
-        div.element-container:has(div.search-box-marker) div {
+        div.element-container:has(div.search-box-marker) div,
+        div.element-container:has(div.search-box-marker) span,
+        div.element-container:has(div.search-box-marker) p {
             color: #222222 !important;
         }
     </style>
@@ -475,7 +483,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM & TRUSTED BY ĐÃ NẰM TRỌN TRÊN BANNER KHÔNG CÒN VIỀN
+    # KHUNG TÌM KIẾM & LOGO TRÊN MOBILE & DESKTOP
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -487,7 +495,7 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
