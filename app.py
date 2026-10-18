@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX ĐỂ LOGO NẰM TRỌN TRÊN BANNER)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TỐI ƯU ĐỂ ÔM TRỌN BANNER & XÓA VIỀN)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 280px 5rem !important;
+                padding: 40px 5rem 330px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -220px !important;
+                margin-top: -260px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -475,7 +475,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM CÙNG CỤM TRUSTED BY NẰM LỌT THỎM TRONG BANNER BIỂN
+    # KHUNG TÌM KIẾM & TRUSTED BY ĐÃ NẰM TRỌN TRÊN BANNER KHÔNG CÒN VIỀN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -487,7 +487,7 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
