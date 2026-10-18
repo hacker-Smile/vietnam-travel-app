@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TỐI ƯU ĐỂ ÔM TRỌN BANNER & XÓA VIỀN)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -132,9 +132,9 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        /* XÓA NỀN TRẮNG THỪA CỦA LOGO */
+        /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
         .transparent-logo {
-            height: 38px !important;
+            height: 40px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
@@ -240,13 +240,13 @@ st.markdown("""
             }
         }
 
-        /* KHUNG THẺ TRẮNG CHÍNH */
+        /* KHUNG THẺ TRẮNG */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 20px 24px !important;
+            padding: 16px 20px !important;
             overflow: visible !important;
         }
 
@@ -475,7 +475,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM & LOGO GỌN GÀNG, KHÔNG CÒN KHUNG THỪA
+    # KHUNG TÌM KIẾM & TRUSTED BY ĐÃ NẰM TRỌN TRÊN BANNER KHÔNG CÒN VIỀN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -487,7 +487,7 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
