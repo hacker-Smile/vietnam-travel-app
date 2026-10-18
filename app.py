@@ -132,6 +132,14 @@ st.markdown("""
             overflow: visible !important;
         }
 
+        /* XÓA NỀN TRẮNG THỪA CỦA LOGO */
+        .transparent-logo {
+            height: 38px !important;
+            object-fit: contain !important;
+            mix-blend-mode: multiply;
+            background: transparent !important;
+        }
+
         /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
@@ -467,7 +475,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM & KHUNG NỀN RIÊNG CHO TRUSTED BY ĐỂ LÀM NỔI BẬT HOÀN TOÀN
+    # KHUNG TÌM KIẾM & LOGO GỌN GÀNG, KHÔNG CÒN KHUNG THỪA
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -479,11 +487,11 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="background: #ffffff; padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #222222 !important; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 38px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 38px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 38px; object-fit: contain;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
+                <img src="{logo1_base64}" class="transparent-logo">
+                <img src="{logo2_base64}" class="transparent-logo">
+                <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
 
