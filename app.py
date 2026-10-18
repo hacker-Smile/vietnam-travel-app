@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TỐI ƯU ĐỂ ÔM TRỌN BANNER & XÓA VIỀN)
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -130,14 +130,6 @@ st.markdown("""
             padding-bottom: 120px !important;
             max-width: 100% !important;
             overflow: visible !important;
-        }
-
-        /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
-        .transparent-logo {
-            height: 40px !important;
-            object-fit: contain !important;
-            mix-blend-mode: multiply;
-            background: transparent !important;
         }
 
         /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
@@ -240,13 +232,13 @@ st.markdown("""
             }
         }
 
-        /* KHUNG THẺ TRẮNG */
+        /* KHUNG THẺ TRẮNG CHÍNH */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 16px 20px !important;
+            padding: 20px 24px !important;
             overflow: visible !important;
         }
 
@@ -475,7 +467,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM & TRUSTED BY ĐÃ NẰM TRỌN TRÊN BANNER KHÔNG CÒN VIỀN
+    # KHUNG TÌM KIẾM & KHUNG NỀN RIÊNG CHO TRUSTED BY ĐỂ LÀM NỔI BẬT HOÀN TOÀN
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -487,11 +479,11 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" class="transparent-logo">
-                <img src="{logo2_base64}" class="transparent-logo">
-                <img src="{logo3_base64}" class="transparent-logo">
+            <div style="background: #ffffff; padding: 12px 20px; border-radius: 12px; display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #222222 !important; font-style: italic;">Trusted by</span>
+                <img src="{logo1_base64}" style="height: 38px; object-fit: contain;">
+                <img src="{logo2_base64}" style="height: 38px; object-fit: contain;">
+                <img src="{logo3_base64}" style="height: 38px; object-fit: contain;">
             </div>
         """, unsafe_allow_html=True)
 
