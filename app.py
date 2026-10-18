@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (CHÍNH XÁC TỪNG PIXEL)
+# CSS TÙY CHỈNH GIAO DIỆN (TỐI ƯU TRONG SUỐT NỀN LOGO & RESPONSIVE)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -132,68 +132,127 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        /* BANNER CHÍNH - MỞ RỘNG CHIỀU CAO XUỐNG DƯỚI 310px ĐỂ CHỨA TRỌN KHUNG */
-        .traveloka-hero-wrapper {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
-            background-size: cover;
-            background-position: center;
-            padding: 40px 5rem 310px 5rem !important;
-            margin-left: -5rem;
-            margin-right: -5rem;
-            margin-top: -3.5rem;
-            color: white;
-            position: relative;
+        /* XÓA NỀN TRẮNG CỦA LOGO BẰNG MIX-BLEND-MODE */
+        .transparent-logo {
+            height: 45px !important;
+            object-fit: contain !important;
+            mix-blend-mode: multiply;
+            background: transparent !important;
         }
 
-        .traveloka-brand-top-left {
-            font-size: 2.2rem;
-            font-weight: 800;
-            text-align: left;
-            margin-top: 10px;
-            margin-left: -3rem !important;
-            margin-bottom: 20px;
-            color: white !important;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
+        @media (min-width: 769px) {
+            .traveloka-hero-wrapper {
+                background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                            url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+                background-size: cover;
+                background-position: center;
+                padding: 40px 5rem 250px 5rem !important;
+                margin-left: -5rem;
+                margin-right: -5rem;
+                margin-top: -3.5rem;
+                color: white;
+                position: relative;
+            }
+
+            .traveloka-brand-top-left {
+                font-size: 2.2rem;
+                font-weight: 800;
+                text-align: left;
+                margin-top: 10px;
+                margin-left: -3rem !important;
+                margin-bottom: 20px;
+                color: white !important;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            }
+
+            .traveloka-hero-title {
+                font-size: 2.4rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 12px;
+                color: white !important;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            }
+            
+            .traveloka-hero-subtitle {
+                font-size: 1.15rem;
+                text-align: center;
+                opacity: 0.95;
+                max-width: 750px;
+                margin: 0 auto;
+                color: white !important;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            }
+
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -200px !important;
+                z-index: 999 !important;
+                max-width: 950px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
-        .traveloka-hero-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 12px;
-            color: white !important;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }
-        
-        .traveloka-hero-subtitle {
-            font-size: 1.15rem;
-            text-align: center;
-            opacity: 0.95;
-            max-width: 750px;
-            margin: 0 auto;
-            color: white !important;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE) */
+        @media (max-width: 768px) {
+            .traveloka-hero-wrapper {
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
+                            url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
+                background-size: cover;
+                background-position: center;
+                padding: 20px 1rem 80px 1rem !important;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                margin-top: -3.5rem;
+                color: white;
+                position: relative;
+            }
+
+            .traveloka-brand-top-left {
+                font-size: 1.6rem;
+                font-weight: 800;
+                text-align: left;
+                margin-bottom: 15px;
+                color: white !important;
+            }
+
+            .traveloka-hero-title {
+                font-size: 1.5rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 8px;
+                color: white !important;
+            }
+            
+            .traveloka-hero-subtitle {
+                font-size: 0.9rem;
+                text-align: center;
+                color: white !important;
+            }
+
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -50px !important;
+                z-index: 999 !important;
+                width: 100% !important;
+            }
         }
 
-        /* KÉO NỔI TOÀN BỘ KHUNG TÌM KIẾM CỤM TRUSTED BY LÊN BANNER (-250px) */
-        div.element-container:has(div.search-box-marker) {
-            position: relative !important;
-            margin-top: -250px !important;
-            z-index: 999 !important;
-            max-width: 950px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* THẺ TRẮNG GỌN GÀNG KHÔNG BỊ TRÀN BÊN DƯỚI */
+        /* KHUNG THẺ TRẮNG */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 16px !important;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.28) !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
             background-color: #ffffff !important;
             border: 1px solid rgba(0,0,0,0.08) !important;
-            padding: 16px 24px 14px 24px !important;
+            padding: 16px 20px !important;
             overflow: visible !important;
+        }
+
+        div.element-container:has(div.search-box-marker) h3,
+        div.element-container:has(div.search-box-marker) div {
+            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -428,11 +487,11 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #333333; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" style="height: 75px; object-fit: contain;">
-                <img src="{logo2_base64}" style="height: 75px; object-fit: contain;">
-                <img src="{logo3_base64}" style="height: 75px; object-fit: contain;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
+                <img src="{logo1_base64}" class="transparent-logo">
+                <img src="{logo2_base64}" class="transparent-logo">
+                <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
 
