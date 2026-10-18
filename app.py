@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ XÓA TRIỆT ĐỂ KHUNG LÒI DƯỚI BANNER)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KHUNG CONTAINER TRONG SUỐT HOÀN HẢO)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 230px 5rem !important;
+                padding: 40px 5rem 330px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -180px !important;
+                margin-top: -260px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -202,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 90px 1rem !important;
+                padding: 30px 1rem 120px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -238,7 +238,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -60px !important;
+                margin-top: -80px !important;
                 z-index: 999 !important;
                 width: 100% !important;
                 padding-left: 8px;
@@ -246,10 +246,14 @@ st.markdown("""
             }
         }
 
-        /* TÙY CHỈNH NỀN KHUNG TÌM KIẾM SẠCH SẼ, KHÔNG CÓ KHUNG DƯ THỪA BÊN DƯỚI */
-        div.element-container:has(div.search-box-marker) > div {
-            border-radius: 16px !important;
+        /* ÉP KHUNG CHỨA TÌM KIẾM KHÔNG CÓ VIỀN TRẮNG VÀ NỀN TRONG SUỐT KHÔNG BỊ KHUNG LÒI */
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
+            border-radius: 0px !important;
+            box-shadow: none !important;
             background-color: transparent !important;
+            border: none !important;
+            padding: 0px !important;
+            overflow: visible !important;
         }
 
         div.element-container:has(div.search-box-marker) h3,
@@ -479,8 +483,8 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG TÌM KIẾM VÀ LOGO (ĐÃ BỎ BORDER=TRUE ĐỂ XÓA HOÀN TOÀN KHUNG TRẮNG THỪA)
-    with st.container():
+    # KHUNG CHỨA TÌM KIẾM CÙNG CỤM LOGO NẰM LỌT THỎM TRÊN BANNER
+    with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #ffffff; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
@@ -491,15 +495,15 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 15px; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #ffffff !important; font-style: italic; text-shadow: 0 1px 3px rgba(0,0,0,0.6);">Trusted by</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 18px; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #ffffff !important; font-style: italic; text-shadow: 0 1px 4px rgba(0,0,0,0.6);">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 20px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
