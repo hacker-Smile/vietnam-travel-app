@@ -84,7 +84,7 @@ def load_state_from_query_params():
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
-            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
+            json_str = base64.urlsafe_b64encode(b64_str.encode("utf-8")).decode("utf-8")
             st.session_state["booked_tours"] = json.loads(json_str)
         except Exception:
             st.session_state["booked_tours"] = []
@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KHUNG CONTAINER TRONG SUỐT HOÀN HẢO)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX DƯ THỪA KHUNG VÀ ĐÉO BỊ BỊ LÒI MẾP)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -134,7 +134,7 @@ st.markdown("""
 
         /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
         .transparent-logo {
-            height: 38px !important;
+            height: 36px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 330px 5rem !important;
+                padding: 40px 5rem 260px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -260px !important;
+                margin-top: -210px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -202,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 120px 1rem !important;
+                padding: 30px 1rem 100px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -238,7 +238,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -80px !important;
+                margin-top: -70px !important;
                 z-index: 999 !important;
                 width: 100% !important;
                 padding-left: 8px;
@@ -246,14 +246,14 @@ st.markdown("""
             }
         }
 
-        /* ÉP KHUNG CHỨA TÌM KIẾM KHÔNG CÓ VIỀN TRẮNG VÀ NỀN TRONG SUỐT KHÔNG BỊ KHUNG LÒI */
-        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
-            border-radius: 0px !important;
+        /* KHUNG CHỨA TÌM KIẾM CỐ ĐỊNH TRONG SUỐT HOÀN TOÀN - TRIỆT TIỆU KHUNG DƯ LÒI BÊN DƯỚI */
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"],
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlock"] {
+            border: none !important;
             box-shadow: none !important;
             background-color: transparent !important;
-            border: none !important;
+            background: transparent !important;
             padding: 0px !important;
-            overflow: visible !important;
         }
 
         div.element-container:has(div.search-box-marker) h3,
@@ -483,8 +483,8 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHUNG CHỨA TÌM KIẾM CÙNG CỤM LOGO NẰM LỌT THỎM TRÊN BANNER
-    with st.container(border=True):
+    # KHÔNG DÙNG BORDER TẠO CONTAINER TRẮNG NỮA
+    with st.container():
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #ffffff; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
@@ -495,7 +495,7 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 20px; margin-top: 18px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #ffffff !important; font-style: italic; text-shadow: 0 1px 4px rgba(0,0,0,0.6);">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
