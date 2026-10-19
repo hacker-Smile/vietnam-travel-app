@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (PHONG CÁCH THẺ TRẮNG TRAVELOKA)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TẠO LẠI KHUNG THẺ TRẮNG BAO QUANH CHUẨN ĐẸP)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 300px 5rem !important;
+                padding: 40px 5rem 360px 5rem !important; /* Tăng độ cao banner để chứa trọn thẻ trắng */
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -220px !important;
+                margin-top: -270px !important; /* Đẩy khối thẻ trắng lên cao vị trí chuẩn */
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -202,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 400px 1rem !important;
+                padding: 30px 1rem 380px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -238,7 +238,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -320px !important;
+                margin-top: -300px !important;
                 z-index: 999 !important;
                 width: 100% !important;
                 padding-left: 8px;
@@ -246,17 +246,17 @@ st.markdown("""
             }
         }
 
-        /* TẠO KHUNG THẺ TRẮNG BO GÓC, ĐỔ BÓNG CHUẨN PHONG CÁCH TRAVELOKA */
+        /* KHUNG THẺ TRẮNG BAO QUANH CỤM TÌM KIẾM VÀ LOGO TRUSTED BY */
         div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             border-radius: 20px !important;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
             background-color: #ffffff !important;
-            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
             padding: 24px 28px !important;
             overflow: visible !important;
         }
 
-        /* ĐỔI MẶT CHỮ BÊN TRONG THẺ TRẮNG THÀNH MÀU TỐI SẮC NÉT */
+        /* ĐỔI MÀU CHỮ BÊN TRONG THẺ TRẮNG THÀNH MÀU TỐI SẮC NÉT */
         div.element-container:has(div.search-box-marker) h3,
         div.element-container:has(div.search-box-marker) div,
         div.element-container:has(div.search-box-marker) span,
@@ -484,7 +484,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # SỬ DỤNG LẠI CONTAINER CÓ BORDER (BORDER=TRUE) ĐỂ TẠO KHUNG THẺ TRẮNG BO GÓC
+    # KHUNG THẺ TRẮNG GOM CẢ TÌM KIẾM VÀ CỤM LOGO TRUSTED BY
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
@@ -496,7 +496,7 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
