@@ -320,28 +320,28 @@ DESTINATIONS = {
         "coords": (16.0544, 108.2022),
         "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
-        "avg_price": "6.500.000đ – 7.490.000đ/người(Đã bao gồm vé máy bay).",
-        "package_type": "Combo Vé máy bay + Khách sạn 3D2N (Tiêu chuẩn 4 sao)",
+        "avg_price": "7.190.000đ – 7.990.000đ/người.",
+        "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
         "highlights": ["Check-in Cầu Vàng Bà Nà Hills", "Khám phá Cầu Rồng phun lửa", "Tắm biển Mỹ Khê"],
         "avg_speed_kmh": 60,
-        "flight_time": "1 giờ 20 phút (Bay trực tiếp từ TP.HCM)"
+        "flight_time": "1 giờ 30 phút (Bay trực tiếp từ TP.HCM)"
     },
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
         "images": ["images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg", "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"],
         "description": "Thủ đô nghìn năm văn hiến lưu giữ dấu ấn lịch sử, Hồ Hoàn Kiếm thơ mộng và văn hóa ẩm thực phố cổ đặc sắc.",
-        "avg_price": "3.200.000 - 5.500.000 VNĐ / người",
-        "package_type": "Tour Khám phá Phố Cổ & Ẩm thực 4D3N",
+        "avg_price": "5.500.000đ – 6.800.000đ/người.",
+        "package_type": "Tour Khám phá Phố Cổ & Ẩm thực  ngày 3 đêm",
         "highlights": ["Dạo quanh Hồ Gươm & Phố Cổ", "Viếng Lăng Chủ tịch Hồ Chí Minh", "Thưởng thức Phở & Cà phê trứng"],
         "avg_speed_kmh": 60,
-        "flight_time": "2 giờ 05 phút (Bay trực tiếp từ TP.HCM)"
+        "flight_time": "2 giờ 15 phút (Bay trực tiếp từ sân bay Tân Sơn Nhất)"
     },
     "Lâm Đồng": {
         "coords": (11.9404, 108.4583),
         "images": ["images/DL1.jpg", "images/DL2.jpg", "images/DL3.jpg", "images/DL4.jpg", "images/DL5.jpg", "images/DL6.jpg", "images/DL7.jpg", "images/DL8.jpg"],
         "description": "Thành phố ngàn hoa với khí hậu ôn đới quanh năm mát mẻ, những đồi thông reo và các quán cà phê view thung lũng mộng mơ.",
-        "avg_price": "1.800.000 - 3.000.000 VNĐ / người",
-        "package_type": "Combo Xe Limousine khứ hồi + Khách sạn view đồi thông 3D2N",
+        "avg_price": "5.600.000đ – 7.500.000đ/người",
+        "package_type": "Combo Xe Limousine đón tại sân bay + Khách sạn view đồi thông 4 ngày 3 đêm",
         "highlights": ["Săn mây đồi chè Cầu Đất", "Khám phá Chợ Đêm Đà Lạt", "Check-in Hồ Xuân Hương"],
         "avg_speed_kmh": 50,
         "flight_time": "50 phút (Bay) hoặc 6-7 giờ (Xe Limousine từ TP.HCM)"
