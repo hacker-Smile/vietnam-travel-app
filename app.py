@@ -186,7 +186,7 @@ st.markdown("""
             /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
             [data-testid="stForm"] {
                 max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
-                margin: -170px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
+                margin: -200px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
