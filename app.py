@@ -187,7 +187,7 @@ st.markdown("""
 
             .search-box-container {
                 max-width: 980px;
-                margin: -300px auto 25px auto !important;
+                margin: -600px auto 25px auto !important;
                 position: relative;
                 z-index: 999;
             }
