@@ -84,7 +84,7 @@ def load_state_from_query_params():
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
-            json_str = base64.urlsafe_b64encode(b64_str.encode("utf-8")).decode("utf-8")
+            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
             st.session_state["booked_tours"] = json.loads(json_str)
         except Exception:
             st.session_state["booked_tours"] = []
@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ SỬA KHUNG THẺ TRẮNG GỌN GÀNG 100%)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 280px 5rem !important;
+                padding: 40px 5rem 320px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -210px !important;
+                margin-top: -240px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -202,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 300px 1rem !important;
+                padding: 30px 1rem 320px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -238,7 +238,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -240px !important;
+                margin-top: -260px !important;
                 z-index: 999 !important;
                 width: 100% !important;
                 padding-left: 8px;
@@ -246,17 +246,17 @@ st.markdown("""
             }
         }
 
-        /* ÉP KHUNG CONTAINER CHỨA MARKER THÀNH THẺ TRẮNG BO GÓC TRAVELOKA */
-        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
+        /* ĐỊNH DẠNG CONTAINER THÀNH 1 KHUNG THẺ TRẮNG NỔI BẬT BO GÓC TRAVELOKA */
+        div.element-container:has(div.search-box-marker) [data-testid="stVerticalBlockBorderWrapper"] {
             background-color: #ffffff !important;
             background: #ffffff !important;
             border-radius: 20px !important;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25) !important;
             border: 1px solid rgba(0, 0, 0, 0.08) !important;
             padding: 24px 28px !important;
         }
 
-        /* ĐỔI MÀU CHỮ BÊN TRONG KHUNG THẺ TRẮNG THÀNH MÀU TỐI SẮC NÉT */
+        /* ĐỔI MÀU CHỮ BÊN TRONG THẺ TRẮNG THÀNH MÀU TỐI RÕ NÉT */
         div.element-container:has(div.search-box-marker) h3,
         div.element-container:has(div.search-box-marker) div,
         div.element-container:has(div.search-box-marker) span,
@@ -484,7 +484,7 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # ĐẶT TOÀN BỘ TIÊU ĐỀ, Ô NHẬP LIỆU VÀ LOGO BÊN TRONG 1 CONTAINER DUY NHẤT
+    # DÙNG CONTAINER ĐỂ CHỨA TẤT CẢ NỘI DUNG VÀ TẠO KHUNG THẺ TRẮNG BAO BỌC
     with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
