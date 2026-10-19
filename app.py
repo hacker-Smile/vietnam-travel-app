@@ -346,13 +346,13 @@ DESTINATIONS = {
         "avg_speed_kmh": 50,
         "flight_time": "50 phút (Bay) hoặc 6-7 giờ (Xe Limousine từ TP.HCM)"
     },
-    "An Giang": {
+    "An Giang (Phú Quốc)": {
         "coords": (10.2899, 103.9840),
         "images": ["images/PQ1.jpg", "images/PQ2.jpg", "images/PQ3.jpg", "images/PQ4.jpg", "images/PQ5.jpg", "images/PQ6.jpg", "images/PQ7.jpg", "images/PQ8.jpg"],
         "description": "Đảo Ngọc thiên đường nghỉ dưỡng hàng đầu với bãi cát trắng mịn như kem, nước biển trong ngọc bích và hoàng hôn tuyệt mỹ.",
-        "avg_price": "3.500.000 - 6.000.000 VNĐ / người",
-        "package_type": "Combo Resort 5 sao sát biển + Vé VinWonders 3D2N",
-        "highlights": ["Tắm biển Bãi Sao", "Khám phá Grand World Phú Quốc", "Cáp treo vượt biển Hòn Thơm"],
+        "avg_price": "5.990.000 VNĐ đến 8.500.000 VNĐ/người.",
+        "package_type": "Combo Resort 4 sao sát biển + Vé VinWonders 4 ngày 3 đêm",
+        "highlights": ["Tắm biển Bãi Sao & Bãi Kem", "Khám phá Grand World Phú Quốc", "Cáp treo vượt biển Hòn Thơm"],
         "avg_speed_kmh": 40,
         "flight_time": "1 giờ 00 phút (Bay trực tiếp từ TP.HCM)"
     },
@@ -364,7 +364,7 @@ DESTINATIONS = {
         "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 3D2N",
         "highlights": ["Vui chơi tại VinWonders Nha Trang", "Lặn ngắm san hô đảo Hòn Mun", "Thưởng thức đặc sản nem nướng"],
         "avg_speed_kmh": 60,
-        "flight_time": "1 giờ 10 phút (Bay) hoặc 8 giờ (Tàu hỏa/Xe giường nằm)"
+        "flight_time": "1 giờ 30 phút (Bay) hoặc 8 giờ (Tàu hỏa/Xe giường nằm)"
     },
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
