@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 240px 5rem !important;
+                padding: 40px 5rem 280px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -185,16 +185,13 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            .search-card-container {
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -210px !important;
+                z-index: 999 !important;
                 max-width: 950px;
-                margin: -160px auto 30px auto !important;
-                position: relative;
-                z-index: 999;
-                background: #ffffff !important;
-                border-radius: 20px !important;
-                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
-                padding: 24px 28px !important;
-                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
@@ -205,7 +202,7 @@ st.markdown("""
                             url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 260px 1rem !important;
+                padding: 30px 1rem 300px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -239,16 +236,32 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            .search-card-container {
-                width: calc(100% - 20px) !important;
-                margin: -200px 10px 20px 10px !important;
-                position: relative;
-                z-index: 999;
-                background: #ffffff !important;
-                border-radius: 16px !important;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-                padding: 16px !important;
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -240px !important;
+                z-index: 999 !important;
+                width: 100% !important;
+                padding-left: 8px;
+                padding-right: 8px;
             }
+        }
+
+        /* ÉP KHUNG CONTAINER CHỨA MARKER THÀNH THẺ TRẮNG BO GÓC TRAVELOKA */
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
+            background-color: #ffffff !important;
+            background: #ffffff !important;
+            border-radius: 20px !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            padding: 24px 28px !important;
+        }
+
+        /* ĐỔI MÀU CHỮ BÊN TRONG KHUNG THẺ TRẮNG THÀNH MÀU TỐI SẮC NÉT */
+        div.element-container:has(div.search-box-marker) h3,
+        div.element-container:has(div.search-box-marker) div,
+        div.element-container:has(div.search-box-marker) span,
+        div.element-container:has(div.search-box-marker) p {
+            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -471,30 +484,27 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    logo1_base64 = get_image_base64("images/logo1.jpg")
-    logo2_base64 = get_image_base64("images/logo2.jpg")
-    logo3_base64 = get_image_base64("images/logo3.jpg")
-
-    # TẠO KHUNG THẺ TRẮNG BO GÓC BỌC TRỌN TOÀN BỘ CỤM TÌM KIẾM VÀ LOGO
-    st.markdown("""
-        <div class="search-card-container">
-            <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222;">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>
-            <div style="font-size: 14px; font-weight: 500; color: #555555; margin-bottom: 10px;">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
-    """, unsafe_allow_html=True)
-
-    search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
-
-    st.markdown(f"""
+    # ĐẶT TOÀN BỘ TIÊU ĐỀ, Ô NHẬP LIỆU VÀ LOGO BÊN TRONG 1 CONTAINER DUY NHẤT
+    with st.container(border=True):
+        st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
+        st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        
+        logo1_base64 = get_image_base64("images/logo1.jpg")
+        logo2_base64 = get_image_base64("images/logo2.jpg")
+        logo3_base64 = get_image_base64("images/logo3.jpg")
+        
+        st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
@@ -831,7 +841,7 @@ elif current_tab == "saved":
 elif current_tab == "bookings":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 💼 **Lịch Sử Đặt Tour CỦA BẠN**")
+    st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
         st.info("Bạn chưa có đơn đặt tour nào. Hãy chọn tour và tiến hành đặt giữ chỗ ngay trên hệ thống!")
