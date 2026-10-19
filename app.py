@@ -186,8 +186,8 @@ st.markdown("""
             }
 
             .search-box-container {
-                max-width: 980px;
-                margin: -600px auto 25px auto !important;
+                max-width: 950px;
+                margin: -150px auto 25px auto !important;
                 position: relative;
                 z-index: 999;
             }
