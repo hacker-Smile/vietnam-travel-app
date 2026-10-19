@@ -216,7 +216,7 @@ st.markdown("""
                 font-size: 1.6rem;
                 font-weight: 800;
                 text-align: left;
-                margin-top: -10px !important;
+                margin-top: -14px !important;
                 margin-bottom: 12px;
                 color: white !important;
                 text-shadow: 0 2px 4px rgba(0,0,0,0.5);
