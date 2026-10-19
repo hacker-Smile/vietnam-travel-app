@@ -201,10 +201,10 @@ st.markdown("""
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
-                            url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80');
+                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 1rem 400px 1rem !important;
+                padding: 40px 1rem 240px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
