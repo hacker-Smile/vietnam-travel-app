@@ -84,7 +84,7 @@ def load_state_from_query_params():
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
-            json_str = base64.urlsafe_b64encode(b64_str.encode("utf-8")).decode("utf-8")
+            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
             st.session_state["booked_tours"] = json.loads(json_str)
         except Exception:
             st.session_state["booked_tours"] = []
@@ -95,13 +95,12 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN CHUẨN
+# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
-        /* GIỮ THANH CUỘN MƯỢT MÀ VẪN HOẠT ĐỘNG */
         html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {
             font-family: 'Roboto', sans-serif !important;
             overflow-y: auto !important;
@@ -132,7 +131,6 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        /* LÀM TRONG SUỐT NỀN TRẮNG CỦA LOGO */
         .transparent-logo {
             height: 36px !important;
             object-fit: contain !important;
@@ -140,7 +138,7 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
+        /* 1. BANNER PHÍA TRÊN */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
@@ -185,10 +183,10 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* KHUNG TÌM KIẾM TRẮNG NẰM ĐÈ LÊN BANNER */
-            .traveloka-search-card {
-                max-width: 950px;                   /* <--- ĐỘ RỘNG KHUNG */
-                margin: -180px auto 30px auto !important; /* <--- SỐ -180px LÀ KÉO ĐÈ LÊN BANNER */
+            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
+            [data-testid="stForm"] {
+                max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
+                margin: -170px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
@@ -199,7 +197,7 @@ st.markdown("""
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE) */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
@@ -240,9 +238,9 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            .traveloka-search-card {
+            [data-testid="stForm"] {
                 width: calc(100% - 20px) !important;
-                margin: -190px 10px 20px 10px !important;
+                margin: -180px 10px 20px 10px !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
@@ -250,6 +248,14 @@ st.markdown("""
                 position: relative;
                 z-index: 999;
             }
+        }
+
+        /* ẨN NÚT SUBMIT THỪA CỦA ST.FORM VÀ ĐỔI MÀU CHỮ THÀNH TỐI */
+        [data-testid="stForm"] [data-testid="stFormSubmitButton"] {
+            display: none !important;
+        }
+        [data-testid="stForm"] h3, [data-testid="stForm"] div, [data-testid="stForm"] span, [data-testid="stForm"] p {
+            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -476,26 +482,23 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # MỞ KHUNG THẺ TRẮNG DUY NHẤT CHỨA TOÀN BỘ NỘI DUNG TÌM KIẾM
-    st.markdown("""
-        <div class="traveloka-search-card">
-            <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>
-            <div style="font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
-    """, unsafe_allow_html=True)
+    # DÙNG ST.FORM ĐỂ ÉP TẤT CẢ PHẦN TỬ NẰM TRONG 1 THẺ DÍNH LIỀN
+    with st.form("search_box_form"):
+        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        
+        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
 
-    # Ô INPUT NẰM GỌN TRONG CÙNG KHUNG THẺ TRẮNG
-    search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
-
-    # CỤM LOGO TRUSTED BY NẰM BÊN TRONG KHUNG THẺ TRẮNG
-    st.markdown(f"""
+        st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
+        
+        st.form_submit_button("SubmitHidden")
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
