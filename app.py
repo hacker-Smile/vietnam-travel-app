@@ -320,7 +320,7 @@ DESTINATIONS = {
         "coords": (16.0544, 108.2022),
         "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
-        "avg_price": "2.500.000 - 4.000.000 VNĐ / người",
+        "avg_price": "6.500.000đ – 7.490.000đ/người(Đã bao gồm vé máy bay).",
         "package_type": "Combo Vé máy bay + Khách sạn 3D2N (Tiêu chuẩn 4 sao)",
         "highlights": ["Check-in Cầu Vàng Bà Nà Hills", "Khám phá Cầu Rồng phun lửa", "Tắm biển Mỹ Khê"],
         "avg_speed_kmh": 60,
