@@ -144,7 +144,7 @@ st.markdown("""
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                            url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80');
+                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
                 padding: 40px 5rem 300px 5rem !important;
