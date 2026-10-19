@@ -216,7 +216,7 @@ st.markdown("""
                 font-size: 1.6rem;
                 font-weight: 800;
                 text-align: left;
-                margin-top: 0px !important;
+                margin-top: 10px !important;
                 margin-bottom: 12px;
                 color: white !important;
                 text-shadow: 0 2px 4px rgba(0,0,0,0.5);
@@ -240,7 +240,7 @@ st.markdown("""
 
             [data-testid="stForm"] {
                 width: calc(100% - 20px) !important;
-                margin: -180px 10px 20px 10px !important;
+                margin: -350px 10px 20px 10px !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
