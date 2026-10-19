@@ -84,7 +84,7 @@ def load_state_from_query_params():
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
-            json_str = base64.urlsafe_b64encode(b64_str.encode("utf-8")).decode("utf-8")
+            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
             st.session_state["booked_tours"] = json.loads(json_str)
         except Exception:
             st.session_state["booked_tours"] = []
@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX DƯ THỪA KHUNG VÀ ĐÉO BỊ BỊ LÒI MẾP)
+# CSS TÙY CHỈNH GIAO DIỆN (PHONG CÁCH THẺ TRẮNG TRAVELOKA)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -187,7 +187,7 @@ st.markdown("""
 
             div.element-container:has(div.search-box-marker) {
                 position: relative !important;
-                margin-top: -250px !important;
+                margin-top: -220px !important;
                 z-index: 999 !important;
                 max-width: 950px;
                 margin-left: auto;
@@ -246,21 +246,22 @@ st.markdown("""
             }
         }
 
-        /* KHUNG CHỨA TÌM KIẾM CỐ ĐỊNH TRONG SUỐT HOÀN TOÀN - TRIỆT TIỆU KHUNG DƯ LÒI BÊN DƯỚI */
-        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"],
-        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlock"] {
-            border: none !important;
-            box-shadow: none !important;
-            background-color: transparent !important;
-            background: transparent !important;
-            padding: 0px !important;
+        /* TẠO KHUNG THẺ TRẮNG BO GÓC, ĐỔ BÓNG CHUẨN PHONG CÁCH TRAVELOKA */
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
+            border-radius: 20px !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+            background-color: #ffffff !important;
+            border: 1px solid rgba(0, 0, 0, 0.06) !important;
+            padding: 24px 28px !important;
+            overflow: visible !important;
         }
 
+        /* ĐỔI MẶT CHỮ BÊN TRONG THẺ TRẮNG THÀNH MÀU TỐI SẮC NÉT */
         div.element-container:has(div.search-box-marker) h3,
         div.element-container:has(div.search-box-marker) div,
         div.element-container:has(div.search-box-marker) span,
         div.element-container:has(div.search-box-marker) p {
-            color: #ffffff !important;
+            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -483,11 +484,11 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    # KHÔNG DÙNG BORDER TẠO CONTAINER TRẮNG NỮA
-    with st.container():
+    # SỬ DỤNG LẠI CONTAINER CÓ BORDER (BORDER=TRUE) ĐỂ TẠO KHUNG THẺ TRẮNG BO GÓC
+    with st.container(border=True):
         st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
-        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #ffffff; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #444444; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
         
         logo1_base64 = get_image_base64("images/logo1.jpg")
@@ -495,8 +496,8 @@ if current_tab == "home":
         logo3_base64 = get_image_base64("images/logo3.jpg")
         
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #ffffff !important; font-style: italic; text-shadow: 0 1px 4px rgba(0,0,0,0.6);">Trusted by</span>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #333333 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
