@@ -84,7 +84,7 @@ def load_state_from_query_params():
     if "booked" in st.query_params:
         try:
             b64_str = st.query_params["booked"]
-            json_str = base64.urlsafe_b64encode(b64_str.encode("utf-8")).decode("utf-8")
+            json_str = base64.urlsafe_b64decode(b64_str.encode("utf-8")).decode("utf-8")
             st.session_state["booked_tours"] = json.loads(json_str)
         except Exception:
             st.session_state["booked_tours"] = []
@@ -184,6 +184,15 @@ st.markdown("""
                 color: white !important;
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
+
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -230px !important;
+                z-index: 999 !important;
+                max-width: 950px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
         /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE RESPONSIVE) */
@@ -226,39 +235,32 @@ st.markdown("""
                 color: white !important;
                 opacity: 0.95;
             }
+
+            div.element-container:has(div.search-box-marker) {
+                position: relative !important;
+                margin-top: -250px !important;
+                z-index: 999 !important;
+                width: 100% !important;
+                padding-left: 8px;
+                padding-right: 8px;
+            }
         }
 
-        /* KHUNG THẺ TRẮNG CHUẨN TRAVELOKA BỌC TRỌN TỪ TÌM KIẾM ĐẾN TRUSTED BY */
-        .traveloka-card {
+        /* TẠO KHUNG THẺ TRẮNG BO GÓC CHUẨN TRAVELOKA BAO TRỌN TOÀN BỘ NỘI DUNG BÊN TRONG CONTAINER */
+        div.element-container:has(div.search-box-marker) div[data-testid="stVerticalBlockBorderWrapper"] {
             background-color: #ffffff !important;
             border-radius: 20px !important;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.22) !important;
-            padding: 24px 28px 20px 28px !important;
-            max-width: 950px;
-            margin: -230px auto 30px auto !important;
-            position: relative;
-            z-index: 999;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            padding: 24px 28px !important;
         }
 
-        .traveloka-card-title {
-            font-size: 1.35rem;
-            font-weight: 700;
+        /* ĐỔI MÀU CHỮ BÊN TRONG KHUNG THẺ TRẮNG THÀNH MÀU TỐI */
+        div.element-container:has(div.search-box-marker) h3,
+        div.element-container:has(div.search-box-marker) div,
+        div.element-container:has(div.search-box-marker) span,
+        div.element-container:has(div.search-box-marker) p {
             color: #222222 !important;
-            margin-bottom: 6px;
-        }
-
-        .traveloka-card-sub {
-            font-size: 14px;
-            font-weight: 500;
-            color: #555555 !important;
-            margin-bottom: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .traveloka-card {
-                margin: -250px 10px 20px 10px !important;
-                padding: 16px !important;
-            }
         }
     </style>
 """, unsafe_allow_html=True)
@@ -481,30 +483,27 @@ if current_tab == "home":
         </div>
     """, unsafe_allow_html=True)
 
-    logo1_base64 = get_image_base64("images/logo1.jpg")
-    logo2_base64 = get_image_base64("images/logo2.jpg")
-    logo3_base64 = get_image_base64("images/logo3.jpg")
-
-    # MỞ THẺ KHUNG TRẮNG CHUẨN TRAVELOKA BỌC TRỌN NỘI DUNG TỪ TỪ KHOÁ TỚI TRUSTED BY
-    st.markdown("""
-        <div class="traveloka-card">
-            <div class="traveloka-card-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
-            <div class="traveloka-card-sub">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
-    """, unsafe_allow_html=True)
-
-    search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
-
-    st.markdown(f"""
+    # ĐẶT TOÀN BỘ NỘI DUNG TỪ TIÊU ĐỀ, Ô TÌM KIẾM ĐẾN LOGO TRONG CONTAINER ĐỂ BỌC TRỌN TRONG 1 KHUNG THẺ TRẮNG
+    with st.container(border=True):
+        st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
+        st.markdown("### ✈️ **Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch**")
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555; margin-bottom: 6px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        
+        logo1_base64 = get_image_base64("images/logo1.jpg")
+        logo2_base64 = get_image_base64("images/logo2.jpg")
+        logo3_base64 = get_image_base64("images/logo3.jpg")
+        
+        st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
