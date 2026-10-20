@@ -151,14 +151,14 @@ st.markdown("""
             margin: auto !important;
         }
 
-        /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
+        /* BANNER */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 220px 5rem !important;
+                padding: 40px 5rem 200px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -197,14 +197,13 @@ st.markdown("""
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE) */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 180px 1rem !important;
+                padding: 30px 1rem 160px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -236,12 +235,6 @@ st.markdown("""
                 text-align: center;
                 color: white !important;
                 opacity: 0.95;
-            }
-
-            div[data-testid="stModal"] > div, div[role="dialog"] {
-                width: 95% !important;
-                max-height: 88vh !important;
-                padding: 16px !important;
             }
         }
     </style>
@@ -484,13 +477,17 @@ if current_tab == "home":
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
             <script>
+                // SỬ DỤNG JAVASCRIPT TRỰC TIẾP TÁC ĐỘNG VÀO THẺ CHA ĐỂ KÉO KHUNG LÊN ĐÈ BANNER
                 setTimeout(() => {{
-                    const marker = document.querySelector('.search-box-marker');
+                    const doc = window.parent.document;
+                    const marker = doc.querySelector('.search-box-marker');
                     if (marker) {{
                         let wrapper = marker.closest('[data-testid="stVerticalBlockBorderWrapper"]');
                         if (wrapper) {{
                             const isMobile = window.innerWidth <= 768;
-                            wrapper.style.marginTop = isMobile ? '-120px' : '-300px';
+                            wrapper.style.transform = isMobile ? 'translateY(-110px)' : '-stFixed ? translateY(-150px) : translateY(-150px)';
+                            wrapper.style.transform = isMobile ? 'translateY(-110px)' : 'translateY(-150px)'; // <-- Chỉnh độ cao ở đây (-150px máy tính, -110px điện thoại)
+                            wrapper.style.marginBottom = isMobile ? '-110px' : '-150px';
                             wrapper.style.position = 'relative';
                             wrapper.style.zIndex = '999';
                             wrapper.style.backgroundColor = '#ffffff';
@@ -503,7 +500,7 @@ if current_tab == "home":
                             wrapper.style.marginRight = 'auto';
                         }}
                     }}
-                }}, 50);
+                }}, 80);
             </script>
         """, unsafe_allow_html=True)
 
