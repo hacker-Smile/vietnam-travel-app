@@ -158,7 +158,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 220px 5rem !important;
+                padding: 40px 5rem 450px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -199,7 +199,7 @@ st.markdown("""
             /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM LÊN ĐÈ VÀO BANNER TRÊN MÁY TÍNH */
             [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
                 max-width: 950px !important;
-                margin: -160px auto 30px auto !important;
+                margin: -300px auto 30px auto !important;
                 position: relative !important;
                 z-index: 999 !important;
                 background-color: #ffffff !important;
