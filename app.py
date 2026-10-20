@@ -486,7 +486,7 @@ if current_tab == "home":
                         let wrapper = marker.closest('[data-testid="stVerticalBlockBorderWrapper"]');
                         if (wrapper) {{
                             const isMobile = window.innerWidth <= 768;
-                            wrapper.style.marginTop = isMobile ? '-130px' : '-200px';
+                            wrapper.style.marginTop = isMobile ? '-130px' : '-100px';
                             wrapper.style.position = 'relative';
                             wrapper.style.zIndex = '999';
                             wrapper.style.backgroundColor = '#ffffff';
