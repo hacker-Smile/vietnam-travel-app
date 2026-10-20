@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KÉO ĐÈ LÊN BANNER CHUẨN XÁC)
+# CSS FIX KÉO KHUNG ĐÈ LÊN BANNER BẰNG TRANSFORM / ABSOLUTE
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -158,7 +158,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 400px 5rem !important;
+                padding: 50px 5rem 180px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -191,17 +191,19 @@ st.markdown("""
                 text-align: center;
                 opacity: 0.95;
                 max-width: 750px;
-                margin: 0 auto;
+                margin: 0 auto 30px auto;
                 color: white !important;
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÊN MÁY TÍNH */
-            .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
+            /* BẮT BUỘC KHUNG TRẮNG ÉP LÊN BANNER BẰNG TRANSFORM */
+            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
                 max-width: 950px !important;
-                margin: -150px auto 30px auto !important; /* <--- Chỉnh số -350px này nếu muốn cao hơn/thấp hơn */
-                position: relative;
-                z-index: 999;
+                margin: 0 auto !important;
+                transform: translateY(-130px) !important; /* <--- KÉO LÊN BẰNG Y-AXIS (CHỈNH SỐ NÀY ĐỂ ĐÈ NHIỀU/ÍT) */
+                margin-bottom: -100px !important; /* BÙ LẠI KHOẢNG TRỐNG PHÍA DƯỚI */
+                position: relative !index;
+                z-index: 9999 !important;
                 background-color: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
@@ -217,7 +219,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 340px 1rem !important;
+                padding: 30px 1rem 140px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -251,12 +253,14 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÊN ĐIỆN THOẠI */
-            .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
+            /* BẮT BUỘC KHUNG TRẮNG ÉP LÊN BANNER BẰNG TRANSFORM TRÊN MOBILE */
+            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
                 width: calc(100% - 20px) !important;
-                margin: -310px 10px 20px 10px !important; /* <--- Chỉnh số -310px này nếu muốn cao hơn/thấp hơn trên điện thoại */
+                margin: 0 auto !important;
+                transform: translateY(-100px) !important; /* <--- CHỈNH ĐÈ LÊN TRÊN MOBILE */
+                margin-bottom: -80px !important;
                 position: relative;
-                z-index: 999;
+                z-index: 9999 !important;
                 background-color: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
@@ -271,10 +275,10 @@ st.markdown("""
         }
 
         /* ĐỔI MÀU CHỮ BÊN TRONG KHUNG TÌM KIẾM THÀNH TỐI */
-        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type h3,
-        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type div,
-        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type span,
-        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type p {
+        [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) h3,
+        [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) div,
+        [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) span,
+        [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) p {
             color: #222222 !important;
         }
     </style>
@@ -502,8 +506,9 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # DÙNG ST.CONTAINER BÌNH THƯỜNG, CSS SỰ TỰ ĐỘNG BẮT ĐỂ KÉO LÊN
     with st.container(border=True):
+        # ĐÁNH DẤU MARKER CỦA KHUNG TÌM KIẾM ĐỂ CSS BẮT CHÍNH XÁC
+        st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         
