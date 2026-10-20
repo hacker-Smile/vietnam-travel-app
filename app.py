@@ -200,7 +200,7 @@ st.markdown("""
             [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
                 max-width: 950px !important;
                 margin: 0 auto !important;
-                transform: translateY(-130px) !important; /* <--- KÉO LÊN BẰNG Y-AXIS (CHỈNH SỐ NÀY ĐỂ ĐÈ NHIỀU/ÍT) */
+                transform: translateY(-300px) !important; /* <--- KÉO LÊN BẰNG Y-AXIS (CHỈNH SỐ NÀY ĐỂ ĐÈ NHIỀU/ÍT) */
                 margin-bottom: -100px !important; /* BÙ LẠI KHOẢNG TRỐNG PHÍA DƯỚI */
                 position: relative !index;
                 z-index: 9999 !important;
