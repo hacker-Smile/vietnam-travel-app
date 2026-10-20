@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KÉO ĐÈ & MODAL ĐẶT TOUR)
+# CSS TÙY CHỈNH GIAO DIỆN (SỬ DỤNG :has() ĐỂ KÉO ĐÈ LÊN BANNER)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,9 +138,7 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* -------------------------------------------------- */
-        /* FIX CHUẨN MODAL / POPUP ĐẶT TOUR KHÔNG BỊ THIẾU     */
-        /* -------------------------------------------------- */
+        /* FIX POPUP / MODAL ĐẶT TOUR KHÔNG BỊ THIẾU */
         div[data-testid="stModal"] > div, div[role="dialog"] {
             max-width: 520px !important;
             width: 92% !important;
@@ -160,7 +158,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 400px 5rem !important;
+                padding: 40px 5rem 220px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -197,6 +195,19 @@ st.markdown("""
                 color: white !important;
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
+
+            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM LÊN ĐÈ VÀO BANNER TRÊN MÁY TÍNH */
+            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
+                max-width: 950px !important;
+                margin: -160px auto 30px auto !important;
+                position: relative !important;
+                z-index: 999 !important;
+                background-color: #ffffff !important;
+                border-radius: 20px !important;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                padding: 24px 28px !important;
+            }
         }
 
         /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE) */
@@ -206,7 +217,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 200px 1rem !important;
+                padding: 30px 1rem 180px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -238,6 +249,18 @@ st.markdown("""
                 text-align: center;
                 color: white !important;
                 opacity: 0.95;
+            }
+
+            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM LÊN ĐÈ VÀO BANNER TRÊN MOBILE */
+            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
+                width: calc(100% - 20px) !important;
+                margin: -130px 10px 20px 10px !important;
+                position: relative !important;
+                z-index: 999 !important;
+                background-color: #ffffff !important;
+                border-radius: 16px !important;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+                padding: 16px !important;
             }
         }
     </style>
@@ -479,28 +502,6 @@ if current_tab == "home":
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-            <script>
-                setTimeout(() => {{
-                    const marker = document.querySelector('.search-box-marker');
-                    if (marker) {{
-                        let wrapper = marker.closest('[data-testid="stVerticalBlockBorderWrapper"]');
-                        if (wrapper) {{
-                            const isMobile = window.innerWidth <= 768;
-                            wrapper.style.marginTop = isMobile ? '-130px' : '-100px';
-                            wrapper.style.position = 'relative';
-                            wrapper.style.zIndex = '999';
-                            wrapper.style.backgroundColor = '#ffffff';
-                            wrapper.style.borderRadius = isMobile ? '16px' : '20px';
-                            wrapper.style.boxShadow = '0 14px 40px rgba(0, 0, 0, 0.22)';
-                            wrapper.style.border = '1px solid rgba(0, 0, 0, 0.08)';
-                            wrapper.style.padding = isMobile ? '16px' : '24px 28px';
-                            wrapper.style.width = isMobile ? 'calc(100% - 20px)' : '950px';
-                            wrapper.style.marginLeft = 'auto';
-                            wrapper.style.marginRight = 'auto';
-                        }}
-                    }}
-                }}, 50);
-            </script>
         """, unsafe_allow_html=True)
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
