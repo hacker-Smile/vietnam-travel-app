@@ -199,7 +199,7 @@ st.markdown("""
             /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÊN MÁY TÍNH */
             .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
                 max-width: 950px !important;
-                margin: -460px auto 30px auto !important; /* <--- Chỉnh số -350px này nếu muốn cao hơn/thấp hơn */
+                margin: -600px auto 30px auto !important; /* <--- Chỉnh số -350px này nếu muốn cao hơn/thấp hơn */
                 position: relative;
                 z-index: 999;
                 background-color: #ffffff !important;
