@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX MODAL ĐẶT TOUR & KHUNG TÌM KIẾM)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TÁCH BIỆT KHUNG TÌM KIẾM VÀ POPUP ĐẶT TOUR)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -139,20 +139,18 @@ st.markdown("""
         }
 
         /* -------------------------------------------------- */
-        /* FIX GIAO DIỆN POPUP / MODAL ĐẶT TOUR (ST.DIALOG)    */
+        /* FIX CHUẨN POPUP / MODAL ĐẶT TOUR (ST.DIALOG)        */
         /* -------------------------------------------------- */
-        div[data-testid="stModal"], div[data-baseweb="modal"] {
-            border-radius: 20px !important;
-        }
-        
-        div[data-testid="stModal"] > div, div[data-baseweb="modal"] > div {
-            max-width: 520px !important;
+        div[data-testid="stModal"] > div, div[role="dialog"] {
+            max-width: 500px !important;
             width: 90% !important;
             max-height: 85vh !important;
             overflow-y: auto !important;
-            border-radius: 16px !important;
+            border-radius: 20px !important;
             padding: 24px !important;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.25) !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+            margin: auto !important;
         }
 
         /* 1. BANNER PHÍA TRÊN (DESKTOP) */
@@ -200,15 +198,10 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
-            [data-testid="stForm"] {
+            /* KHUNG TÌM KIẾM TRẮNG NẰM ĐÈ LÊN BANNER (DESKTOP) */
+            .search-box-card {
                 max-width: 950px !important;
                 margin: -350px auto 30px auto !important;
-                background: #ffffff !important;
-                border-radius: 20px !important;
-                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
-                border: 1px solid rgba(0, 0, 0, 0.08) !important;
-                padding: 24px 28px !important;
                 position: relative;
                 z-index: 999;
             }
@@ -255,31 +248,33 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            [data-testid="stForm"] {
+            .search-box-card {
                 width: calc(100% - 20px) !important;
                 margin: -310px 10px 20px 10px !important;
-                background: #ffffff !important;
-                border-radius: 16px !important;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-                padding: 16px !important;
                 position: relative;
                 z-index: 999;
             }
 
-            /* FIX KÍCH THƯỚC POPUP TRÊN MOBILE KHÔNG BỊ QUÁ KHỔ */
-            div[data-testid="stModal"] > div, div[data-baseweb="modal"] > div {
+            div[data-testid="stModal"] > div, div[role="dialog"] {
                 width: 95% !important;
                 max-height: 88vh !important;
                 padding: 16px !important;
-                margin: auto !important;
             }
         }
 
-        /* ẨN NÚT SUBMIT THỪA CỦA ST.FORM VÀ ĐỔI MÀU CHỮ THÀNH TỐI */
-        [data-testid="stForm"] [data-testid="stFormSubmitButton"] {
-            display: none !important;
+        /* ĐỊNH DẠNG KHUNG THẺ TRẮNG CHO TÌM KIẾM */
+        .search-box-card [data-testid="stVerticalBlockBorderWrapper"] {
+            background-color: #ffffff !important;
+            border-radius: 20px !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            padding: 24px 28px !important;
         }
-        [data-testid="stForm"] h3, [data-testid="stForm"] div, [data-testid="stForm"] span, [data-testid="stForm"] p {
+
+        .search-box-card h3,
+        .search-box-card div,
+        .search-box-card span,
+        .search-box-card p {
             color: #222222 !important;
         }
     </style>
@@ -507,8 +502,9 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # DÙNG ST.FORM ĐỂ ÉP TẤT CẢ PHẦN TỬ NẰM TRONG 1 THẺ DÍNH LIỀN
-    with st.form("search_box_form"):
+    # DÙNG ST.CONTAINER VỚI CLASS TÁCH BIỆT ĐỂ KHÔNG ẢNH HƯỞNG FORM ĐẶT TOUR
+    st.markdown("<div class='search-box-card'>", unsafe_allow_html=True)
+    with st.container(border=True):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         
@@ -522,8 +518,7 @@ if current_tab == "home":
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
-        
-        st.form_submit_button("SubmitHidden")
+    st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
