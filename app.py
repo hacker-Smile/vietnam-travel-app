@@ -201,7 +201,7 @@ st.markdown("""
             /* KHUNG TÌM KIẾM TRẮNG NẰM ĐÈ LÊN BANNER (DESKTOP) */
             .search-box-card {
                 max-width: 950px !important;
-                margin: -400px auto 30px auto !important;
+                margin: -600px auto 30px auto !important;
                 position: relative;
                 z-index: 999;
             }
