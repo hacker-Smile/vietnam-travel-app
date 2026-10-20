@@ -837,7 +837,7 @@ elif current_tab == "saved":
 elif current_tab == "bookings":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 💼 **Lịch Sử Đặt Tour CỦA BẠN**")
+    st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
     if not st.session_state["booked_tours"]:
         st.info("Bạn chưa có đơn đặt tour nào. Hãy chọn tour và tiến hành đặt giữ chỗ ngay trên hệ thống!")
