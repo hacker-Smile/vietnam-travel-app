@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX MODAL ĐẶT TOUR & KHUNG TÌM KIẾM)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,7 +138,24 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* 1. BANNER PHÍA TRÊN */
+        /* -------------------------------------------------- */
+        /* FIX GIAO DIỆN POPUP / MODAL ĐẶT TOUR (ST.DIALOG)    */
+        /* -------------------------------------------------- */
+        div[data-testid="stModal"], div[data-baseweb="modal"] {
+            border-radius: 20px !important;
+        }
+        
+        div[data-testid="stModal"] > div, div[data-baseweb="modal"] > div {
+            max-width: 520px !important;
+            width: 90% !important;
+            max-height: 85vh !important;
+            overflow-y: auto !important;
+            border-radius: 16px !important;
+            padding: 24px !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25) !important;
+        }
+
+        /* 1. BANNER PHÍA TRÊN (DESKTOP) */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
@@ -185,8 +202,8 @@ st.markdown("""
 
             /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
             [data-testid="stForm"] {
-                max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
-                margin: -350px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
+                max-width: 950px !important;
+                margin: -350px auto 30px auto !important;
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
@@ -247,6 +264,14 @@ st.markdown("""
                 padding: 16px !important;
                 position: relative;
                 z-index: 999;
+            }
+
+            /* FIX KÍCH THƯỚC POPUP TRÊN MOBILE KHÔNG BỊ QUÁ KHỔ */
+            div[data-testid="stModal"] > div, div[data-baseweb="modal"] > div {
+                width: 95% !important;
+                max-height: 88vh !important;
+                padding: 16px !important;
+                margin: auto !important;
             }
         }
 
