@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KÉO ĐÈ & MODAL ĐẶT TOUR)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,10 +138,12 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* FIX POPUP / MODAL ĐẶT TOUR */
+        /* -------------------------------------------------- */
+        /* FIX CHUẨN MODAL / POPUP ĐẶT TOUR KHÔNG BỊ THIẾU     */
+        /* -------------------------------------------------- */
         div[data-testid="stModal"] > div, div[role="dialog"] {
-            max-width: 500px !important;
-            width: 90% !important;
+            max-width: 520px !important;
+            width: 92% !important;
             max-height: 85vh !important;
             overflow-y: auto !important;
             border-radius: 20px !important;
@@ -158,7 +160,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 220px 5rem !important;
+                padding: 40px 5rem 240px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -204,7 +206,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 180px 1rem !important;
+                padding: 30px 1rem 200px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -236,12 +238,6 @@ st.markdown("""
                 text-align: center;
                 color: white !important;
                 opacity: 0.95;
-            }
-
-            div[data-testid="stModal"] > div, div[role="dialog"] {
-                width: 95% !important;
-                max-height: 88vh !important;
-                padding: 16px !important;
             }
         }
     </style>
@@ -490,7 +486,7 @@ if current_tab == "home":
                         let wrapper = marker.closest('[data-testid="stVerticalBlockBorderWrapper"]');
                         if (wrapper) {{
                             const isMobile = window.innerWidth <= 768;
-                            wrapper.style.marginTop = isMobile ? '-120px' : '-300px';
+                            wrapper.style.marginTop = isMobile ? '-130px' : '-160px';
                             wrapper.style.position = 'relative';
                             wrapper.style.zIndex = '999';
                             wrapper.style.backgroundColor = '#ffffff';
