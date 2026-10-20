@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ TÁCH BIỆT KHUNG TÌM KIẾM VÀ POPUP ĐẶT TOUR)
+# CSS TÙY CHỈNH GIAO DIỆN (ĐÃ FIX KÉO ĐÈ LÊN BANNER CHUẨN XÁC)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,9 +138,7 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* -------------------------------------------------- */
-        /* FIX CHUẨN POPUP / MODAL ĐẶT TOUR (ST.DIALOG)        */
-        /* -------------------------------------------------- */
+        /* FIX POPUP / MODAL ĐẶT TOUR */
         div[data-testid="stModal"] > div, div[role="dialog"] {
             max-width: 500px !important;
             width: 90% !important;
@@ -153,7 +151,7 @@ st.markdown("""
             margin: auto !important;
         }
 
-        /* 1. BANNER PHÍA TRÊN (DESKTOP) */
+        /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
@@ -198,16 +196,21 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* KHUNG TÌM KIẾM TRẮNG NẰM ĐÈ LÊN BANNER (DESKTOP) */
-            .search-box-card {
+            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÊN MÁY TÍNH */
+            .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
                 max-width: 950px !important;
-                margin: -600px auto 30px auto !important;
+                margin: -350px auto 30px auto !important; /* <--- Chỉnh số -350px này nếu muốn cao hơn/thấp hơn */
                 position: relative;
                 z-index: 999;
+                background-color: #ffffff !important;
+                border-radius: 20px !important;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                padding: 24px 28px !important;
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE) */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
@@ -248,11 +251,16 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            .search-box-card {
+            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÊN ĐIỆN THOẠI */
+            .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type {
                 width: calc(100% - 20px) !important;
-                margin: -310px 10px 20px 10px !important;
+                margin: -310px 10px 20px 10px !important; /* <--- Chỉnh số -310px này nếu muốn cao hơn/thấp hơn trên điện thoại */
                 position: relative;
                 z-index: 999;
+                background-color: #ffffff !important;
+                border-radius: 16px !important;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+                padding: 16px !important;
             }
 
             div[data-testid="stModal"] > div, div[role="dialog"] {
@@ -262,19 +270,11 @@ st.markdown("""
             }
         }
 
-        /* ĐỊNH DẠNG KHUNG THẺ TRẮNG CHO TÌM KIẾM */
-        .search-box-card [data-testid="stVerticalBlockBorderWrapper"] {
-            background-color: #ffffff !important;
-            border-radius: 20px !important;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
-            border: 1px solid rgba(0, 0, 0, 0.08) !important;
-            padding: 24px 28px !important;
-        }
-
-        .search-box-card h3,
-        .search-box-card div,
-        .search-box-card span,
-        .search-box-card p {
+        /* ĐỔI MÀU CHỮ BÊN TRONG KHUNG TÌM KIẾM THÀNH TỐI */
+        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type h3,
+        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type div,
+        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type span,
+        .traveloka-hero-wrapper ~ [data-testid="stVerticalBlockBorderWrapper"]:first-of-type p {
             color: #222222 !important;
         }
     </style>
@@ -502,8 +502,7 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # DÙNG ST.CONTAINER VỚI CLASS TÁCH BIỆT ĐỂ KHÔNG ẢNH HƯỞNG FORM ĐẶT TOUR
-    st.markdown("<div class='search-box-card'>", unsafe_allow_html=True)
+    # DÙNG ST.CONTAINER BÌNH THƯỜNG, CSS SỰ TỰ ĐỘNG BẮT ĐỂ KÉO LÊN
     with st.container(border=True):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
@@ -518,7 +517,6 @@ if current_tab == "home":
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
