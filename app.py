@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN (SỬ DỤNG :has() ĐỂ KÉO ĐÈ LÊN BANNER)
+# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,27 +138,14 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* FIX POPUP / MODAL ĐẶT TOUR KHÔNG BỊ THIẾU */
-        div[data-testid="stModal"] > div, div[role="dialog"] {
-            max-width: 520px !important;
-            width: 92% !important;
-            max-height: 85vh !important;
-            overflow-y: auto !important;
-            border-radius: 20px !important;
-            padding: 24px !important;
-            background-color: #ffffff !important;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
-            margin: auto !important;
-        }
-
-        /* 1. GIAO DIỆN MÁY TÍNH (DESKTOP) */
+        /* 1. BANNER PHÍA TRÊN */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 450px 5rem !important;
+                padding: 40px 5rem 400px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -196,28 +183,28 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM LÊN ĐÈ VÀO BANNER TRÊN MÁY TÍNH */
-            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
-                max-width: 950px !important;
-                margin: -300px auto 30px auto !important;
-                position: relative !important;
-                z-index: 999 !important;
-                background-color: #ffffff !important;
+            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
+            [data-testid="stForm"] {
+                max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
+                margin: -350px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
+                background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
                 padding: 24px 28px !important;
+                position: relative;
+                z-index: 999;
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI (MOBILE) */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 180px 1rem !important;
+                padding: 30px 1rem 340px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -251,17 +238,24 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            /* TỰ ĐỘNG KÉO KHUNG TÌM KIẾM LÊN ĐÈ VÀO BANNER TRÊN MOBILE */
-            [data-testid="stVerticalBlockBorderWrapper"]:has(.search-box-marker) {
+            [data-testid="stForm"] {
                 width: calc(100% - 20px) !important;
-                margin: -130px 10px 20px 10px !important;
-                position: relative !important;
-                z-index: 999 !important;
-                background-color: #ffffff !important;
+                margin: -310px 10px 20px 10px !important;
+                background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
                 padding: 16px !important;
+                position: relative;
+                z-index: 999;
             }
+        }
+
+        /* ẨN NÚT SUBMIT THỪA CỦA ST.FORM VÀ ĐỔI MÀU CHỮ THÀNH TỐI */
+        [data-testid="stForm"] [data-testid="stFormSubmitButton"] {
+            display: none !important;
+        }
+        [data-testid="stForm"] h3, [data-testid="stForm"] div, [data-testid="stForm"] span, [data-testid="stForm"] p {
+            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -488,8 +482,8 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    with st.container(border=True):
-        st.markdown("<div class='search-box-marker'></div>", unsafe_allow_html=True)
+    # DÙNG ST.FORM ĐỂ ÉP TẤT CẢ PHẦN TỬ NẰM TRONG 1 THẺ DÍNH LIỀN
+    with st.form("search_box_form"):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         
@@ -503,6 +497,8 @@ if current_tab == "home":
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
+        
+        st.form_submit_button("SubmitHidden")
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
