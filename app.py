@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN & FIX LỖI MODAL ĐẶT TOUR
+# CSS TÙY CHỈNH GIAO DIỆN & FIX CHÍNH XÁC LỖI MODAL
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -138,25 +138,7 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* FIX TRIỆT ĐỂ LỖI KHUNG MODAL/POPUP ĐẶT TOUR BỊ LỆCH HOẶC CẮT */
-        div[data-testid="stModal"] {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            z-index: 9999999 !important;
-        }
-        div[data-testid="stModal"] > div:first-child {
-            max-width: 600px !important;
-            width: 90% !important;
-            max-height: 90vh !important;
-            overflow-y: auto !important;
-            border-radius: 20px !important;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
-            background: white !important;
-            margin: auto !important;
-        }
-
-        /* 1. BANNER PHÍA TRÊN */
+        /* BANNER PHÍA TRÊN (DESKTOP) */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
@@ -201,8 +183,8 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
-            [data-testid="stForm"] {
+            /* CỈ ÁP DỤNG MARGIN-TOP ÂM CHO CHÍNH FORM TÌM KIẾM CỦA TRANG CHỦ */
+            [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) {
                 max-width: 950px !important;
                 margin: -350px auto 30px auto !important;
                 background: #ffffff !important;
@@ -215,7 +197,7 @@ st.markdown("""
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        /* GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
@@ -256,7 +238,7 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            [data-testid="stForm"] {
+            [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) {
                 width: calc(100% - 20px) !important;
                 margin: -310px 10px 20px 10px !important;
                 background: #ffffff !important;
@@ -268,11 +250,24 @@ st.markdown("""
             }
         }
 
-        /* ẨN NÚT SUBMIT THỪA CỦA ST.FORM VÀ ĐỔI MÀU CHỮ THÀNH TỐI */
-        [data-testid="stForm"] [data-testid="stFormSubmitButton"] {
+        /* DÀNH RIÊNG CHO FORM TRONG MODAL ĐẶT TOUR: CĂN GIỮA VÀ RESET NGUYÊN BẢN */
+        div[data-testid="stModal"] [data-testid="stForm"] {
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+            background: transparent !important;
+            width: 100% !important;
+        }
+
+        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
+        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) [data-testid="stFormSubmitButton"] {
             display: none !important;
         }
-        [data-testid="stForm"] h3, [data-testid="stForm"] div, [data-testid="stForm"] span, [data-testid="stForm"] p {
+        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) h3, 
+        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) div, 
+        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) span, 
+        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) p {
             color: #222222 !important;
         }
     </style>
@@ -500,7 +495,6 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # DÙNG ST.FORM ĐỂ ÉP TẤT CẢ PHẦN TỬ NẰM TRONG 1 THẺ DÍNH LIỀN
     with st.form("search_box_form"):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
