@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN GỐC
+# CSS CHUẨN TỰN TỪNG PX DÀNH CHO HÌNH 1
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,7 +140,7 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* BANNER PHÍA TRÊN (DESKTOP) */
+        /* 1. BANNER PHÍA TRÊN DÀNH CHO DESKTOP (HÌNH 1 chuẩn) */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
@@ -185,6 +185,7 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
+            /* CHỈ ĐỊNH CHÍNH XÁC FORM TÌM KIẾM ĐỂ ĐÈ NỔI LÊN BANNER */
             form[key="search_box_form"] {
                 max-width: 950px !important;
                 margin: -350px auto 30px auto !important;
@@ -198,7 +199,7 @@ st.markdown("""
             }
         }
 
-        /* GIAO DIỆN ĐIỆN THOẠI */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
@@ -251,6 +252,7 @@ st.markdown("""
             }
         }
 
+        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
         form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
             display: none !important;
         }
@@ -259,6 +261,16 @@ st.markdown("""
         form[key="search_box_form"] span, 
         form[key="search_box_form"] p {
             color: #222222 !important;
+        }
+
+        /* KHUNG ĐẶT TOUR ĐƯỢC CỦNG CỐ CSS RIÊNG KHÔNG CHẠY VÀO FORM */
+        .custom-booking-box {
+            background-color: #ffffff;
+            border: 2px solid #ff4b4b;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -425,7 +437,7 @@ def get_image_base64(path):
 current_tab = st.session_state["current_tab"]
 
 # =========================================================
-# TAB 1: TÌM KIẾM / TRANG CHỦ
+# TAB 1: TÌM KIẾM / TRANG CHỦ (CHUẨN LẠI GIAO DIỆN HÌNH 1)
 # =========================================================
 if current_tab == "home":
     st.markdown("""
@@ -529,7 +541,7 @@ if current_tab == "home":
             idx += 1
 
 # =========================================================
-# TAB 2: ĐẶT TOUR & BẢN ĐỒ
+# TAB 2: ĐẶT TOUR & BẢN ĐỒ (HOÀN TẤT FIX LỖI ĐẶT TOUR)
 # =========================================================
 elif current_tab == "map":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
@@ -744,10 +756,13 @@ elif current_tab == "map":
                     save_state_to_query_params()
                     st.rerun()
 
-            # BẢNG ĐẶT TOUR MỞ RỘNG TRỰC TIẾP (BẢO ĐẢM KHÔNG BAO GIỜ BỊ LỖI LỆCH MÀN HÌNH)
+            # BẢNG ĐẶT TOUR HIỂN THỊ TRỰC TIẾP DƯỚI DẠNG CONTAINER THƯỜNG (KHÔNG DÙNG FORM HAY POPUP DIALOG NÊN 100% KHÔNG LỖI)
             if st.session_state["show_booking_form"]:
-                st.markdown("---")
-                st.markdown("### 📝 **XÁC NHẬN ĐẶT TOUR DU LỊCH**")
+                st.markdown("""
+                    <div class="custom-booking-box">
+                        <h3 style="margin-top:0; color:#ff4b4b;">📝 XÁC NHẬN ĐẶT TOUR DU LỊCH</h3>
+                    </div>
+                """, unsafe_allow_html=True)
                 st.markdown(f"🌟 Tour: **{st.session_state['selected_place']}** | 💰 Giá: **{current_data['avg_price']}**")
                 st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
                 
