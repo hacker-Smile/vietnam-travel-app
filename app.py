@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS CHUẨN TỰN TỪNG PX DÀNH CHO HÌNH 1
+# CSS CHUẨN ĐỊNH VỊ CỐ ĐỊNH BANNER VÀ FORM TÌM KIẾM
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,14 +140,14 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* 1. BANNER PHÍA TRÊN DÀNH CHO DESKTOP (HÌNH 1 chuẩn) */
+        /* BANNER HÌNH NỀN DESKTOP */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 400px 5rem !important;
+                padding: 40px 5rem 380px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -185,28 +185,29 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* CHỈ ĐỊNH CHÍNH XÁC FORM TÌM KIẾM ĐỂ ĐÈ NỔI LÊN BANNER */
+            /* BẮT BUỘC KHUNG TRẮNG TÌM KIẾM NHẢY LÊN ĐÈ VÀO BANNER BIỂN */
+            div[data-testid="stVerticalBlock"] > div:has(form[key="search_box_form"]),
             form[key="search_box_form"] {
                 max-width: 950px !important;
-                margin: -350px auto 30px auto !important;
+                margin: -310px auto 30px auto !important;
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
                 padding: 24px 28px !important;
-                position: relative;
-                z-index: 99;
+                position: relative !important;
+                z-index: 9999 !important;
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        /* GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 340px 1rem !important;
+                padding: 30px 1rem 300px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -240,19 +241,19 @@ st.markdown("""
                 opacity: 0.95;
             }
 
+            div[data-testid="stVerticalBlock"] > div:has(form[key="search_box_form"]),
             form[key="search_box_form"] {
                 width: calc(100% - 20px) !important;
-                margin: -310px 10px 20px 10px !important;
+                margin: -260px 10px 20px 10px !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
                 padding: 16px !important;
-                position: relative;
-                z-index: 99;
+                position: relative !important;
+                z-index: 9999 !important;
             }
         }
 
-        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
         form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
             display: none !important;
         }
@@ -263,7 +264,6 @@ st.markdown("""
             color: #222222 !important;
         }
 
-        /* KHUNG ĐẶT TOUR ĐƯỢC CỦNG CỐ CSS RIÊNG KHÔNG CHẠY VÀO FORM */
         .custom-booking-box {
             background-color: #ffffff;
             border: 2px solid #ff4b4b;
@@ -437,7 +437,7 @@ def get_image_base64(path):
 current_tab = st.session_state["current_tab"]
 
 # =========================================================
-# TAB 1: TÌM KIẾM / TRANG CHỦ (CHUẨN LẠI GIAO DIỆN HÌNH 1)
+# TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
     st.markdown("""
@@ -541,7 +541,7 @@ if current_tab == "home":
             idx += 1
 
 # =========================================================
-# TAB 2: ĐẶT TOUR & BẢN ĐỒ (HOÀN TẤT FIX LỖI ĐẶT TOUR)
+# TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
 elif current_tab == "map":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
@@ -756,7 +756,6 @@ elif current_tab == "map":
                     save_state_to_query_params()
                     st.rerun()
 
-            # BẢNG ĐẶT TOUR HIỂN THỊ TRỰC TIẾP DƯỚI DẠNG CONTAINER THƯỜNG (KHÔNG DÙNG FORM HAY POPUP DIALOG NÊN 100% KHÔNG LỖI)
             if st.session_state["show_booking_form"]:
                 st.markdown("""
                     <div class="custom-booking-box">
