@@ -147,7 +147,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 180px 5rem !important;
+                padding: 40px 5rem 460px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -189,7 +189,7 @@ st.markdown("""
             .search-card-wrapper {
                 max-width: 950px !important;
                 margin: 0 auto !important;
-                transform: translateY(-110px) !important;
+                transform: translateY(-260px) !important;
                 margin-bottom: -90px !important;
                 position: relative;
                 z-index: 999;
