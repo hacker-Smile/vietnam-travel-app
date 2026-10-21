@@ -67,6 +67,8 @@ def load_state_from_query_params():
         st.session_state["selected_place"] = "Đà Nẵng"
     if "zoom_overview" not in st.session_state:
         st.session_state["zoom_overview"] = False
+    if "show_booking_form" not in st.session_state:
+        st.session_state["show_booking_form"] = False
 
     if "tab" in st.query_params:
         st.session_state["current_tab"] = st.query_params["tab"]
@@ -95,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN & FIX CHÍNH XÁC CỬA SỔ POPUP
+# CSS TÙY CHỈNH GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -183,15 +185,14 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* CHỈ ÁP DỤNG MARGIN-TOP ÂM CHO CHÍNH FORM TÌM KIẾM Ở TRANG CHỦ */
-            form[key="search_box_form"] {
-                max-width: 950px !important;
-                margin: -350px auto 30px auto !important;
-                background: #ffffff !important;
-                border-radius: 20px !important;
-                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
-                border: 1px solid rgba(0, 0, 0, 0.08) !important;
-                padding: 24px 28px !important;
+            .hero-search-box {
+                max-width: 950px;
+                margin: -350px auto 30px auto;
+                background: #ffffff;
+                border-radius: 20px;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+                border: 1px solid rgba(0, 0, 0, 0.08);
+                padding: 24px 28px;
                 position: relative;
                 z-index: 99;
             }
@@ -238,46 +239,26 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            form[key="search_box_form"] {
-                width: calc(100% - 20px) !important;
-                margin: -310px 10px 20px 10px !important;
-                background: #ffffff !important;
-                border-radius: 16px !important;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-                padding: 16px !important;
+            .hero-search-box {
+                width: calc(100% - 20px);
+                margin: -310px 10px 20px 10px;
+                background: #ffffff;
+                border-radius: 16px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+                padding: 16px;
                 position: relative;
                 z-index: 99;
             }
         }
 
-        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
-        form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
-            display: none !important;
-        }
-        form[key="search_box_form"] h3, 
-        form[key="search_box_form"] div, 
-        form[key="search_box_form"] span, 
-        form[key="search_box_form"] p {
-            color: #222222 !important;
-        }
-
-        /* FIX TRIỆT ĐỂ KHUNG DIALOG POPUP STREAMLIT */
-        div[role="dialog"] {
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-            margin: 0 auto !important;
-            max-height: 85vh !important;
-            overflow-y: auto !important;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
-            border-radius: 20px !important;
-        }
-
-        div[role="dialog"] form {
-            margin: 0 !important;
-            padding: 10px !important;
-            box-shadow: none !important;
-            border: none !important;
-            background: transparent !important;
+        /* FORM ĐẶT TOUR BẢO ĐẢM KHÔNG BỊ ĐÈ CSS */
+        .inline-booking-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 2px solid #ff4b4b;
+            box-shadow: 0 8px 25px rgba(255, 75, 75, 0.15);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -286,51 +267,6 @@ HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
-
-@st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
-def booking_modal(destination_name, package_price):
-    st.markdown(f"#### 🌟 Tour: **{destination_name}**")
-    st.caption(f"💰 Mức giá: **{package_price}**")
-    st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
-    
-    with st.form(key="modal_booking_form"):
-        full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
-        phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
-        email_addr = st.text_input("Email", placeholder="name@example.com")
-        
-        col_f1, col_f2 = st.columns(2)
-        with col_f1:
-            num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1)
-        with col_f2:
-            num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0)
-            
-        note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...")
-        
-        submitted = st.form_submit_button("🚀 XÁC NHẬN ĐẶT TOUR", type="primary", use_container_width=True)
-        
-        if submitted:
-            if not full_name.strip() or not phone_number.strip():
-                st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
-            else:
-                with st.spinner("Đang gửi thông tin đặt tour..."):
-                    send_booking_to_email(
-                        destination_name, package_price, full_name,
-                        phone_number, email_addr, num_adults, num_children, note_text
-                    )
-                
-                st.session_state["booked_tours"].append({
-                    "tour": destination_name,
-                    "price": package_price,
-                    "name": full_name,
-                    "phone": phone_number,
-                    "adults": num_adults,
-                    "children": num_children,
-                    "note": note_text if note_text else "Không có",
-                    "time": datetime.now().strftime("%d/%m/%Y %H:%M")
-                })
-                
-                save_state_to_query_params()
-                st.rerun()
 
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -504,24 +440,26 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    with st.form(key="search_box_form"):
-        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
-        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
-        
-        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+    # DÙNG DIV CLASS RIÊNG ĐỂ TRÁNH DÙNG THẺ ST.FORM Ở TRANG CHỦ
+    st.markdown(f"""
+        <div class="hero-search-box">
+            <h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>
+            <div style='font-size: 14px; font-weight: 500; color: #555555; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+        </div>
+    """, unsafe_allow_html=True)
 
-        st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
-                <img src="{logo1_base64}" class="transparent-logo">
-                <img src="{logo2_base64}" class="transparent-logo">
-                <img src="{logo3_base64}" class="transparent-logo">
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.form_submit_button("SubmitHidden")
+    # ĐẶT Ô INPUT NGAY DƯỚI DẠNG STREAMLIT TỰ DO
+    search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
 
-    st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
+    st.markdown(f"""
+        <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: -20px; margin-bottom: 25px; padding-top: 14px; flex-wrap: wrap;">
+            <span style="font-size: 14px; font-weight: 700; color: #444444; font-style: italic;">Trusted by</span>
+            <img src="{logo1_base64}" class="transparent-logo">
+            <img src="{logo2_base64}" class="transparent-logo">
+            <img src="{logo3_base64}" class="transparent-logo">
+        </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
@@ -691,6 +629,7 @@ elif current_tab == "map":
         if selected_option != st.session_state["selected_place"]:
             st.session_state["selected_place"] = selected_option
             st.session_state["zoom_overview"] = False
+            st.session_state["show_booking_form"] = False
             save_state_to_query_params()
             st.rerun()
 
@@ -789,8 +728,11 @@ elif current_tab == "map":
             
             col_book1, col_book2 = st.columns([2, 1])
             with col_book1:
-                if st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True):
-                    booking_modal(st.session_state["selected_place"], current_data["avg_price"])
+                btn_text = "❌ ĐÓNG KHUNG ĐẶT TOUR" if st.session_state["show_booking_form"] else "🚀 ĐẶT TOUR NGAY"
+                if st.button(btn_text, type="primary", use_container_width=True):
+                    st.session_state["show_booking_form"] = not st.session_state["show_booking_form"]
+                    st.rerun()
+
             with col_book2:
                 is_saved = st.session_state["selected_place"] in st.session_state["saved_tours"]
                 save_btn_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
@@ -803,6 +745,55 @@ elif current_tab == "map":
                         st.toast("Đã thêm vào danh sách yêu thích!")
                     save_state_to_query_params()
                     st.rerun()
+
+            # HIỂN THỊ KHUNG ĐẶT TOUR NGAY TRONG TRANG
+            if st.session_state["show_booking_form"]:
+                with st.container():
+                    st.markdown("---")
+                    st.markdown("### 📝 **XÁC NHẬN ĐẶT TOUR DU LỊCH**")
+                    st.markdown(f"🌟 Tour: **{st.session_state['selected_place']}** | 💰 Mức giá: **{current_data['avg_price']}**")
+                    st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
+                    
+                    with st.form("inline_booking_form"):
+                        full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
+                        phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
+                        email_addr = st.text_input("Email", placeholder="name@example.com")
+                        
+                        col_f1, col_f2 = st.columns(2)
+                        with col_f1:
+                            num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1)
+                        with col_f2:
+                            num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0)
+                            
+                        note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...")
+                        
+                        submitted = st.form_submit_button("🚀 GỬI THÔNG TIN ĐẶT TOUR", type="primary", use_container_width=True)
+                        
+                        if submitted:
+                            if not full_name.strip() or not phone_number.strip():
+                                st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
+                            else:
+                                with st.spinner("Đang gửi thông tin đặt tour..."):
+                                    send_booking_to_email(
+                                        st.session_state['selected_place'], current_data['avg_price'], full_name,
+                                        phone_number, email_addr, num_adults, num_children, note_text
+                                    )
+                                
+                                st.session_state["booked_tours"].append({
+                                    "tour": st.session_state['selected_place'],
+                                    "price": current_data['avg_price'],
+                                    "name": full_name,
+                                    "phone": phone_number,
+                                    "adults": num_adults,
+                                    "children": num_children,
+                                    "note": note_text if note_text else "Không có",
+                                    "time": datetime.now().strftime("%d/%m/%Y %H:%M")
+                                })
+                                
+                                st.session_state["show_booking_form"] = False
+                                save_state_to_query_params()
+                                st.success("🎉 Đặt tour thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.")
+                                st.rerun()
 
     if is_phone:
         render_map_content()
