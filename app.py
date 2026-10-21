@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
+# CSS TÙY CHỈNH GIAO DIỆN & FIX LỖI MODAL ĐẶT TOUR
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -132,10 +132,28 @@ st.markdown("""
         }
 
         .transparent-logo {
-            height: 70px !important;
+            height: 36px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
+        }
+
+        /* FIX TRIỆT ĐỂ LỖI KHUNG MODAL/POPUP ĐẶT TOUR BỊ LỆCH HOẶC CẮT */
+        div[data-testid="stModal"] {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            z-index: 9999999 !important;
+        }
+        div[data-testid="stModal"] > div:first-child {
+            max-width: 600px !important;
+            width: 90% !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+            border-radius: 20px !important;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3) !important;
+            background: white !important;
+            margin: auto !important;
         }
 
         /* 1. BANNER PHÍA TRÊN */
@@ -185,15 +203,15 @@ st.markdown("""
 
             /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
             [data-testid="stForm"] {
-                max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
-                margin: -350px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
+                max-width: 950px !important;
+                margin: -350px auto 30px auto !important;
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
                 padding: 24px 28px !important;
                 position: relative;
-                z-index: 999;
+                z-index: 99;
             }
         }
 
@@ -246,7 +264,7 @@ st.markdown("""
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
                 padding: 16px !important;
                 position: relative;
-                z-index: 999;
+                z-index: 99;
             }
         }
 
@@ -858,7 +876,7 @@ elif current_tab == "bookings":
 elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 👤 **Tài Khoản**")
+    st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
@@ -955,7 +973,7 @@ menu_html = f"""
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
     <a href="?tab=account{params_str}" target="_self" class="nav-item {is_tab_account}">
-        <span class="nav-icon">👤</span>Tài Khoản
+        <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
 """
