@@ -858,7 +858,7 @@ elif current_tab == "bookings":
 elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
+    st.markdown("### 👤 **Giới Thiệu**")
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
