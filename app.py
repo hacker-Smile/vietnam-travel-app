@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TỐI ƯU HÓA KHUNG TÌM KIẾM ĐÈ NỔI TRÊN BANNER
+# CSS TỐI ƯU HÓA TOÀN BỘ BỐ CỤC
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -133,20 +133,13 @@ st.markdown("""
             overflow: visible !important;
         }
 
-        .transparent-logo {
-            height: 32px !important;
-            object-fit: contain !important;
-            mix-blend-mode: multiply;
-            background: transparent !important;
-        }
-
-        /* HERO BANNER CHUẨN */
+        /* BANNER NỀN BIỂN XANH */
         .hero-banner-box {
             background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                         url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
             background-size: cover;
             background-position: center;
-            padding: 35px 4rem 140px 4rem;
+            padding: 40px 4rem 130px 4rem;
             margin-left: -5rem;
             margin-right: -5rem;
             margin-top: -3.5rem;
@@ -178,10 +171,10 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* KHUNG TRẮNG TÌM KIẾM ĐÈ NỔI LÊN BANNER */
-        .search-card-container {
+        /* KHUNG TRẮNG CHỨA TOÀN BỘ TÌM KIẾM ĐÈ LÊN BANNER */
+        .search-card-wrapper {
             max-width: 950px;
-            margin: -90px auto 25px auto;
+            margin: -80px auto 30px auto;
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
@@ -192,9 +185,16 @@ st.markdown("""
             color: #222222;
         }
 
+        .transparent-logo {
+            height: 32px !important;
+            object-fit: contain !important;
+            mix-blend-mode: multiply;
+            background: transparent !important;
+        }
+
         @media (max-width: 768px) {
             .hero-banner-box {
-                padding: 20px 1rem 120px 1rem;
+                padding: 20px 1rem 110px 1rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem;
@@ -202,8 +202,8 @@ st.markdown("""
             .brand-top-left { font-size: 1.6rem; }
             .hero-main-title { font-size: 1.4rem; }
             .hero-sub-title { font-size: 0.85rem; }
-            .search-card-container {
-                margin: -80px 10px 20px 10px;
+            .search-card-wrapper {
+                margin: -70px 10px 20px 10px;
                 padding: 16px;
             }
         }
@@ -288,7 +288,7 @@ DESTINATIONS = {
     "Lào Cai": {
         "coords": (22.3364, 103.8438),
         "images": ["images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg", "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"],
-        "description": "Th thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
+        "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
         "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
         "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
@@ -388,128 +388,33 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # HIỂN THỊ BANNER VÀ KHUNG TÌM KIẾM HOÀN CHỈNH BẰNG COMPONENT HTML
-    home_html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-        body {{
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: transparent;
-        }}
-        .hero-banner-box {{
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                        url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 35px 2rem 140px 2rem;
-            color: white;
-            border-radius: 0 0 16px 16px;
-        }}
-        .brand-top-left {{
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-        }}
-        .hero-main-title {{
-            font-size: 2.4rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }}
-        .hero-sub-title {{
-            font-size: 1.15rem;
-            text-align: center;
-            opacity: 0.95;
-            max-width: 750px;
-            margin: 0 auto;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        }}
-        .search-card-container {{
-            max-width: 950px;
-            margin: -80px auto 0 auto;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 24px 28px;
-            position: relative;
-            z-index: 999;
-            color: #222222;
-        }}
-        .search-title {{
-            margin-top: 0;
-            margin-bottom: 6px;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #222222;
-        }}
-        .search-desc {{
-            font-size: 14px;
-            font-weight: 500;
-            color: #555555;
-            margin-bottom: 12px;
-        }}
-        .trusted-box {{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 18px;
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px solid #eeeeee;
-            flex-wrap: wrap;
-        }}
-        .trusted-text {{
-            font-size: 14px;
-            font-weight: 700;
-            color: #444444;
-            font-style: italic;
-        }}
-        .transparent-logo {{
-            height: 32px;
-            object-fit: contain;
-            mix-blend-mode: multiply;
-        }}
-    </style>
-    </head>
-    <body>
+    # HIỂN THỊ BANNER NỀN BIỂN XANH
+    st.markdown("""
         <div class="hero-banner-box">
             <div class="brand-top-left">Mai Travel</div>
             <div class="hero-main-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="hero-sub-title">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
-        <div class="search-card-container">
-            <div class="search-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
-            <div class="search-desc">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
-    """
+        <div class="search-card-wrapper">
+            <div style="margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
+            <div style="font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+    """, unsafe_allow_html=True)
 
-    st.markdown(home_html, unsafe_allow_html=True)
-
-    # Ô nhập liệu tìm kiếm nằm bên trong khối trắng
+    # Ô NHẬP LIỆU TÌM KIẾM NẰM GỌN TRONG KHUNG TRẮNG
     search_query = st.text_input("SearchQueryInput", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
 
-    # Đóng phần HTML còn lại của khối trắng chứa logo
-    footer_html = f"""
-            <div class="trusted-box">
-                <span class="trusted-text">Trusted by</span>
+    # PHẦN LOGO TRỢ GIÚP "TRUSTED BY" CŨNG NẰM TRỌN TRONG KHUNG TRẮNG
+    st.markdown(f"""
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         </div>
-    </body>
-    </html>
-    """
-    st.markdown(footer_html, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
