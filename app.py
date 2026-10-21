@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS CHUẨN ĐỊNH VỊ CỐ ĐỊNH BANNER VÀ FORM TÌM KIẾM
+# CSS TUYỆT ĐỐI ĐỊNH VỊ KHUNG TÌM KIẾM ĐÈ LÊN BANNER (FIX TRIỆT ĐỂ)
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,19 +140,20 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* BANNER HÌNH NỀN DESKTOP */
+        /* 1. BANNER HÌNH NỀN DESKTOP */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 380px 5rem !important;
+                padding: 40px 5rem 220px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
+                margin-bottom: 90px !important;
                 color: white;
-                position: relative;
+                position: relative !important;
             }
 
             .traveloka-brand-top-left {
@@ -185,34 +186,37 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* BẮT BUỘC KHUNG TRẮNG TÌM KIẾM NHẢY LÊN ĐÈ VÀO BANNER BIỂN */
-            div[data-testid="stVerticalBlock"] > div:has(form[key="search_box_form"]),
+            /* NEO TUYỆT ĐỐI KHUNG TÌM KIẾM ĐÈ NỔI LÊN GIỮA CHÂN BANNER */
             form[key="search_box_form"] {
+                position: absolute !important;
+                bottom: -70px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: 90% !important;
                 max-width: 950px !important;
-                margin: -310px auto 30px auto !important;
                 background: #ffffff !important;
                 border-radius: 20px !important;
-                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25) !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
                 padding: 24px 28px !important;
-                position: relative !important;
-                z-index: 9999 !important;
+                z-index: 999999 !important;
             }
         }
 
-        /* GIAO DIỆN ĐIỆN THOẠI */
+        /* 2. GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 300px 1rem !important;
+                padding: 30px 1rem 180px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
+                margin-bottom: 70px !important;
                 color: white;
-                position: relative;
+                position: relative !important;
             }
 
             .traveloka-brand-top-left {
@@ -241,16 +245,17 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            div[data-testid="stVerticalBlock"] > div:has(form[key="search_box_form"]),
             form[key="search_box_form"] {
-                width: calc(100% - 20px) !important;
-                margin: -260px 10px 20px 10px !important;
+                position: absolute !important;
+                bottom: -50px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                width: calc(100% - 24px) !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
                 padding: 16px !important;
-                position: relative !important;
-                z-index: 9999 !important;
+                z-index: 999999 !important;
             }
         }
 
@@ -334,7 +339,7 @@ DESTINATIONS = {
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
-        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "K Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -469,7 +474,7 @@ if current_tab == "home":
         
         st.form_submit_button("SubmitHidden")
 
-    st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
