@@ -95,7 +95,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN & FIX CHÍNH XÁC LỖI MODAL
+# CSS TÙY CHỈNH GIAO DIỆN & FIX CHÍNH XÁC CỬA SỔ POPUP
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -183,8 +183,8 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* CỈ ÁP DỤNG MARGIN-TOP ÂM CHO CHÍNH FORM TÌM KIẾM CỦA TRANG CHỦ */
-            [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) {
+            /* CHỈ ÁP DỤNG MARGIN-TOP ÂM CHO CHÍNH FORM TÌM KIẾM Ở TRANG CHỦ */
+            form[key="search_box_form"] {
                 max-width: 950px !important;
                 margin: -350px auto 30px auto !important;
                 background: #ffffff !important;
@@ -238,7 +238,7 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) {
+            form[key="search_box_form"] {
                 width: calc(100% - 20px) !important;
                 margin: -310px 10px 20px 10px !important;
                 background: #ffffff !important;
@@ -250,25 +250,34 @@ st.markdown("""
             }
         }
 
-        /* DÀNH RIÊNG CHO FORM TRONG MODAL ĐẶT TOUR: CĂN GIỮA VÀ RESET NGUYÊN BẢN */
-        div[data-testid="stModal"] [data-testid="stForm"] {
+        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
+        form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
+            display: none !important;
+        }
+        form[key="search_box_form"] h3, 
+        form[key="search_box_form"] div, 
+        form[key="search_box_form"] span, 
+        form[key="search_box_form"] p {
+            color: #222222 !important;
+        }
+
+        /* FIX TRIỆT ĐỂ KHUNG DIALOG POPUP STREAMLIT */
+        div[role="dialog"] {
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+            margin: 0 auto !important;
+            max-height: 85vh !important;
+            overflow-y: auto !important;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+            border-radius: 20px !important;
+        }
+
+        div[role="dialog"] form {
             margin: 0 !important;
-            padding: 0 !important;
+            padding: 10px !important;
             box-shadow: none !important;
             border: none !important;
             background: transparent !important;
-            width: 100% !important;
-        }
-
-        /* ẨN NÚT SUBMIT THỪA TRONG FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
-        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) [data-testid="stFormSubmitButton"] {
-            display: none !important;
-        }
-        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) h3, 
-        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) div, 
-        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) span, 
-        [data-testid="stForm"]:has(input[aria-label="SearchLabel"]) p {
-            color: #222222 !important;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -284,7 +293,7 @@ def booking_modal(destination_name, package_price):
     st.caption(f"💰 Mức giá: **{package_price}**")
     st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
     
-    with st.form("modal_booking_form"):
+    with st.form(key="modal_booking_form"):
         full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
         phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
         email_addr = st.text_input("Email", placeholder="name@example.com")
@@ -495,7 +504,7 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    with st.form("search_box_form"):
+    with st.form(key="search_box_form"):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         
