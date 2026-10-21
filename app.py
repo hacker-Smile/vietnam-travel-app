@@ -955,7 +955,7 @@ menu_html = f"""
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
     <a href="?tab=account{params_str}" target="_self" class="nav-item {is_tab_account}">
-        <span class="nav-icon">👤</span>Tài khoản
+        <span class="nav-icon">👤</span>Giới Thiệu
     </a>
 </div>
 """
