@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS CHUẨN XÁC TUYỆT ĐỐI CHO HÌNH 1
+# CSS ĐÃ FIX TRỰC TIẾP DÙNG TRANSFORM ĐÈ LÊN BANNER
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,14 +140,14 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* BANNER PHÍA TRÊN (DESKTOP) */
+        /* BANNER PHÍA TRÊN */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 260px 5rem !important;
+                padding: 40px 5rem 180px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -185,10 +185,12 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* WRAPPER KÉO KHUNG TÌM KIẾM ĐÈ LÊN BANNER */
+            /* ÉP KHUNG TÌM KIẾM NHẢY LÊN ĐÈ VÀO BANNER BẰNG TRANSFORM */
             .search-card-wrapper {
                 max-width: 950px !important;
-                margin: -130px auto 30px auto !important;
+                margin: 0 auto !important;
+                transform: translateY(-110px) !important;
+                margin-bottom: -90px !important;
                 position: relative;
                 z-index: 999;
             }
@@ -201,7 +203,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 220px 1rem !important;
+                padding: 30px 1rem 140px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -237,13 +239,14 @@ st.markdown("""
 
             .search-card-wrapper {
                 width: calc(100% - 20px) !important;
-                margin: -110px 10px 20px 10px !important;
+                margin: 0 10px !important;
+                transform: translateY(-90px) !important;
+                margin-bottom: -70px !important;
                 position: relative;
                 z-index: 999;
             }
         }
 
-        /* THIẾT KẾ KHUNG TRẮNG FORM TÌM KIẾM */
         div[data-testid="stForm"] {
             background: #ffffff !important;
             border-radius: 20px !important;
@@ -450,7 +453,6 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # BỌC FORM TRONG THẺ WRAPPER ĐỂ KÉO LÊN ĐÈ LÊN BANNER CHUẨN XÁC 100%
     st.markdown('<div class="search-card-wrapper">', unsafe_allow_html=True)
     with st.form(key="search_box_form"):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
