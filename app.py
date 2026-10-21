@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TUYỆT ĐỐI ĐỊNH VỊ KHUNG TÌM KIẾM ĐÈ LÊN BANNER (FIX TRIỆT ĐỂ)
+# CSS ĐỊNH DẠNG TỰ DO DÙNG HTML KHÔNG BỊ STREAMLIT RESET
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,133 +140,90 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* 1. BANNER HÌNH NỀN DESKTOP */
-        @media (min-width: 769px) {
-            .traveloka-hero-wrapper {
-                background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
-                background-size: cover;
-                background-position: center;
-                padding: 40px 5rem 220px 5rem !important;
-                margin-left: -5rem;
-                margin-right: -5rem;
-                margin-top: -3.5rem;
-                margin-bottom: 90px !important;
-                color: white;
-                position: relative !important;
-            }
-
-            .traveloka-brand-top-left {
-                font-size: 2.2rem;
-                font-weight: 800;
-                text-align: left;
-                margin-top: 15px;
-                margin-left: -3rem !important;
-                margin-bottom: 20px;
-                color: white !important;
-                text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-            }
-
-            .traveloka-hero-title {
-                font-size: 2.4rem;
-                font-weight: 700;
-                text-align: center;
-                margin-bottom: 12px;
-                color: white !important;
-                text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-            }
-            
-            .traveloka-hero-subtitle {
-                font-size: 1.15rem;
-                text-align: center;
-                opacity: 0.95;
-                max-width: 750px;
-                margin: 0 auto;
-                color: white !important;
-                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-            }
-
-            /* NEO TUYỆT ĐỐI KHUNG TÌM KIẾM ĐÈ NỔI LÊN GIỮA CHÂN BANNER */
-            form[key="search_box_form"] {
-                position: absolute !important;
-                bottom: -70px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-                width: 90% !important;
-                max-width: 950px !important;
-                background: #ffffff !important;
-                border-radius: 20px !important;
-                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25) !important;
-                border: 1px solid rgba(0, 0, 0, 0.08) !important;
-                padding: 24px 28px !important;
-                z-index: 999999 !important;
-            }
+        /* HERO BANNER TOÀN MÀN HÌNH CHỨA KHUNG TÌM KIẾM BÊN TRONG */
+        .hero-container {
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                        url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 4rem 180px 4rem;
+            margin-left: -5rem;
+            margin-right: -5rem;
+            margin-top: -3.5rem;
+            position: relative;
+            color: white;
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        .brand-logo-text {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }
+
+        .hero-title-text {
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }
+
+        .hero-subtitle-text {
+            font-size: 1.15rem;
+            text-align: center;
+            opacity: 0.95;
+            max-width: 750px;
+            margin: 0 auto 30px auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        }
+
+        /* KHUNG TRẮNG TÌM KIẾM ĐỀU CÓ TỌA ĐỘ BẮT BUỘC ĐÈ NỔI NẰM BÊN TRONG NỀN BIỂN */
+        .search-card-overlay {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 950px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+            padding: 24px 28px;
+            z-index: 999;
+            color: #222222;
+        }
+
+        .search-card-overlay h3 {
+            margin-top: 0;
+            margin-bottom: 6px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #222222 !important;
+        }
+
+        .search-card-overlay .sub-info {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555555 !important;
+            margin-bottom: 12px;
+        }
+
         @media (max-width: 768px) {
-            .traveloka-hero-wrapper {
-                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
-                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
-                background-size: cover;
-                background-position: center;
-                padding: 30px 1rem 180px 1rem !important;
+            .hero-container {
+                padding: 20px 1rem 140px 1rem;
                 margin-left: -1rem;
                 margin-right: -1rem;
-                margin-top: -1rem !important;
-                margin-bottom: 70px !important;
-                color: white;
-                position: relative !important;
+                margin-top: -1rem;
             }
-
-            .traveloka-brand-top-left {
-                font-size: 1.6rem;
-                font-weight: 800;
-                text-align: left;
-                margin-top: -14px !important;
-                margin-bottom: 12px;
-                color: white !important;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            .brand-logo-text { font-size: 1.6rem; }
+            .hero-title-text { font-size: 1.4rem; }
+            .hero-subtitle-text { font-size: 0.85rem; }
+            .search-card-overlay {
+                width: calc(100% - 30px);
+                bottom: -70px;
+                padding: 16px;
             }
-
-            .traveloka-hero-title {
-                font-size: 1.4rem;
-                font-weight: 700;
-                text-align: center;
-                margin-bottom: 8px;
-                color: white !important;
-                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            }
-            
-            .traveloka-hero-subtitle {
-                font-size: 0.85rem;
-                text-align: center;
-                color: white !important;
-                opacity: 0.95;
-            }
-
-            form[key="search_box_form"] {
-                position: absolute !important;
-                bottom: -50px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-                width: calc(100% - 24px) !important;
-                background: #ffffff !important;
-                border-radius: 16px !important;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
-                padding: 16px !important;
-                z-index: 999999 !important;
-            }
-        }
-
-        form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
-            display: none !important;
-        }
-        form[key="search_box_form"] h3, 
-        form[key="search_box_form"] div, 
-        form[key="search_box_form"] span, 
-        form[key="search_box_form"] p {
-            color: #222222 !important;
         }
 
         .custom-booking-box {
@@ -339,7 +296,7 @@ DESTINATIONS = {
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
-        "description": "K Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -445,36 +402,41 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    st.markdown("""
-        <div class="traveloka-hero-wrapper">
-            <div class="traveloka-brand-top-left">Mai Travel</div>
-            <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
-            <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
-        </div>
-    """, unsafe_allow_html=True)
-
     logo1_base64 = get_image_base64("images/logo1.jpg")
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    with st.form(key="search_box_form"):
-        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
-        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
-        
-        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+    # RENDER BẰNG NGUYÊN BẢN HTML DÒNG LÊN TỪ BANNER
+    st.markdown(f"""
+        <div class="hero-container">
+            <div class="brand-logo-text">Mai Travel</div>
+            <div class="hero-title-text">Đưa bạn bay tới bất cứ đâu</div>
+            <div class="hero-subtitle-text">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
+            
+            <div class="search-card-overlay">
+                <h3>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>
+                <div class="sub-info">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
+    # Ô NHẬP LIỆU TÌM KIẾM CỐ ĐỊNH CHUẨN VỊ TRÍ KHUNG TRẮNG
+    col_a, col_b, col_c = st.columns([1, 8, 1])
+    with col_b:
+        st.markdown("<div style='margin-top: -65px; position: relative; z-index: 9999;'>", unsafe_allow_html=True)
+        search_query = st.text_input("SearchInput", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+        
         st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 12px; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
         """, unsafe_allow_html=True)
-        
-        st.form_submit_button("SubmitHidden")
+        st.markdown("</div>", unsafe_allow_html=True)
 
-    st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 45px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
