@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TỐI ƯU HÓA TOÀN BỘ BỐ CỤC
+# CSS GOM CONTAINER TRẮNG ĐÈ NỔI LÊN BANNER
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -171,18 +171,17 @@ st.markdown("""
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }
 
-        /* KHUNG TRẮNG CHỨA TOÀN BỘ TÌM KIẾM ĐÈ LÊN BANNER */
-        .search-card-wrapper {
-            max-width: 950px;
-            margin: -80px auto 30px auto;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 24px 28px;
-            position: relative;
-            z-index: 999;
-            color: #222222;
+        /* DÙNG CSS ĐỂ BIẾN CONTAINER CỦA STREAMLIT THÀNH KHUNG TRẮNG ĐÈ LÊN BANNER */
+        div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"] {
+            max-width: 950px !important;
+            margin: -90px auto 25px auto !important;
+            background: #ffffff !important;
+            border-radius: 20px !important;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            padding: 24px 28px !important;
+            position: relative !important;
+            z-index: 999 !important;
         }
 
         .transparent-logo {
@@ -202,9 +201,9 @@ st.markdown("""
             .brand-top-left { font-size: 1.6rem; }
             .hero-main-title { font-size: 1.4rem; }
             .hero-sub-title { font-size: 0.85rem; }
-            .search-card-wrapper {
-                margin: -70px 10px 20px 10px;
-                padding: 16px;
+            div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"] {
+                margin: -70px 10px 20px 10px !important;
+                padding: 16px !important;
             }
         }
 
@@ -395,24 +394,23 @@ if current_tab == "home":
             <div class="hero-main-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="hero-sub-title">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
-        <div class="search-card-wrapper">
-            <div style="margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
-            <div style="font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
     """, unsafe_allow_html=True)
 
-    # Ô NHẬP LIỆU TÌM KIẾM NẰM GỌN TRONG KHUNG TRẮNG
-    search_query = st.text_input("SearchQueryInput", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+    # DÙNG CONTAINER ĐỂ GOM TRỌN TẤT CẢ VÀO KHUNG TRẮNG BẰNG CSS ĐÃ CẤU HÌNH PHÍA TRÊN
+    with st.container():
+        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        
+        search_query = st.text_input("SearchQueryInput", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
 
-    # PHẦN LOGO TRỢ GIÚP "TRUSTED BY" CŨNG NẰM TRỌN TRONG KHUNG TRẮNG
-    st.markdown(f"""
+        st.markdown(f"""
             <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
                 <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
