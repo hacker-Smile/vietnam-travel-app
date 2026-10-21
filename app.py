@@ -189,7 +189,7 @@ st.markdown("""
             .search-card-wrapper {
                 max-width: 950px !important;
                 margin: 0 auto !important;
-                transform: translateY(-260px) !important;
+                transform: translateY(-350px) !important;
                 margin-bottom: -90px !important;
                 position: relative;
                 z-index: 999;
