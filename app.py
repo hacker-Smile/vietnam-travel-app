@@ -96,8 +96,11 @@ def load_state_from_query_params():
 
 load_state_from_query_params()
 
+# Đọc từ khóa tìm kiếm trực tiếp từ URL query parameters
+search_query = st.query_params.get("q", "")
+
 # ---------------------------------------------------------
-# CSS GOM CONTAINER TRẮNG ĐÈ NỔI LÊN BANNER
+# CSS CHUNG CHO GIAO DIỆN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -119,7 +122,7 @@ st.markdown("""
         iframe {
             border-radius: 16px !important;
             overflow: hidden !important;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
+            box-shadow: none !important;
         }
 
         #MainMenu {visibility: hidden;}
@@ -131,89 +134,6 @@ st.markdown("""
             padding-bottom: 120px !important;
             max-width: 100% !important;
             overflow: visible !important;
-        }
-
-        /* BANNER NỀN BIỂN XANH */
-        .hero-banner-box {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
-                        url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 40px 4rem 130px 4rem;
-            margin-left: -5rem;
-            margin-right: -5rem;
-            margin-top: -3.5rem;
-            position: relative;
-            color: white;
-        }
-
-        .brand-top-left {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-        }
-
-        .hero-main-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }
-
-        .hero-sub-title {
-            font-size: 1.15rem;
-            text-align: center;
-            opacity: 0.95;
-            max-width: 750px;
-            margin: 0 auto;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        }
-
-        /* DÙNG CSS ĐỂ BIẾN CONTAINER CỦA STREAMLIT THÀNH KHUNG TRẮNG ĐÈ LÊN BANNER */
-        div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"] {
-            max-width: 950px !important;
-            margin: -90px auto 25px auto !important;
-            background: #ffffff !important;
-            border-radius: 20px !important;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25) !important;
-            border: 1px solid rgba(0, 0, 0, 0.08) !important;
-            padding: 24px 28px !important;
-            position: relative !important;
-            z-index: 999 !important;
-        }
-
-        .transparent-logo {
-            height: 32px !important;
-            object-fit: contain !important;
-            mix-blend-mode: multiply;
-            background: transparent !important;
-        }
-
-        @media (max-width: 768px) {
-            .hero-banner-box {
-                padding: 20px 1rem 110px 1rem;
-                margin-left: -1rem;
-                margin-right: -1rem;
-                margin-top: -1rem;
-            }
-            .brand-top-left { font-size: 1.6rem; }
-            .hero-main-title { font-size: 1.4rem; }
-            .hero-sub-title { font-size: 0.85rem; }
-            div[data-testid="stVerticalBlock"] > div[data-testid="stContainer"] {
-                margin: -70px 10px 20px 10px !important;
-                padding: 16px !important;
-            }
-        }
-
-        .custom-booking-box {
-            background-color: #ffffff;
-            border: 2px solid #ff4b4b;
-            border-radius: 16px;
-            padding: 20px;
-            margin-top: 15px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
     </style>
 """, unsafe_allow_html=True)
@@ -277,7 +197,7 @@ DESTINATIONS = {
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
-        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "K kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -387,32 +307,157 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # HIỂN THỊ BANNER NỀN BIỂN XANH
-    st.markdown("""
+    saved_val = st.query_params.get('saved', '')
+    booked_val = st.query_params.get('booked', '')
+    
+    # Tạo HTML chứa trọn vẹn Banner + Khung trắng đè lên + Ô input + Logo bên trong component
+    hero_search_html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        body {{
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }}
+        .hero-banner-box {{
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                        url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: 40px 3rem 140px 3rem;
+            color: white;
+            border-radius: 0 0 16px 16px;
+            margin: -3.5rem -4rem 0 -4rem;
+        }}
+        .brand-top-left {{
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        }}
+        .hero-main-title {{
+            font-size: 2.4rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+        }}
+        .hero-sub-title {{
+            font-size: 1.15rem;
+            text-align: center;
+            opacity: 0.95;
+            max-width: 750px;
+            margin: 0 auto;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+        }}
+        .search-card-wrapper {{
+            max-width: 950px;
+            margin: -75px auto 25px auto;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 24px 28px;
+            position: relative;
+            z-index: 999;
+            color: #222222;
+        }}
+        .search-title {{
+            margin-top: 0;
+            margin-bottom: 6px;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #222222;
+        }}
+        .search-desc {{
+            font-size: 14px;
+            font-weight: 500;
+            color: #555555;
+            margin-bottom: 12px;
+        }}
+        .search-input-box {{
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }}
+        .search-input-box:focus {{
+            border-color: #ff4b4b;
+            box-shadow: 0 0 0 2px rgba(255,75,75,0.2);
+        }}
+        .trusted-box {{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid #eeeeee;
+            flex-wrap: wrap;
+        }}
+        .trusted-text {{
+            font-size: 14px;
+            font-weight: 700;
+            color: #444444;
+            font-style: italic;
+        }}
+        .transparent-logo {{
+            height: 32px;
+            object-fit: contain;
+            mix-blend-mode: multiply;
+        }}
+        @media (max-width: 768px) {{
+            .hero-banner-box {{ padding: 20px 1rem 120px 1rem; margin: -1rem -1rem 0 -1rem; }}
+            .brand-top-left {{ font-size: 1.6rem; }}
+            .hero-main-title {{ font-size: 1.4rem; }}
+            .hero-sub-title {{ font-size: 0.85rem; }}
+            .search-card-wrapper {{ margin: -65px 10px 20px 10px; padding: 16px; }}
+        }}
+    </style>
+    <script>
+        function updateSearchQuery(val) {{
+            const saved = "{saved_val}";
+            const booked = "{booked_val}";
+            let url = "?tab=home&q=" + encodeURIComponent(val);
+            if (saved) url += "&saved=" + encodeURIComponent(saved);
+            if (booked) url += "&booked=" + encodeURIComponent(booked);
+            window.location.href = url;
+        }}
+    </script>
+    </head>
+    <body>
         <div class="hero-banner-box">
             <div class="brand-top-left">Mai Travel</div>
             <div class="hero-main-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="hero-sub-title">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
-    """, unsafe_allow_html=True)
-
-    # DÙNG CONTAINER ĐỂ GOM TRỌN TẤT CẢ VÀO KHUNG TRẮNG BẰNG CSS ĐÃ CẤU HÌNH PHÍA TRÊN
-    with st.container():
-        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
-        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
-        
-        search_query = st.text_input("SearchQueryInput", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
-
-        st.markdown(f"""
-            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
-                <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
+        <div class="search-card-wrapper">
+            <div class="search-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
+            <div class="search-desc">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
+            <input type="text" class="search-input-box" id="searchInput" placeholder="Thành phố, điểm đến hoặc tên tour..." value="{search_query}" oninput="updateSearchQuery(this.value)">
+            <div class="trusted-box">
+                <span class="trusted-text">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        """, unsafe_allow_html=True)
+        </div>
+    </body>
+    </html>
+    """
+    
+    # Hiển thị khối HTML gộp chung banner và khung trắng tìm kiếm hoàn hảo
+    components.html(hero_search_html, height=390, scrolling=False)
 
-    st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
