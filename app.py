@@ -97,7 +97,7 @@ def load_state_from_query_params():
 load_state_from_query_params()
 
 # ---------------------------------------------------------
-# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
+# CSS CHUẨN ĐỊNH VỊ KHUNG TÌM KIẾM ĐÈ LÊN BANNER
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -140,14 +140,14 @@ st.markdown("""
             background: transparent !important;
         }
 
-        /* 1. BANNER PHÍA TRÊN */
+        /* BANNER HÌNH NỀN BIỂN */
         @media (min-width: 769px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 40px 5rem 400px 5rem !important;
+                padding: 40px 5rem 260px 5rem !important;
                 margin-left: -5rem;
                 margin-right: -5rem;
                 margin-top: -3.5rem;
@@ -185,28 +185,28 @@ st.markdown("""
                 text-shadow: 0 1px 4px rgba(0,0,0,0.5);
             }
 
-            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
-            form[key="search_box_form"] {
+            /* CHỈNH DỰA TRÊN DATA-TESTID BẢO ĐẢM KHUNG TÌM KIẾM ĐÈ LÊN BANNER TRÂN CÙNG */
+            div[data-testid="stForm"] {
                 max-width: 950px !important;
-                margin: -350px auto 30px auto !important;
+                margin: -210px auto 30px auto !important;
                 background: #ffffff !important;
                 border-radius: 20px !important;
                 box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
                 border: 1px solid rgba(0, 0, 0, 0.08) !important;
                 padding: 24px 28px !important;
                 position: relative;
-                z-index: 99;
+                z-index: 999;
             }
         }
 
-        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        /* GIAO DIỆN ĐIỆN THOẠI */
         @media (max-width: 768px) {
             .traveloka-hero-wrapper {
                 background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 340px 1rem !important;
+                padding: 30px 1rem 220px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -240,26 +240,26 @@ st.markdown("""
                 opacity: 0.95;
             }
 
-            form[key="search_box_form"] {
+            div[data-testid="stForm"] {
                 width: calc(100% - 20px) !important;
-                margin: -310px 10px 20px 10px !important;
+                margin: -180px 10px 20px 10px !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
                 padding: 16px !important;
                 position: relative;
-                z-index: 99;
+                z-index: 999;
             }
         }
 
-        /* ẨN NÚT SUBMIT THỪA CỦA FORM TÌM KIẾM VÀ CHỈNH MÀU CHỮ FORM TÌM KIẾM */
-        form[key="search_box_form"] [data-testid="stFormSubmitButton"] {
+        /* ẨN NÚT SUBMIT THỪA BÊN TRONG KHUNG TÌM KIẾM & ĐỊNH DẠNG MÀU CHỮ */
+        div[data-testid="stForm"] [data-testid="stFormSubmitButton"] {
             display: none !important;
         }
-        form[key="search_box_form"] h3, 
-        form[key="search_box_form"] div, 
-        form[key="search_box_form"] span, 
-        form[key="search_box_form"] p {
+        div[data-testid="stForm"] h3, 
+        div[data-testid="stForm"] div, 
+        div[data-testid="stForm"] span, 
+        div[data-testid="stForm"] p {
             color: #222222 !important;
         }
     </style>
@@ -442,8 +442,8 @@ if current_tab == "home":
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    # ÉP TOÀN BỘ TIÊU ĐỀ, Ô INPUT VÀ LOGO VÀO CHUNG 1 THẺ ST.FORM NHƯ BAN ĐẦU
-    with st.form(key="search_box_form"):
+    # BỌC TRONG FORM ĐỂ GIỮ NGUYÊN BẢN KHUNG TRẮNG NẰM TRÊN BANNER
+    with st.form("search_box_form"):
         st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
         st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
         
@@ -747,53 +747,50 @@ elif current_tab == "map":
                     save_state_to_query_params()
                     st.rerun()
 
-            # BẢNG ĐẶT TOUR MỞ RỘNG TRỰC TIẾP TRONG TRANG NÊN HOÀN TOÀN KHÔNG BỊ LỖI LỆCH MÀN HÌNH
+            # BẢNG ĐẶT TOUR TRỰC TIẾP DƯỚI BÌNH LUẬN DÙNG CONTAINER THƯỜNG (KHÔNG DÙNG FORM CẤP 1) BẢO ĐẢM KHÔNG BỊ DẮT XUNG ĐỘT CSS
             if st.session_state["show_booking_form"]:
                 st.markdown("---")
                 st.markdown("### 📝 **XÁC NHẬN ĐẶT TOUR DU LỊCH**")
                 st.markdown(f"🌟 Tour: **{st.session_state['selected_place']}** | 💰 Giá: **{current_data['avg_price']}**")
                 st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
                 
-                with st.form("inline_booking_form"):
-                    full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
-                    phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
-                    email_addr = st.text_input("Email", placeholder="name@example.com")
+                full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A", key="bk_name")
+                phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567", key="bk_phone")
+                email_addr = st.text_input("Email", placeholder="name@example.com", key="bk_email")
+                
+                col_f1, col_f2 = st.columns(2)
+                with col_f1:
+                    num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1, key="bk_adults")
+                with col_f2:
+                    num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0, key="bk_children")
                     
-                    col_f1, col_f2 = st.columns(2)
-                    with col_f1:
-                        num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1)
-                    with col_f2:
-                        num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0)
+                note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...", key="bk_note")
+                
+                if st.button("🚀 GỬI THÔNG TIN ĐẶT TOUR", type="primary", use_container_width=True, key="bk_submit_btn"):
+                    if not full_name.strip() or not phone_number.strip():
+                        st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
+                    else:
+                        with st.spinner("Đang gửi thông tin đặt tour..."):
+                            send_booking_to_email(
+                                st.session_state['selected_place'], current_data['avg_price'], full_name,
+                                phone_number, email_addr, num_adults, num_children, note_text
+                            )
                         
-                    note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...")
-                    
-                    submitted = st.form_submit_button("🚀 GỬI THÔNG TIN ĐẶT TOUR", type="primary", use_container_width=True)
-                    
-                    if submitted:
-                        if not full_name.strip() or not phone_number.strip():
-                            st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
-                        else:
-                            with st.spinner("Đang gửi thông tin đặt tour..."):
-                                send_booking_to_email(
-                                    st.session_state['selected_place'], current_data['avg_price'], full_name,
-                                    phone_number, email_addr, num_adults, num_children, note_text
-                                )
-                            
-                            st.session_state["booked_tours"].append({
-                                "tour": st.session_state['selected_place'],
-                                "price": current_data['avg_price'],
-                                "name": full_name,
-                                "phone": phone_number,
-                                "adults": num_adults,
-                                "children": num_children,
-                                "note": note_text if note_text else "Không có",
-                                "time": datetime.now().strftime("%d/%m/%Y %H:%M")
-                            })
-                            
-                            st.session_state["show_booking_form"] = False
-                            save_state_to_query_params()
-                            st.success("🎉 Đặt tour thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.")
-                            st.rerun()
+                        st.session_state["booked_tours"].append({
+                            "tour": st.session_state['selected_place'],
+                            "price": current_data['avg_price'],
+                            "name": full_name,
+                            "phone": phone_number,
+                            "adults": num_adults,
+                            "children": num_children,
+                            "note": note_text if note_text else "Không có",
+                            "time": datetime.now().strftime("%d/%m/%Y %H:%M")
+                        })
+                        
+                        st.session_state["show_booking_form"] = False
+                        save_state_to_query_params()
+                        st.success("🎉 Đặt tour thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.")
+                        st.rerun()
 
     if is_phone:
         render_map_content()
