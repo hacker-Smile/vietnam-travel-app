@@ -197,7 +197,7 @@ DESTINATIONS = {
     "Quảng Ninh": {
         "coords": (20.9101, 107.1839),
         "images": ["images/HL1.jpg", "images/HL2.jpg", "images/HL3.jpg", "images/HL4.jpg", "images/HL5.jpg", "images/HL6.jpg", "images/HL7.jpg", "images/HL8.jpg"],
-        "description": "K kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
+        "description": "Kỳ quan thiên nhiên thế giới UNESCO với hàng nghìn hòn đảo đá vôi kỳ vĩ nổi bật trên làn nước xanh ngọc bích huyền ảo.",
         "avg_price": "3.800.000 - 6.500.000 VNĐ / người",
         "package_type": "Tour Du thuyền 5 sao vịnh Hạ Long (Full board)",
         "highlights": ["Ngủ đêm trên du thuyền hạng sang", "Khám phá Hang Sửng Sốt", "Chèo thuyền Kayak đảo Ti Tốp"],
@@ -310,7 +310,7 @@ if current_tab == "home":
     saved_val = st.query_params.get('saved', '')
     booked_val = st.query_params.get('booked', '')
     
-    # Tạo HTML chứa trọn vẹn Banner + Khung trắng đè lên + Ô input + Logo bên trong component
+    # Khối giao diện Banner + Khung trắng đè lên chuẩn style Traveloka
     hero_search_html = f"""
     <!DOCTYPE html>
     <html>
@@ -454,7 +454,6 @@ if current_tab == "home":
     </html>
     """
     
-    # Hiển thị khối HTML gộp chung banner và khung trắng tìm kiếm hoàn hảo
     components.html(hero_search_html, height=390, scrolling=False)
 
     st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
