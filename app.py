@@ -313,7 +313,7 @@ DESTINATIONS = {
         "images": ["images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg", "images/NT5.jpg", "images/NT6.jpg", "images/NT7.jpg", "images/NT8.jpg"],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
-        "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 4 ngày 3 đêm",
+        "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 3D2N",
         "highlights": ["Vui chơi tại VinWonders Nha Trang", "Lặn ngắm san hô đảo Hòn Mun", "Thưởng thức đặc sản nem nướng"],
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 30 phút (Bay) hoặc 8 giờ (Tàu hỏa/Xe giường nằm)"
@@ -863,12 +863,60 @@ elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
     st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
+
+    # CSS bo tròn ảnh thành Avatar Facebook
+    st.markdown("""
+        <style>
+            .avatar-img img {
+                border-radius: 50% !important;
+                aspect-ratio: 1 / 1 !important;
+                object-fit: cover !important;
+                border: 3px solid #0866ff !important; /* Viền xanh chuẩn phong cách Facebook */
+                box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
         st.write("**Tên ứng dụng:** Mai Travel - Du Lịch Việt Nam")
         st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
         st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 0000")
+
+        st.markdown("---")
+        st.markdown("#### 👑 **Ban Quản Trị (Admin)**")
+
+        # Tạo 3 cột chứa 3 Avatar Admin
+        col_adm1, col_adm2, col_adm3 = st.columns(3)
+
+        with col_adm1:
+            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
+            # Đường dẫn ảnh 1 (Thay "images/admin1.jpg" bằng file ảnh của bạn hoặc link URL)
+            admin1_img = get_image_base64("images/adm1.jpg") 
+            st.image(adm1_img, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Phước Chi Mai</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Lead Admin</p>", unsafe_allow_html=True)
+
+        with col_adm2:
+            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
+            # Đường dẫn ảnh 2
+            admin2_img = get_image_base64("images/adm2.jpg")
+            st.image(adm2_img, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Trần Trung Hiếu</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Dev</p>", unsafe_allow_html=True)
+
+        with col_adm3:
+            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
+            # Đường dẫn ảnh 3
+            admin3_img = get_image_base64("images/adm3.jpg")
+            st.image(adm3_img, use_container_width=True)
+            st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Phan Ngô Minh Thư</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Content</p>", unsafe_allow_html=True)
+
+        st.markdown("---")
         st.markdown("""
             **Nhân sự thực hiện:**
             - Nguyễn Phước Chi Mai
