@@ -884,7 +884,7 @@ elif current_tab == "account":
             - Bùi Tuyết Nhung
             - Trần Kim Khánh
             - Đặng Ngọc Hà
-            _ Huỳnh Ngọc Trâm Anh
+            - Huỳnh Ngọc Trâm Anh
         st.markdown("---")
         if st.button("🗑️ Xóa toàn bộ lịch sử đặt tour & yêu thích", type="secondary"):
             st.session_state["saved_tours"] = []
