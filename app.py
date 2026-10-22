@@ -868,7 +868,8 @@ elif current_tab == "account":
         st.markdown("#### **Thông Tin Ứng Dụng**")
         st.write("**Tên ứng dụng:** Mai Travel - Du Lịch Việt Nam")
         st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
-        st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 1234")
+        st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 0000")
+        st.write("**Nhân sự:Nguyễn Phước Chi Mai \n Phạm Quang Minh \n Nguyễn Trần Trung Hiếu \n Nguyễn Ngọc Quỳnh Trâm \n Nguyễn Bảo Hân \n Nguyễn Phạm Minh Đăng \n Ngô Đăng Khoa** ")
         st.markdown("---")
         if st.button("🗑️ Xóa toàn bộ lịch sử đặt tour & yêu thích", type="secondary"):
             st.session_state["saved_tours"] = []
