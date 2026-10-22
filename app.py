@@ -891,27 +891,24 @@ elif current_tab == "account":
 
         with col_adm1:
             st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            # Đường dẫn ảnh 1 (Thay "images/admin1.jpg" bằng file ảnh của bạn hoặc link URL)
             admin1_img = get_image_base64("images/adm1.jpg") 
-            st.image(adm1_img, use_container_width=True)
+            st.image(admin1_img, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Phước Chi Mai</p>", unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Lead Admin</p>", unsafe_allow_html=True)
 
         with col_adm2:
             st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            # Đường dẫn ảnh 2
             admin2_img = get_image_base64("images/adm2.jpg")
-            st.image(adm2_img, use_container_width=True)
+            st.image(admin2_img, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Trần Trung Hiếu</p>", unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Dev</p>", unsafe_allow_html=True)
 
         with col_adm3:
             st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            # Đường dẫn ảnh 3
             admin3_img = get_image_base64("images/adm3.jpg")
-            st.image(adm3_img, use_container_width=True)
+            st.image(admin3_img, use_container_width=True)
             st.markdown('</div>', unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Phan Ngô Minh Thư</p>", unsafe_allow_html=True)
             st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Content</p>", unsafe_allow_html=True)
