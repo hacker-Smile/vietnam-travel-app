@@ -67,8 +67,6 @@ def load_state_from_query_params():
         st.session_state["selected_place"] = "Đà Nẵng"
     if "zoom_overview" not in st.session_state:
         st.session_state["zoom_overview"] = False
-    if "show_booking_form" not in st.session_state:
-        st.session_state["show_booking_form"] = False
 
     if "tab" in st.query_params:
         st.session_state["current_tab"] = st.query_params["tab"]
@@ -96,10 +94,8 @@ def load_state_from_query_params():
 
 load_state_from_query_params()
 
-search_query = st.query_params.get("q", "")
-
 # ---------------------------------------------------------
-# CSS CHUNG CHO GIAO DIỆN
+# CSS TÙY CHỈNH GIAO DIỆN KHUNG TÌM KIẾM DÍNH LIỀN
 # ---------------------------------------------------------
 st.markdown("""
     <style>
@@ -119,11 +115,9 @@ st.markdown("""
 
         div[data-testid="stIFrame"], 
         iframe {
-            border-radius: 0px !important;
+            border-radius: 16px !important;
             overflow: hidden !important;
-            box-shadow: none !important;
-            border: none !important;
-            width: 100% !important;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12) !important;
         }
 
         #MainMenu {visibility: hidden;}
@@ -136,6 +130,133 @@ st.markdown("""
             max-width: 100% !important;
             overflow: visible !important;
         }
+
+        .transparent-logo {
+            height: 40px !important;
+            object-fit: contain !important;
+            mix-blend-mode: multiply;
+            background: transparent !important;
+        }
+
+        /* 1. BANNER PHÍA TRÊN */
+        @media (min-width: 769px) {
+            .traveloka-hero-wrapper {
+                background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 40px 5rem 400px 5rem !important;
+                margin-left: -5rem;
+                margin-right: -5rem;
+                margin-top: -3.5rem;
+                color: white;
+                position: relative;
+            }
+
+            .traveloka-brand-top-left {
+                font-size: 2.2rem;
+                font-weight: 800;
+                text-align: left;
+                margin-top: 15px;
+                margin-left: -3rem !important;
+                margin-bottom: 20px;
+                color: white !important;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            }
+
+            .traveloka-hero-title {
+                font-size: 2.4rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 12px;
+                color: white !important;
+                text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+            }
+            
+            .traveloka-hero-subtitle {
+                font-size: 1.15rem;
+                text-align: center;
+                opacity: 0.95;
+                max-width: 750px;
+                margin: 0 auto;
+                color: white !important;
+                text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+            }
+
+            /* THẺ TRẮNG BỌC TOÀN BỘ FORM TÌM KIẾM (DESKTOP) */
+            [data-testid="stForm"] {
+                max-width: 950px !important;                     /* ĐỘ RỘNG KHUNG TRẮNG */
+                margin: -350px auto 30px auto !important;   /* KÉO ĐÈ LÊN BANNER (-170px) */
+                background: #ffffff !important;
+                border-radius: 20px !important;
+                box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22) !important;
+                border: 1px solid rgba(0, 0, 0, 0.08) !important;
+                padding: 24px 28px !important;
+                position: relative;
+                z-index: 999;
+            }
+        }
+
+        /* 2. GIAO DIỆN ĐIỆN THOẠI */
+        @media (max-width: 768px) {
+            .traveloka-hero-wrapper {
+                background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), 
+                            url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
+                background-size: cover;
+                background-position: center;
+                padding: 30px 1rem 340px 1rem !important;
+                margin-left: -1rem;
+                margin-right: -1rem;
+                margin-top: -1rem !important;
+                color: white;
+                position: relative;
+            }
+
+            .traveloka-brand-top-left {
+                font-size: 1.6rem;
+                font-weight: 800;
+                text-align: left;
+                margin-top: -14px !important;
+                margin-bottom: 12px;
+                color: white !important;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+
+            .traveloka-hero-title {
+                font-size: 1.4rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 8px;
+                color: white !important;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            }
+            
+            .traveloka-hero-subtitle {
+                font-size: 0.85rem;
+                text-align: center;
+                color: white !important;
+                opacity: 0.95;
+            }
+
+            [data-testid="stForm"] {
+                width: calc(100% - 20px) !important;
+                margin: -310px 10px 20px 10px !important;
+                background: #ffffff !important;
+                border-radius: 16px !important;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+                padding: 16px !important;
+                position: relative;
+                z-index: 999;
+            }
+        }
+
+        /* ẨN NÚT SUBMIT THỪA CỦA ST.FORM VÀ ĐỔI MÀU CHỮ THÀNH TỐI */
+        [data-testid="stForm"] [data-testid="stFormSubmitButton"] {
+            display: none !important;
+        }
+        [data-testid="stForm"] h3, [data-testid="stForm"] div, [data-testid="stForm"] span, [data-testid="stForm"] p {
+            color: #222222 !important;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -143,6 +264,51 @@ HO_CHI_MINH_COORDS = (10.7769, 106.7009)
 
 user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
+
+@st.dialog("📝 XÁC NHẬN ĐẶT TOUR DU LỊCH")
+def booking_modal(destination_name, package_price):
+    st.markdown(f"#### 🌟 Tour: **{destination_name}**")
+    st.caption(f"💰 Mức giá: **{package_price}**")
+    st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
+    
+    with st.form("modal_booking_form"):
+        full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A")
+        phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567")
+        email_addr = st.text_input("Email", placeholder="name@example.com")
+        
+        col_f1, col_f2 = st.columns(2)
+        with col_f1:
+            num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1)
+        with col_f2:
+            num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0)
+            
+        note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...")
+        
+        submitted = st.form_submit_button("🚀 XÁC NHẬN ĐẶT TOUR", type="primary", use_container_width=True)
+        
+        if submitted:
+            if not full_name.strip() or not phone_number.strip():
+                st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
+            else:
+                with st.spinner("Đang gửi thông tin đặt tour..."):
+                    send_booking_to_email(
+                        destination_name, package_price, full_name,
+                        phone_number, email_addr, num_adults, num_children, note_text
+                    )
+                
+                st.session_state["booked_tours"].append({
+                    "tour": destination_name,
+                    "price": package_price,
+                    "name": full_name,
+                    "phone": phone_number,
+                    "adults": num_adults,
+                    "children": num_children,
+                    "note": note_text if note_text else "Không có",
+                    "time": datetime.now().strftime("%d/%m/%Y %H:%M")
+                })
+                
+                save_state_to_query_params()
+                st.rerun()
 
 DESTINATIONS = {
     "Đà Nẵng": {
@@ -304,168 +470,37 @@ current_tab = st.session_state["current_tab"]
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
+    st.markdown("""
+        <div class="traveloka-hero-wrapper">
+            <div class="traveloka-brand-top-left">Mai Travel</div>
+            <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
+            <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
+        </div>
+    """, unsafe_allow_html=True)
+
     logo1_base64 = get_image_base64("images/logo1.jpg")
     logo2_base64 = get_image_base64("images/logo2.jpg")
     logo3_base64 = get_image_base64("images/logo3.jpg")
 
-    saved_val = st.query_params.get('saved', '')
-    booked_val = st.query_params.get('booked', '')
-    
-    hero_search_html = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
-        * {{
-            box-sizing: border-box;
-        }}
-        body {{
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: transparent;
-        }}
-        .hero-banner-box {{
-            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
-                        url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
-            background-size: cover;
-            background-position: center;
-            padding: 40px 4rem 280px 4rem;
-            color: white;
-            margin: -3.5rem -4rem 0 -4rem;
-            position: relative;
-        }}
-        .brand-top-left {{
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-        }}
-        .hero-main-title {{
-            font-size: 2.6rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 12px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }}
-        .hero-sub-title {{
-            font-size: 1.15rem;
-            text-align: center;
-            opacity: 0.95;
-            max-width: 800px;
-            margin: 0 auto;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.5);
-        }}
-        .search-card-wrapper {{
-            max-width: 920px;
-            margin: -200px auto 30px auto;
-            background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 32px 36px;
-            position: relative;
-            z-index: 999;
-            color: #222222;
-        }}
-        .search-title {{
-            margin-top: 0;
-            margin-bottom: 8px;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #222222;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }}
-        .search-desc {{
-            font-size: 14px;
-            font-weight: 500;
-            color: #555555;
-            margin-bottom: 16px;
-        }}
-        .search-input-box {{
-            width: 100%;
-            padding: 14px 18px;
-            font-size: 15px;
-            border: 1px solid #e0e0e0;
-            background-color: #f4f6f8;
-            border-radius: 10px;
-            outline: none;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-            color: #333;
-        }}
-        .search-input-box:focus {{
-            border-color: #ff4b4b;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 2px rgba(255,75,75,0.15);
-        }}
-        .trusted-box {{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 22px;
-            padding-top: 16px;
-            border-top: 1px solid #f0f0f0;
-            flex-wrap: wrap;
-        }}
-        .trusted-text {{
-            font-size: 14px;
-            font-weight: 700;
-            color: #444444;
-            font-style: italic;
-        }}
-        .transparent-logo {{
-            height: 34px;
-            object-fit: contain;
-            mix-blend-mode: multiply;
-        }}
-        @media (max-width: 768px) {{
-            .hero-banner-box {{ padding: 25px 1rem 200px 1rem; margin: -1rem -1rem 0 -1rem; }}
-            .brand-top-left {{ font-size: 1.6rem; margin-bottom: 15px; }}
-            .hero-main-title {{ font-size: 1.4rem; }}
-            .hero-sub-title {{ font-size: 0.85rem; }}
-            .search-card-wrapper {{ margin: -150px 10px 20px 10px; padding: 20px; }}
-        }}
-    </style>
-    <script>
-        function updateSearchQuery(val) {{
-            const saved = "{saved_val}";
-            const booked = "{booked_val}";
-            let url = "?tab=home&q=" + encodeURIComponent(val);
-            if (saved) url += "&saved=" + encodeURIComponent(saved);
-            if (booked) url += "&booked=" + encodeURIComponent(booked);
-            window.location.href = url;
-        }}
-    </script>
-    </head>
-    <body>
-        <div class="hero-banner-box">
-            <div class="brand-top-left">Mai Travel</div>
-            <div class="hero-main-title">Đưa bạn bay tới bất cứ đâu</div>
-            <div class="hero-sub-title">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
-        </div>
-        <div class="search-card-wrapper">
-            <div class="search-title">✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</div>
-            <div class="search-desc">🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>
-            <input type="text" class="search-input-box" id="searchInput" placeholder="Thành phố, điểm đến hoặc tên tour..." value="{search_query}" oninput="updateSearchQuery(this.value)">
-            <div class="trusted-box">
-                <span class="trusted-text">Trusted by</span>
+    # DÙNG ST.FORM ĐỂ ÉP TẤT CẢ PHẦN TỬ NẰM TRONG 1 THẺ DÍNH LIỀN
+    with st.form("search_box_form"):
+        st.markdown("<h3 style='margin-top: 0; margin-bottom: 6px; font-size: 1.35rem; font-weight: 700; color: #222222 !important;'>✈️ Tìm Kiếm Nhanh Điểm Đến & Tour Du Lịch</h3>", unsafe_allow_html=True)
+        st.markdown("<div style='font-size: 14px; font-weight: 500; color: #555555 !important; margin-bottom: 12px;'>🔍 Nhập tên tỉnh thành hoặc từ khóa (Ví dụ: Đà Nẵng, Sapa, Hà Nội...)</div>", unsafe_allow_html=True)
+        
+        search_query = st.text_input("SearchLabel", "", label_visibility="collapsed", placeholder="Thành phố, điểm đến hoặc tên tour...")
+
+        st.markdown(f"""
+            <div style="display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #eeeeee; flex-wrap: wrap;">
+                <span style="font-size: 14px; font-weight: 700; color: #444444 !important; font-style: italic;">Trusted by</span>
                 <img src="{logo1_base64}" class="transparent-logo">
                 <img src="{logo2_base64}" class="transparent-logo">
                 <img src="{logo3_base64}" class="transparent-logo">
             </div>
-        </div>
-    </body>
-    </html>
-    """
-    
-    # Chiều cao 620px đảm bảo hiển thị hoàn chỉnh banner biển + khung trắng không bị đứt đoạn
-    components.html(hero_search_html, height=620, scrolling=False)
+        """, unsafe_allow_html=True)
+        
+        st.form_submit_button("SubmitHidden")
 
+    st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
@@ -635,7 +670,6 @@ elif current_tab == "map":
         if selected_option != st.session_state["selected_place"]:
             st.session_state["selected_place"] = selected_option
             st.session_state["zoom_overview"] = False
-            st.session_state["show_booking_form"] = False
             save_state_to_query_params()
             st.rerun()
 
@@ -734,11 +768,8 @@ elif current_tab == "map":
             
             col_book1, col_book2 = st.columns([2, 1])
             with col_book1:
-                btn_text = "❌ ĐÓNG BẢNG ĐẶT TOUR" if st.session_state["show_booking_form"] else "🚀 ĐẶT TOUR NGAY"
-                if st.button(btn_text, type="primary", use_container_width=True):
-                    st.session_state["show_booking_form"] = not st.session_state["show_booking_form"]
-                    st.rerun()
-
+                if st.button("🚀 ĐẶT TOUR NGAY", type="primary", use_container_width=True):
+                    booking_modal(st.session_state["selected_place"], current_data["avg_price"])
             with col_book2:
                 is_saved = st.session_state["selected_place"] in st.session_state["saved_tours"]
                 save_btn_label = "❤️ Đã lưu" if is_saved else "🤍 Lưu tin"
@@ -751,50 +782,6 @@ elif current_tab == "map":
                         st.toast("Đã thêm vào danh sách yêu thích!")
                     save_state_to_query_params()
                     st.rerun()
-
-            if st.session_state["show_booking_form"]:
-                st.markdown("---")
-                st.markdown("### 📝 **XÁC NHẬN ĐẶT TOUR DU LỊCH**")
-                st.markdown(f"🌟 Tour: **{st.session_state['selected_place']}** | 💰 Giá: **{current_data['avg_price']}**")
-                st.write("Vui lòng nhập thông tin cá nhân bên dưới để hoàn tất giữ chỗ:")
-                
-                full_name = st.text_input("Họ và tên (*)", placeholder="Ví dụ: Nguyễn Văn A", key="bk_name")
-                phone_number = st.text_input("Số điện thoại (*)", placeholder="Ví dụ: 0901234567", key="bk_phone")
-                email_addr = st.text_input("Email", placeholder="name@example.com", key="bk_email")
-                
-                col_f1, col_f2 = st.columns(2)
-                with col_f1:
-                    num_adults = st.number_input("Người lớn", min_value=1, max_value=20, value=1, key="bk_adults")
-                with col_f2:
-                    num_children = st.number_input("Trẻ em", min_value=0, max_value=20, value=0, key="bk_children")
-                    
-                note_text = st.text_area("Ghi chú thêm", placeholder="Yêu cầu về phòng, suất ăn...", key="bk_note")
-                
-                if st.button("🚀 GỬI THÔNG TIN ĐẶT TOUR", type="primary", use_container_width=True, key="bk_submit_btn"):
-                    if not full_name.strip() or not phone_number.strip():
-                        st.warning("⚠️ Vui lòng nhập đầy đủ Họ tên và Số điện thoại!")
-                    else:
-                        with st.spinner("Đang gửi thông tin đặt tour..."):
-                            send_booking_to_email(
-                                st.session_state['selected_place'], current_data['avg_price'], full_name,
-                                phone_number, email_addr, num_adults, num_children, note_text
-                            )
-                        
-                        st.session_state["booked_tours"].append({
-                            "tour": st.session_state['selected_place'],
-                            "price": current_data['avg_price'],
-                            "name": full_name,
-                            "phone": phone_number,
-                            "adults": num_adults,
-                            "children": num_children,
-                            "note": note_text if note_text else "Không có",
-                            "time": datetime.now().strftime("%d/%m/%Y %H:%M")
-                        })
-                        
-                        st.session_state["show_booking_form"] = False
-                        save_state_to_query_params()
-                        st.success("🎉 Đặt tour thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.")
-                        st.rerun()
 
     if is_phone:
         render_map_content()
@@ -871,7 +858,7 @@ elif current_tab == "bookings":
 elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
+    st.markdown("### 👤 **Tài Khoản**")
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
@@ -968,7 +955,7 @@ menu_html = f"""
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
     <a href="?tab=account{params_str}" target="_self" class="nav-item {is_tab_account}">
-        <span class="nav-icon">👤</span>Tài khoản
+        <span class="nav-icon">👤</span>Tài Khoản
     </a>
 </div>
 """
