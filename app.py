@@ -123,6 +123,7 @@ st.markdown("""
             overflow: hidden !important;
             box-shadow: none !important;
             border: none !important;
+            width: 100% !important;
         }
 
         #MainMenu {visibility: hidden;}
@@ -310,7 +311,6 @@ if current_tab == "home":
     saved_val = st.query_params.get('saved', '')
     booked_val = st.query_params.get('booked', '')
     
-    # HTML Banner + Khung tìm kiếm (Điều chỉnh tỉ lệ padding và height giống hệt Hình 2)
     hero_search_html = f"""
     <!DOCTYPE html>
     <html>
@@ -327,11 +327,11 @@ if current_tab == "home":
             background: transparent;
         }}
         .hero-banner-box {{
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.45)), 
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.4)), 
                         url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
             background-size: cover;
             background-position: center;
-            padding: 35px 4rem 200px 4rem;
+            padding: 40px 4rem 280px 4rem;
             color: white;
             margin: -3.5rem -4rem 0 -4rem;
             position: relative;
@@ -339,11 +339,11 @@ if current_tab == "home":
         .brand-top-left {{
             font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }}
         .hero-main-title {{
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 700;
             text-align: center;
             margin-bottom: 12px;
@@ -358,13 +358,13 @@ if current_tab == "home":
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }}
         .search-card-wrapper {{
-            max-width: 950px;
-            margin: -130px auto 20px auto;
+            max-width: 920px;
+            margin: -200px auto 30px auto;
             background: #ffffff;
             border-radius: 20px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.22);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 28px 32px;
+            padding: 32px 36px;
             position: relative;
             z-index: 999;
             color: #222222;
@@ -383,10 +383,7 @@ if current_tab == "home":
             font-size: 14px;
             font-weight: 500;
             color: #555555;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-bottom: 16px;
         }}
         .search-input-box {{
             width: 100%;
@@ -410,8 +407,8 @@ if current_tab == "home":
             align-items: center;
             justify-content: center;
             gap: 20px;
-            margin-top: 18px;
-            padding-top: 14px;
+            margin-top: 22px;
+            padding-top: 16px;
             border-top: 1px solid #f0f0f0;
             flex-wrap: wrap;
         }}
@@ -427,11 +424,11 @@ if current_tab == "home":
             mix-blend-mode: multiply;
         }}
         @media (max-width: 768px) {{
-            .hero-banner-box {{ padding: 20px 1rem 160px 1rem; margin: -1rem -1rem 0 -1rem; }}
+            .hero-banner-box {{ padding: 25px 1rem 200px 1rem; margin: -1rem -1rem 0 -1rem; }}
             .brand-top-left {{ font-size: 1.6rem; margin-bottom: 15px; }}
             .hero-main-title {{ font-size: 1.4rem; }}
             .hero-sub-title {{ font-size: 0.85rem; }}
-            .search-card-wrapper {{ margin: -100px 10px 15px 10px; padding: 18px; }}
+            .search-card-wrapper {{ margin: -150px 10px 20px 10px; padding: 20px; }}
         }}
     </style>
     <script>
@@ -466,10 +463,9 @@ if current_tab == "home":
     </html>
     """
     
-    # Tăng height lên 520px để bao trọn banner lớn và khung tìm kiếm đẹp như Hình 2
-    components.html(hero_search_html, height=520, scrolling=False)
+    # Chiều cao 620px đảm bảo hiển thị hoàn chỉnh banner biển + khung trắng không bị đứt đoạn
+    components.html(hero_search_html, height=620, scrolling=False)
 
-    st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
 
     filtered_destinations = {
