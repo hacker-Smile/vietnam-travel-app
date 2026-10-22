@@ -96,7 +96,6 @@ def load_state_from_query_params():
 
 load_state_from_query_params()
 
-# Đọc từ khóa tìm kiếm trực tiếp từ URL query parameters
 search_query = st.query_params.get("q", "")
 
 # ---------------------------------------------------------
@@ -120,9 +119,10 @@ st.markdown("""
 
         div[data-testid="stIFrame"], 
         iframe {
-            border-radius: 16px !important;
+            border-radius: 0px !important;
             overflow: hidden !important;
             box-shadow: none !important;
+            border: none !important;
         }
 
         #MainMenu {visibility: hidden;}
@@ -310,13 +310,16 @@ if current_tab == "home":
     saved_val = st.query_params.get('saved', '')
     booked_val = st.query_params.get('booked', '')
     
-    # Khối giao diện Banner + Khung trắng đè lên chuẩn style Traveloka
+    # HTML Banner + Khung tìm kiếm (Điều chỉnh tỉ lệ padding và height giống hệt Hình 2)
     hero_search_html = f"""
     <!DOCTYPE html>
     <html>
     <head>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+        * {{
+            box-sizing: border-box;
+        }}
         body {{
             font-family: 'Roboto', sans-serif;
             margin: 0;
@@ -328,79 +331,88 @@ if current_tab == "home":
                         url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
             background-size: cover;
             background-position: center;
-            padding: 40px 3rem 140px 3rem;
+            padding: 35px 4rem 200px 4rem;
             color: white;
-            border-radius: 0 0 16px 16px;
             margin: -3.5rem -4rem 0 -4rem;
+            position: relative;
         }}
         .brand-top-left {{
             font-size: 2.2rem;
             font-weight: 800;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             text-shadow: 0 2px 6px rgba(0,0,0,0.6);
         }}
         .hero-main-title {{
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 700;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-shadow: 0 2px 6px rgba(0,0,0,0.5);
         }}
         .hero-sub-title {{
             font-size: 1.15rem;
             text-align: center;
             opacity: 0.95;
-            max-width: 750px;
+            max-width: 800px;
             margin: 0 auto;
             text-shadow: 0 1px 4px rgba(0,0,0,0.5);
         }}
         .search-card-wrapper {{
             max-width: 950px;
-            margin: -75px auto 25px auto;
+            margin: -130px auto 20px auto;
             background: #ffffff;
             border-radius: 20px;
-            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 14px 40px rgba(0, 0, 0, 0.22);
             border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 24px 28px;
+            padding: 28px 32px;
             position: relative;
             z-index: 999;
             color: #222222;
         }}
         .search-title {{
             margin-top: 0;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             font-size: 1.35rem;
             font-weight: 700;
             color: #222222;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }}
         .search-desc {{
             font-size: 14px;
             font-weight: 500;
             color: #555555;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }}
         .search-input-box {{
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 18px;
             font-size: 15px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background-color: #f4f6f8;
+            border-radius: 10px;
             outline: none;
             box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
+            color: #333;
         }}
         .search-input-box:focus {{
             border-color: #ff4b4b;
-            box-shadow: 0 0 0 2px rgba(255,75,75,0.2);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 2px rgba(255,75,75,0.15);
         }}
         .trusted-box {{
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 18px;
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px solid #eeeeee;
+            gap: 20px;
+            margin-top: 18px;
+            padding-top: 14px;
+            border-top: 1px solid #f0f0f0;
             flex-wrap: wrap;
         }}
         .trusted-text {{
@@ -410,16 +422,16 @@ if current_tab == "home":
             font-style: italic;
         }}
         .transparent-logo {{
-            height: 32px;
+            height: 34px;
             object-fit: contain;
             mix-blend-mode: multiply;
         }}
         @media (max-width: 768px) {{
-            .hero-banner-box {{ padding: 20px 1rem 120px 1rem; margin: -1rem -1rem 0 -1rem; }}
-            .brand-top-left {{ font-size: 1.6rem; }}
+            .hero-banner-box {{ padding: 20px 1rem 160px 1rem; margin: -1rem -1rem 0 -1rem; }}
+            .brand-top-left {{ font-size: 1.6rem; margin-bottom: 15px; }}
             .hero-main-title {{ font-size: 1.4rem; }}
             .hero-sub-title {{ font-size: 0.85rem; }}
-            .search-card-wrapper {{ margin: -65px 10px 20px 10px; padding: 16px; }}
+            .search-card-wrapper {{ margin: -100px 10px 15px 10px; padding: 18px; }}
         }}
     </style>
     <script>
@@ -454,7 +466,8 @@ if current_tab == "home":
     </html>
     """
     
-    components.html(hero_search_html, height=390, scrolling=False)
+    # Tăng height lên 520px để bao trọn banner lớn và khung tìm kiếm đẹp như Hình 2
+    components.html(hero_search_html, height=520, scrolling=False)
 
     st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
     st.markdown("### 🔥 **Các Tour Du Lịch Hot Nhất Hiện Nay**")
