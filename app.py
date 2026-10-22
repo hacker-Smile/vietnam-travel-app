@@ -313,7 +313,7 @@ DESTINATIONS = {
         "images": ["images/NT1.jpg", "images/NT2.jpg", "images/NT3.jpg", "images/NT4.jpg", "images/NT5.jpg", "images/NT6.jpg", "images/NT7.jpg", "images/NT8.jpg"],
         "description": "Thành phố biển năng động sở hữu một trong những vịnh biển đẹp nhất hành tinh, thiên đường lặn ngắm san hô và hải sản tươi ngon.",
         "avg_price": "2.200.000 - 4.200.000 VNĐ / người",
-        "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 3D2N",
+        "package_type": "Tour Vịnh biển cao cấp & Nghỉ dưỡng 4 ngày 3 đêm",
         "highlights": ["Vui chơi tại VinWonders Nha Trang", "Lặn ngắm san hô đảo Hòn Mun", "Thưởng thức đặc sản nem nướng"],
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 30 phút (Bay) hoặc 8 giờ (Tàu hỏa/Xe giường nằm)"
