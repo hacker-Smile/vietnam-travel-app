@@ -132,7 +132,7 @@ st.markdown("""
         }
 
         .transparent-logo {
-            height: 40px !important;
+            height: 36px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
@@ -858,7 +858,7 @@ elif current_tab == "bookings":
 elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
-    st.markdown("### 👤 **Tài Khoản**")
+    st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
@@ -955,7 +955,7 @@ menu_html = f"""
         <span class="nav-icon">💼</span>Đã đặt ({len(st.session_state['booked_tours'])})
     </a>
     <a href="?tab=account{params_str}" target="_self" class="nav-item {is_tab_account}">
-        <span class="nav-icon">👤</span>Tài Khoản
+        <span class="nav-icon">👤</span>Tài khoản
     </a>
 </div>
 """
