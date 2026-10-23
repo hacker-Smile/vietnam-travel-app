@@ -870,7 +870,7 @@ elif current_tab == "account":
         st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
         st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 0000")
 
-st.markdown("---")
+        st.markdown("---")
         st.markdown("#### 👑 **Ban Quản Trị (Admin)**")
 
         # Tạo 4 cột chứa 4 Avatar Admin bằng HTML thuần để bo tròn 100% chuẩn Facebook
