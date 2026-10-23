@@ -892,7 +892,7 @@ elif current_tab == "account":
                 <div style="text-align: center;">
                     <img src="{adm2_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
                     <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Nguyễn Trần Trung Hiếu</p>
-                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / content</p>
                 </div>
             """, unsafe_allow_html=True)
 
