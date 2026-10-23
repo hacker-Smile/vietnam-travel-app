@@ -865,23 +865,23 @@ elif current_tab == "account":
     st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
 
     # CSS bo tròn ảnh thành Avatar Facebook
-    st.markdown("""
-        <style>
-            .avatar-img img {
-                border-radius: 50% !important;
-                aspect-ratio: 1 / 1 !important;
-                object-fit: cover !important;
-                border: 3px solid #0866ff !important; /* Viền xanh chuẩn phong cách Facebook */
-                box-shadow: 0 4px 10px rgba(0,0,0,0.15) !important;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-    
-    with st.container(border=True):
-        st.markdown("#### **Thông Tin Ứng Dụng**")
-        st.write("**Tên ứng dụng:** Mai Travel - Du Lịch Việt Nam")
-        st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
-        st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 0000")
+st.markdown("""
+            <style>
+                /* Ép đè khung chứa hình ảnh của Streamlit */
+                div[data-testid="stImage"] {
+                    display: flex !important;
+                    justify-content: center !important;
+                }
+                div[data-testid="stImage"] > img {
+                    width: 150px !important;
+                    height: 150px !important;
+                    border-radius: 50% !important;
+                    object-fit: cover !important;
+                    border: 4px solid #0866ff !important; /* Viền xanh Facebook */
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+                }
+            </style>
+        """, unsafe_allow_html=True)
 
         st.markdown("---")
         st.markdown("#### 👑 **Ban Quản Trị (Admin)**")
@@ -890,28 +890,22 @@ elif current_tab == "account":
         col_adm1, col_adm2, col_adm3 = st.columns(3)
 
         with col_adm1:
-            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            admin1_img = get_image_base64("images/adm1.jpg") 
-            st.image(admin1_img, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Phước Chi Mai</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Lead Admin</p>", unsafe_allow_html=True)
+            adm1_img = get_image_base64("images/adm1.jpg") 
+            st.image(adm1_img)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Nguyễn Phước Chi Mai</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Lead Admin</p>", unsafe_allow_html=True)
 
         with col_adm2:
-            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            admin2_img = get_image_base64("images/adm2.jpg")
-            st.image(admin2_img, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Nguyễn Trần Trung Hiếu</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Dev</p>", unsafe_allow_html=True)
+            adm2_img = get_image_base64("images/adm2.jpg")
+            st.image(adm2_img)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Nguyễn Trần Trung Hiếu</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>", unsafe_allow_html=True)
 
         with col_adm3:
-            st.markdown('<div class="avatar-img">', unsafe_allow_html=True)
-            admin3_img = get_image_base64("images/adm3.jpg")
-            st.image(admin3_img, use_container_width=True)
-            st.markdown('</div>', unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px;'>Phan Ngô Minh Thư</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: -12px;'>Co-Admin / Content</p>", unsafe_allow_html=True)
+            adm3_img = get_image_base64("images/adm3.jpg")
+            st.image(adm3_img)
+            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Phan Ngô Minh Thư</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>", unsafe_allow_html=True)
 
         st.markdown("---")
         st.markdown("""
