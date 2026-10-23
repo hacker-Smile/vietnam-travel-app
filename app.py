@@ -863,24 +863,6 @@ elif current_tab == "account":
     st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
     st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
-
-    # CSS bo tròn ảnh thành Avatar Facebook
-    st.markdown("""
-        <style>
-            div[data-testid="stImage"] {
-                display: flex !important;
-                justify-content: center !important;
-            }
-            div[data-testid="stImage"] > img {
-                width: 150px !important;
-                height: 150px !important;
-                border-radius: 50% !important;
-                object-fit: cover !important;
-                border: 4px solid #0866ff !important; /* Viền xanh Facebook */
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-            }
-        </style>
-    """, unsafe_allow_html=True)
     
     with st.container(border=True):
         st.markdown("#### **Thông Tin Ứng Dụng**")
@@ -891,26 +873,38 @@ elif current_tab == "account":
         st.markdown("---")
         st.markdown("#### 👑 **Ban Quản Trị (Admin)**")
 
-        # Tạo 3 cột chứa 3 Avatar Admin
+        # Tạo 3 cột chứa 3 Avatar Admin bằng HTML thuần để bo tròn 100% chuẩn Facebook
         col_adm1, col_adm2, col_adm3 = st.columns(3)
 
         with col_adm1:
             adm1_img = get_image_base64("images/adm1.jpg") 
-            st.image(adm1_img)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Nguyễn Phước Chi Mai</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Lead Admin</p>", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <img src="{adm1_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+                    <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Nguyễn Phước Chi Mai</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Lead Admin</p>
+                </div>
+            """, unsafe_allow_html=True)
 
         with col_adm2:
             adm2_img = get_image_base64("images/adm2.jpg")
-            st.image(adm2_img)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Nguyễn Trần Trung Hiếu</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <img src="{adm2_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+                    <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Nguyễn Trần Trung Hiếu</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>
+                </div>
+            """, unsafe_allow_html=True)
 
         with col_adm3:
             adm3_img = get_image_base64("images/adm3.jpg")
-            st.image(adm3_img)
-            st.markdown("<p style='text-align: center; font-weight: 700; margin-top: 8px; margin-bottom: 2px;'>Phan Ngô Minh Thư</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>", unsafe_allow_html=True)
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <img src="{adm3_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+                    <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Phan Ngô Minh Thư</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>
+                </div>
+            """, unsafe_allow_html=True)
 
         st.markdown("---")
         st.markdown("""
