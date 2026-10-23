@@ -242,7 +242,7 @@ st.markdown("""
 
             [data-testid="stForm"] {
                 width: calc(100% - 20px) !important;
-                margin: -360px 10px 20px 10px !important;
+                margin: -400px 10px 20px 10px !important;
                 background: #ffffff !important;
                 border-radius: 16px !important;
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
