@@ -274,7 +274,7 @@ DESTINATIONS = {
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "7.190.000đ – 7.990.000đ/người.",
         "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
-        "highlights": ["Check-in Cầu Vàng Bà Nà Hills", "Khám phá Cầu Rồng phun lửa", "Tắm biển Mỹ Khê"],
+        "highlights": ["Check-in các điểm đến nổi tiếng ở Đà Nẵng", "Khám phá ẩm thực Hội An", "Khám phá thành phố Huế"],
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 30 phút (Bay trực tiếp từ TP.HCM)"
     },
@@ -332,8 +332,8 @@ DESTINATIONS = {
         "coords": (22.3364, 103.8438),
         "images": ["images/SP1.jpg", "images/SP2.jpg", "images/SP3.jpg", "images/SP4.jpg", "images/SP5.jpg", "images/SP6.jpg", "images/SP7.jpg", "images/SP8.jpg"],
         "description": "Thị trấn trong sương kỳ ảo, nổi tiếng với đỉnh Fansipan - nóc nhà Đông Dương và những bản làng mộc mạc ẩn hiện bên ruộng bậc thang.",
-        "avg_price": "3.000.000 - 5.000.000 VNĐ / người",
-        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4D3N",
+        "avg_price": "8.500.000 – 10.500.000 VNĐ / người",
+        "package_type": "Tour Sapa săn mây & Trải nghiệm bản làng 4 ngày 3 đêm",
         "highlights": ["Chinh phục đỉnh Fansipan", "Khám phá bản Cát Cát mờ sương", "Check-in đèo Ô Quy Hồ tuyệt đẹp"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe giường nằm cao tốc lên Sapa"
@@ -342,8 +342,8 @@ DESTINATIONS = {
         "coords": (22.6656, 106.2607),
         "images": ["images/CB1.jpg", "images/CB2.jpg", "images/CB3.jpg", "images/CB4.jpg", "images/CB5.jpg", "images/CB6.jpg", "images/CB7.jpg", "images/CB8.jpg"],
         "description": "Cao Bằng là một tỉnh miền núi thuộc vùng Đông Bắc Việt Nam, nổi bật với danh hiệu miền non nước ngàn năm và sở hữu Thác Bản Giốc hùng vĩ.",
-        "avg_price": "6.500.000 - 12.500.000 VNĐ / người",
-        "package_type": "Tour Non nước Cao Bằng 3D2N",
+        "avg_price": "8.800.000 – 11.000.000 VNĐ / người",
+        "package_type": "Tour Non nước Cao Bằng 4 ngày 3 đêm",
         "highlights": ["Thác Bản Giốc", "Động Ngườm Ngao", "Hồ Thang Hen"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Cao Bằng"
@@ -352,8 +352,8 @@ DESTINATIONS = {
         "coords": (21.8236, 105.2142),
         "images": ["images/TQ1.jpg", "images/TQ2.jpg", "images/TQ3.jpg", "images/TQ4.jpg", "images/TQ5.jpg", "images/TQ6.jpg", "images/TQ7.jpg", "images/TQ8.jpg"],
         "description": "Tuyên Quang là tỉnh giàu truyền thống cách mạng, nổi tiếng với di tích lịch sử Tân Trào và lễ hội Trung thu lớn nhất Việt Nam.",
-        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 3D2N",
+        "avg_price": "8.000.000 – 9.800.000 VNĐ / người",
+        "package_type": "Tour Về Miền Di Tích & Khám Phá Tuyên Quang 4 ngày 3 đêm",
         "highlights": ["Thăm Khu di tích quốc gia đặc biệt Tân Trào", "Check-in Suối Khoáng Mỹ Lâm", "Tham gia Lễ hội Thành Tuyên"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Tuyên Quang"
@@ -362,8 +362,8 @@ DESTINATIONS = {
         "coords": (22.3992, 103.4392),
         "images": ["images/LC1.jpg", "images/LC2.jpg", "images/LC3.jpg", "images/LC4.jpg", "images/LC5.jpg", "images/LC6.jpg", "images/LC7.jpg", "images/LC8.jpg"],
         "description": "Lai Châu nổi tiếng với thiên nhiên hoang sơ, hùng vĩ của núi rừng Tây Bắc, những cung đèo hiểm trở, biển mây bồng bềnh và các bản làng văn hóa đặc sắc.",
-        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám phá Tây Bắc 3D2N",
+        "avg_price": "8.500.000 – 11.000.000 VNĐ / ngườ",
+        "package_type": "Tour Khám phá Tây Bắc 4 ngày đêm",
         "highlights": ["Đèo Ô Quy Hồ", "Cao nguyên Sìn Hồ", "Đồi chè Tân Uyên"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lai Châu"
@@ -372,8 +372,8 @@ DESTINATIONS = {
         "coords": (21.5942, 105.8482),
         "images": ["images/TN1.jpg", "images/TN2.jpg", "images/TN3.jpg", "images/TN4.jpg", "images/TN5.jpg", "images/TN6.jpg", "images/TN7.jpg", "images/TN8.jpg"],
         "description": "Thái Nguyên là một tỉnh miền núi và trung du thuộc vùng Đông Bắc Bộ, nổi bật với các điểm đến sinh thái, đồi chè xanh mướt và văn hóa trà lâu đời.",
-        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Trải nghiệm Vùng Trà & Sinh Thái 3D2N",
+        "avg_price": "7.800.000 – 9.500.000 VNĐ / người",
+        "package_type": "Tour Trải nghiệm Vùng Trà & Sinh Thái 4 ngày 3 đêm",
         "highlights": ["Đồi chè Tân Cương", "Hồ Núi Cốc", "Khu di tích lịch sử ATK Định Hóa"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Thái Nguyên"
@@ -383,7 +383,7 @@ DESTINATIONS = {
         "images": ["images/ĐB1.jpg", "images/ĐB2.jpg", "images/ĐB3.jpg", "images/ĐB4.jpg", "images/ĐB5.jpg", "images/ĐB6.jpg", "images/ĐB7.jpg", "images/ĐB8.jpg"],
         "description": "Điện Biên là điểm đến Tây Bắc nổi bật với thiên nhiên hùng vĩ, bề dày lịch sử vẻ vang và các bản làng văn hóa độc đáo.",
         "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Về Miền Lịch Sử Điện Biên Phủ 3D2N",
+        "package_type": "Tour Về Miền Lịch Sử Điện Biên Phủ 4 ngày 3 đêm",
         "highlights": ["Cánh đồng Mường Thanh", "Đồi A1", "Hầm De Castries"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay trực tiếp hoặc qua Hà Nội lên Điện Biên"
@@ -392,8 +392,8 @@ DESTINATIONS = {
         "coords": (21.8526, 106.7610),
         "images": ["images/LS1.jpg", "images/LS2.jpg", "images/LS3.jpg", "images/LS4.jpg", "images/LS5.jpg", "images/LS6.jpg", "images/LS7.jpg", "images/LS8.jpg"],
         "description": "Lạng Sơn là tỉnh miền núi biên giới nổi tiếng với phong cảnh núi non hùng vĩ, các di tích lịch sử và văn hóa tâm linh đặc sắc.",
-        "avg_price": "5.500.000 - 10.000.000 VNĐ / người",
-        "package_type": "Tour Khám Phá Xứ Lạng 3D2N",
+        "avg_price": "8.000.000 – 9.800.000 VNĐ / người",
+        "package_type": "Tour Khám Phá Xứ Lạng 4 ngày 3 đêm",
         "highlights": ["Ải Chi Lăng", "Động Tam Thanh", "Chợ Kỳ Lừa"],
         "avg_speed_kmh": 45,
         "flight_time": "Bay ra Hà Nội (2h) kết hợp xe khách lên Lạng Sơn"
