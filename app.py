@@ -870,11 +870,11 @@ elif current_tab == "account":
         st.write("**Phiên bản:** 2.0 (Streamlit Cloud Ready)")
         st.write("**Liên hệ hỗ trợ:** support@maitravel.vn | Hotline: 1900 0000")
 
-        st.markdown("---")
+st.markdown("---")
         st.markdown("#### 👑 **Ban Quản Trị (Admin)**")
 
-        # Tạo 3 cột chứa 3 Avatar Admin bằng HTML thuần để bo tròn 100% chuẩn Facebook
-        col_adm1, col_adm2, col_adm3 = st.columns(3)
+        # Tạo 4 cột chứa 4 Avatar Admin bằng HTML thuần để bo tròn 100% chuẩn Facebook
+        col_adm1, col_adm2, col_adm3, col_adm4 = st.columns(4)
 
         with col_adm1:
             adm1_img = get_image_base64("images/adm1.jpg") 
@@ -907,12 +907,12 @@ elif current_tab == "account":
             """, unsafe_allow_html=True)
 
         with col_adm4:
-            adm3_img = get_image_base64("images/adm4.jpg")
+            adm4_img = get_image_base64("images/adm4.jpg")
             st.markdown(f"""
                 <div style="text-align: center;">
-                    <img src="{adm_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+                    <img src="{adm4_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
                     <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Phạm Quang Minh</p>
-                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>
                 </div>
             """, unsafe_allow_html=True)
 
