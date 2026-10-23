@@ -206,7 +206,7 @@ st.markdown("""
                             url('https://png.pngtree.com/thumb_back/fh260/background/20240408/pngtree-coconut-palm-tree-on-the-white-sandy-beach-image_15651290.jpg');
                 background-size: cover;
                 background-position: center;
-                padding: 30px 1rem 340px 1rem !important;
+                padding: 30px 1rem 400px 1rem !important;
                 margin-left: -1rem;
                 margin-right: -1rem;
                 margin-top: -1rem !important;
@@ -430,8 +430,8 @@ if current_tab == "home":
     st.markdown("""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand-top-left">
-                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
-            </div>
+    <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
+</div>
             <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
@@ -533,12 +533,7 @@ if current_tab == "home":
 # TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
 elif current_tab == "map":
-    st.markdown("""
-        <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
-        </h1>
-        <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
-    """, unsafe_allow_html=True)
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
 
     def render_map_content():
@@ -809,12 +804,7 @@ elif current_tab == "map":
 # TAB 3: ĐÃ LƯU
 # =========================================================
 elif current_tab == "saved":
-    st.markdown("""
-        <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
-        </h1>
-        <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
-    """, unsafe_allow_html=True)
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
     st.markdown("### ❤️ **Danh Sách Tour Đã Lưu Yêu Thích**")
     
@@ -851,12 +841,7 @@ elif current_tab == "saved":
 # TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
 elif current_tab == "bookings":
-    st.markdown("""
-        <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
-        </h1>
-        <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
-    """, unsafe_allow_html=True)
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
     st.markdown("### 💼 **Lịch Sử Đặt Tour Của Bạn**")
     
@@ -877,12 +862,7 @@ elif current_tab == "bookings":
 # TAB 5: TÀI KHOẢN & CÀI ĐẶT
 # =========================================================
 elif current_tab == "account":
-    st.markdown("""
-        <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
-        </h1>
-        <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
-    """, unsafe_allow_html=True)
+    st.title("Mai travel \n 🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam")
     st.markdown("---")
     st.markdown("### 👤 **Tài Khoản & Cài Đặt**")
     
@@ -914,7 +894,7 @@ elif current_tab == "account":
                 <div style="text-align: center;">
                     <img src="{adm2_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
                     <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Nguyễn Trần Trung Hiếu</p>
-                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Dev</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / content</p>
                 </div>
             """, unsafe_allow_html=True)
 
