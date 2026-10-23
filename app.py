@@ -134,7 +134,7 @@ st.markdown("""
         }
 
         .transparent-logo {
-            height: 60px !important;
+            height: 90px !important;
             object-fit: contain !important;
             mix-blend-mode: multiply;
             background: transparent !important;
