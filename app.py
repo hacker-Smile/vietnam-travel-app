@@ -429,7 +429,9 @@ current_tab = st.session_state["current_tab"]
 if current_tab == "home":
     st.markdown("""
         <div class="traveloka-hero-wrapper">
-            <div class="traveloka-brand-top-left">Mai Travel</div>
+            <div class="traveloka-brand-top-left">
+    <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
+</div>
             <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
         </div>
@@ -892,7 +894,7 @@ elif current_tab == "account":
                 <div style="text-align: center;">
                     <img src="{adm2_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
                     <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Nguyễn Trần Trung Hiếu</p>
-                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / content</p>
                 </div>
             """, unsafe_allow_html=True)
 
