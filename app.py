@@ -906,6 +906,16 @@ elif current_tab == "account":
                 </div>
             """, unsafe_allow_html=True)
 
+        with col_adm4:
+            adm3_img = get_image_base64("images/adm4.jpg")
+            st.markdown(f"""
+                <div style="text-align: center;">
+                    <img src="{adm_img}" style="width: 130px; height: 130px; border-radius: 50%; object-fit: cover; border: 4px solid #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: inline-block;">
+                    <p style='font-weight: 700; margin-top: 8px; margin-bottom: 2px; color: #222;'>Phạm Quang Minh</p>
+                    <p style='color: #65676B; font-size: 13px; margin-top: 0;'>Co-Admin / Content</p>
+                </div>
+            """, unsafe_allow_html=True)
+
         st.markdown("---")
         st.markdown("""
             **Nhân sự thực hiện:**
