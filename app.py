@@ -271,7 +271,7 @@ DESTINATIONS = {
     "Tour Miền Trung (Đà Nẵng, Hội An, Huế)": {
         "coords": (16.0544, 108.2022),
         "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
-        "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
+        "description": "Khám phá 3 địa điểm nổi bật là thành phố Đà Nẵng, thành phố Huế, Phố Cổ Hội An.",
         "avg_price": "11.799.000 – 11.883.000đ/người.",
         "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
         "highlights": ["Check-in các điểm đến nổi tiếng ở Đà Nẵng", "Khám phá ẩm thực Hội An", "Khám phá thành phố Huế"],
@@ -280,7 +280,7 @@ DESTINATIONS = {
     },
     "Đà Nẵng": {
         "coords": (16.0544, 108.2022),
-        "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
+        "images": ["images/DN2.jpg", "images/DN1.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
         "avg_price": "7.190.000đ – 7.990.000đ/người.",
         "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
