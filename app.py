@@ -268,7 +268,7 @@ user_agent = st.context.headers.get("User-Agent", "").lower()
 is_phone = "iphone" in user_agent or "ipod" in user_agent or ("android" in user_agent and "mobile" in user_agent)
 
 DESTINATIONS = {
-    "Đà Nẵng": {
+    "Tour Miền Trung (Đà Nẵng, Hội An, Huế)": {
         "coords": (16.0544, 108.2022),
         "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
         "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
