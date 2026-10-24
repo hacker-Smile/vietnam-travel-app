@@ -278,6 +278,16 @@ DESTINATIONS = {
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 30 phút (Bay trực tiếp từ TP.HCM)"
     },
+    "Đà Nẵng": {
+        "coords": (16.0544, 108.2022),
+        "images": ["images/DN1.jpg", "images/DN2.jpg", "images/DN3.jpg", "images/DN4.jpg", "images/DN5.jpg", "images/DN6.jpg", "images/DN7.jpg", "images/DN8.jpg"],
+        "description": "Thành phố đáng sống nhất Việt Nam với Bãi biển Mỹ Khê, Cầu Vàng (Bà Nà Hills) và Ngũ Hành Sơn hùng vĩ.",
+        "avg_price": "7.190.000đ – 7.990.000đ/người.",
+        "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
+        "highlights": ["Check-in Cầu Rồng", "Cầu Vàng", "Bà Nà Hills"],
+        "avg_speed_kmh": 60,
+        "flight_time": "1 giờ 30 phút (Bay trực tiếp từ TP.HCM)"
+    },
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
         "images": ["images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg", "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"],
