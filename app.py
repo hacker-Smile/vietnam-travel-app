@@ -450,7 +450,7 @@ if current_tab == "home":
     st.markdown("""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand-top-left">
-                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel \n Okay, mai đi luôn</a>
+                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
             </div>
             <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
