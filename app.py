@@ -288,6 +288,16 @@ DESTINATIONS = {
         "avg_speed_kmh": 60,
         "flight_time": "1 giờ 30 phút (Bay trực tiếp từ TP.HCM)"
     },
+    "Huế": {
+        "coords": (16.4637, 107.591),
+        "images": ["images/H1.jpg", "images/H2.jpg", "images/H3.jpg", "images/H4.jpg", "images/H5.jpg", "images/H6.jpg", "images/H7.jpg", "images/H8.jpg"],
+        "description": "Khám phá thành phố di sản văn hóa thế giới, nổi bật với vẻ đẹp trầm mặc, nên thơ của vùng đất cố đô xưa.",
+        "avg_price": "4.500.000đ – 5.800.000đ/người.",
+        "package_type": "Combo Vé máy bay + Khách sạn 4 ngày 3 đêm (Tiêu chuẩn 4 sao)",
+        "highlights": ["Check-in Cố Đô Huế", "Chùa Thiên Mụ", "Sông Hương thơ mộng"],
+        "avg_speed_kmh": 60,
+        "flight_time": "1 giờ 25 phút (Bay trực tiếp từ TP.HCM)"
+    },
     "Hà Nội": {
         "coords": (21.0285, 105.8542),
         "images": ["images/HN1.jpg", "images/HN2.jpg", "images/HN3.jpg", "images/HN4.jpg", "images/HN5.jpg", "images/HN6.jpg", "images/HN7.jpg", "images/HN8.jpg"],
@@ -440,7 +450,7 @@ if current_tab == "home":
     st.markdown("""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand-top-left">
-                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
+                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel \n Okay, mai đi luôn</a>
             </div>
             <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
@@ -1062,3 +1072,4 @@ menu_html = f"""
 """
 
 st.markdown(menu_html, unsafe_allow_html=True)
+ 
