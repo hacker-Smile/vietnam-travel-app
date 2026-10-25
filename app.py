@@ -443,14 +443,19 @@ def get_image_base64(path):
 
 current_tab = st.session_state["current_tab"]
 
+# Đưa params_str lên trước khi render các tab để các nút bấm về trang chủ giữ nguyên trạng thái tour đã lưu và đã đặt
+saved_val = st.query_params.get('saved', '')
+booked_val = st.query_params.get('booked', '')
+params_str = f"{f'&saved={saved_val}' if saved_val else ''}{f'&booked={booked_val}' if booked_val else ''}"
+
 # =========================================================
 # TAB 1: TÌM KIẾM / TRANG CHỦ
 # =========================================================
 if current_tab == "home":
-    st.markdown("""
+    st.markdown(f"""
         <div class="traveloka-hero-wrapper">
             <div class="traveloka-brand-top-left">
-                <a href="?tab=home" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
+                <a href="?tab=home{params_str}" target="_self" style="color: white; text-decoration: none;">Mai Travel</a>
             </div>
             <div class="traveloka-hero-title">Đưa bạn bay tới bất cứ đâu</div>
             <div class="traveloka-hero-subtitle">Khám phá hàng loạt điểm đến tuyệt vời, đặt tour nhanh chóng và tận hưởng chuyến đi trọn vẹn.</div>
@@ -553,9 +558,9 @@ if current_tab == "home":
 # TAB 2: ĐẶT TOUR & BẢN ĐỒ
 # =========================================================
 elif current_tab == "map":
-    st.markdown("""
+    st.markdown(f"""
         <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
+            <a href="?tab=home{params_str}" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
         </h1>
         <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
     """, unsafe_allow_html=True)
@@ -829,9 +834,9 @@ elif current_tab == "map":
 # TAB 3: ĐÃ LƯU
 # =========================================================
 elif current_tab == "saved":
-    st.markdown("""
+    st.markdown(f"""
         <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
+            <a href="?tab=home{params_str}" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
         </h1>
         <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
     """, unsafe_allow_html=True)
@@ -871,9 +876,9 @@ elif current_tab == "saved":
 # TAB 4: TOUR ĐÃ ĐẶT
 # =========================================================
 elif current_tab == "bookings":
-    st.markdown("""
+    st.markdown(f"""
         <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
+            <a href="?tab=home{params_str}" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
         </h1>
         <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
     """, unsafe_allow_html=True)
@@ -897,9 +902,9 @@ elif current_tab == "bookings":
 # TAB 5: TÀI KHOẢN & CÀI ĐẶT
 # =========================================================
 elif current_tab == "account":
-    st.markdown("""
+    st.markdown(f"""
         <h1 style='font-size: 2.2rem; font-weight: 700; margin-bottom: 0;'>
-            <a href="?tab=home" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
+            <a href="?tab=home{params_str}" target="_self" style="color: inherit; text-decoration: none;">Mai travel</a>
         </h1>
         <p style='font-size: 1.1rem; color: #555; margin-top: -5px;'>🇻🇳 Khám Phá & Đặt Tour Du Lịch Việt Nam</p>
     """, unsafe_allow_html=True)
@@ -1072,4 +1077,3 @@ menu_html = f"""
 """
 
 st.markdown(menu_html, unsafe_allow_html=True)
- 
